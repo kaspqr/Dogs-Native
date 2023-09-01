@@ -1,0 +1,19 @@
+export const SpainRegions = <>
+<option value="Andalusia">Andalusia</option>
+<option value="Aragon">Aragon</option>
+<option value="Asturias">Asturias</option>
+<option value="Balearic Islands">Balearic Islands</option>
+<option value="Basque Country">Basque Country</option>
+<option value="Canary Islands">Canary Islands</option>
+<option value="Cantabria">Cantabria</option>
+<option value="Castilla-La Mancha">Castilla-La Mancha</option>
+<option value="Castilla y León">Castilla y León</option>
+<option value="Catalonia">Catalonia</option>
+<option value="Extremadura">Extremadura</option>
+<option value="Galicia">Galicia</option>
+<option value="La Rioja">La Rioja</option>
+<option value="Madrid">Madrid</option>
+<option value="Murcia">Murcia</option>
+<option value="Navarre">Navarre</option>
+<option value="Valencian Community">Valencian Community</option>
+</>

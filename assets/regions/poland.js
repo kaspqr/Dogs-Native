@@ -1,0 +1,19 @@
+export const PolandRegions = <>
+<option value="Greater Poland Voivodeship">Greater Poland Voivodeship</option>
+<option value="Kuyavian-Pomeranian Voivodeship">Kuyavian-Pomeranian Voivodeship</option>
+<option value="Lesser Poland Voivodeship">Lesser Poland Voivodeship</option>
+<option value="Lodz Voivodeship">Lodz Voivodeship</option>
+<option value="Lower Silesian Voivodeship">Lower Silesian Voivodeship</option>
+<option value="Lublin Voivodeship">Lublin Voivodeship</option>
+<option value="Lubusz Voivodeship">Lubusz Voivodeship</option>
+<option value="Masovian Voivodeship">Masovian Voivodeship</option>
+<option value="Opole Voivodeship">Opole Voivodeship</option>
+<option value="Podkarpackie Voivodeship">Podkarpackie Voivodeship</option>
+<option value="Podlaskie Voivodeship">Podlaskie Voivodeship</option>
+<option value="Pomeranian Voivodeship">Pomeranian Voivodeship</option>
+<option value="Silesian Voivodeship">Silesian Voivodeship</option>
+<option value="Subcarpathian Voivodeship">Subcarpathian Voivodeship</option>
+<option value="Swietokrzyskie Voivodeship">Swietokrzyskie Voivodeship</option>
+<option value="Warmian-Masurian Voivodeship">Warmian-Masurian Voivodeship</option>
+<option value="West Pomeranian Voivodeship">West Pomeranian Voivodeship</option>
+</>

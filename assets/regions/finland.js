@@ -1,0 +1,21 @@
+export const FinlandRegions = <>
+<option value="Åland Islands">Åland Islands</option>
+<option value="South Karelia">South Karelia</option>
+<option value="Southern Ostrobothnia">Southern Ostrobothnia</option>
+<option value="Southern Savonia">Southern Savonia</option>
+<option value="Kainuu">Kainuu</option>
+<option value="Tavastia Proper">Tavastia Proper</option>
+<option value="Central Ostrobothnia">Central Ostrobothnia</option>
+<option value="Central Finland">Central Finland</option>
+<option value="Kymenlaakso">Kymenlaakso</option>
+<option value="Lapland">Lapland</option>
+<option value="Pirkanmaa">Pirkanmaa</option>
+<option value="North Karelia">North Karelia</option>
+<option value="Northern Ostrobothnia">Northern Ostrobothnia</option>
+<option value="Northern Savonia">Northern Savonia</option>
+<option value="Päijänne Tavastia">Päijänne Tavastia</option>
+<option value="Ostrobothnia">Ostrobothnia</option>
+<option value="Satakunta">Satakunta</option>
+<option value="Uusimaa">Uusimaa</option>
+<option value="Varsinais-Suomi">Varsinais-Suomi</option>
+</>

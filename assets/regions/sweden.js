@@ -1,0 +1,22 @@
+export const SwedenRegions = <>
+<option value="Stockholm">Stockholm</option>
+<option value="Uppsala">Uppsala</option>
+<option value="Södermanland">Södermanland</option>
+<option value="Östergötland">Östergötland</option>
+<option value="Jönköping">Jönköping</option>
+<option value="Kronoberg">Kronoberg</option>
+<option value="Kalmar">Kalmar</option>
+<option value="Gotland">Gotland</option>
+<option value="Blekinge">Blekinge</option>
+<option value="Skåne">Skåne</option>
+<option value="Halland">Halland</option>
+<option value="Västra Götaland">Västra Götaland</option>
+<option value="Värmland">Värmland</option>
+<option value="Örebro">Örebro</option>
+<option value="Västmanland">Västmanland</option>
+<option value="Dalarna">Dalarna</option>
+<option value="Gävleborg">Gävleborg</option>
+<option value="Västernorrland">Västernorrland</option>
+<option value="Jämtland Härjedalen">Jämtland Härjedalen</option>
+<option value="Norrbotten">Norrbotten</option>
+</>
