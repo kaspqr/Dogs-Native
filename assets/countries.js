@@ -1,44 +1,44 @@
-export const Countries = <>
-    <option value="Argentina">Argentina</option>
-    <option value="Australia">Australia</option>
-    <option value="Austria">Austria</option>
-    <option value="Belgium">Belgium</option>
-    <option value="Brazil">Brazil</option>
-    <option value="Bulgaria">Bulgaria</option>
-    <option value="Canada">Canada</option>
-    <option value="Chile">Chile</option>
-    <option value="Croatia">Croatia</option>
-    <option value="Cyprus">Cyprus</option>
-    <option value="Czech Republic">Czech Republic</option>
-    <option value="Denmark">Denmark</option>
-    <option value="Estonia">Estonia</option>
-    <option value="Finland">Finland</option>
-    <option value="France">France</option>
-    <option value="Germany">Germany</option>
-    <option value="Greece">Greece</option>
-    <option value="Hungary">Hungary</option>
-    <option value="Iceland">Iceland</option>
-    <option value="Ireland">Ireland</option>
-    <option value="Italy">Italy</option>
-    <option value="Latvia">Latvia</option>
-    <option value="Liechtenstein">Liechtenstein</option>
-    <option value="Lithuania">Lithuania</option>
-    <option value="Luxembourg">Luxembourg</option>
-    <option value="Malta">Malta</option>
-    <option value="Mexico">Mexico</option>
-    <option value="Netherlands">Netherlands</option>
-    <option value="New Zealand">New Zealand</option>
-    <option value="Norway">Norway</option>
-    <option value="Poland">Poland</option>
-    <option value="Portugal">Portugal</option>
-    <option value="Romania">Romania</option>
-    <option value="Slovakia">Slovakia</option>
-    <option value="Slovenia">Slovenia</option>
-    <option value="South Africa">South Africa</option>
-    <option value="Spain">Spain</option>
-    <option value="Sweden">Sweden</option>
-    <option value="Switzerland">Switzerland</option>
-    <option value="United Kingdom">United Kingdom</option>
-    <option value="United States">United States</option>
-    <option value="Uruguay">Uruguay</option>
-</>
+export const Countries = [
+    { label: 'Argentina', value: 'Argentina' },
+    { label: 'Australia', value: 'Australia' },
+    { label: 'Austria', value: 'Austria' },
+    { label: 'Belgium', value: 'Belgium' },
+    { label: 'Brazil', value: 'Brazil' },
+    { label: 'Bulgaria', value: 'Bulgaria' },
+    { label: 'Canada', value: 'Canada' },
+    { label: 'Chile', value: 'Chile' },
+    { label: 'Croatia', value: 'Croatia' },
+    { label: 'Cyprus', value: 'Cyprus' },
+    { label: 'Czech Republic', value: 'Czech Republic' },
+    { label: 'Denmark', value: 'Denmark' },
+    { label: 'Estonia', value: 'Estonia' },
+    { label: 'Finland', value: 'Finland' },
+    { label: 'France', value: 'France' },
+    { label: 'Germany', value: 'Germany' },
+    { label: 'Greece', value: 'Greece' },
+    { label: 'Hungary', value: 'Hungary' },
+    { label: 'Iceland', value: 'Iceland' },
+    { label: 'Ireland', value: 'Ireland' },
+    { label: 'Italy', value: 'Italy' },
+    { label: 'Latvia', value: 'Latvia' },
+    { label: 'Liechtenstein', value: 'Liechtenstein' },
+    { label: 'Lithuania', value: 'Lithuania' },
+    { label: 'Luxembourg', value: 'Luxembourg' },
+    { label: 'Malta', value: 'Malta' },
+    { label: 'Mexico', value: 'Mexico' },
+    { label: 'Netherlands', value: 'Netherlands' },
+    { label: 'New Zealand', value: 'New Zealand' },
+    { label: 'Norway', value: 'Norway' },
+    { label: 'Poland', value: 'Poland' },
+    { label: 'Portugal', value: 'Portugal' },
+    { label: 'Romania', value: 'Romania' },
+    { label: 'Slovakia', value: 'Slovakia' },
+    { label: 'Slovenia', value: 'Slovenia' },
+    { label: 'South Africa', value: 'South Africa' },
+    { label: 'Spain', value: 'Spain' },
+    { label: 'Sweden', value: 'Sweden' },
+    { label: 'Switzerland', value: 'Switzerland' },
+    { label: 'United Kingdom', value: 'United Kingdom' },
+    { label: 'United States', value: 'United States' },
+    { label: 'Uruguay', value: 'Uruguay' },
+]

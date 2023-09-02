@@ -1,13 +1,13 @@
-export const Currencies = <>
-    <option value="$">USD $</option>
-    <option value="€">EUR €</option>
-    <option value="£">GBP £</option>
-    <option value="zł">PLN zł</option>
-    <option value="CAD">CAD</option>
-    <option value="AUD">AUD</option>
-    <option value="NZD">NZD</option>
-    <option value="SEK">SEK</option>
-    <option value="NOK">NOK</option>
-    <option value="DKK">DKK</option>
-    <option value="CHF">CHF</option>
-</>
+export const Currencies = [
+    { label: 'USD $', value: '$' },
+    { label: 'EUR €', value: '€' },
+    { label: 'GBP £', value: '£' },
+    { label: 'PLN zł', value: 'zł' },
+    { label: 'CAD', value: 'CAD' },
+    { label: 'AUD', value: 'AUD' },
+    { label: 'NZD', value: 'NZD' },
+    { label: 'SEK', value: 'SEK' },
+    { label: 'NOK', value: 'NOK' },
+    { label: 'DKK', value: 'DKK' },
+    { label: 'CHF', value: 'CHF' },
+]

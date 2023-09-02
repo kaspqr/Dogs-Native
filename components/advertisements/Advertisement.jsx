@@ -28,43 +28,39 @@ const Advertisement = ({ advertisementId }) => {
     }
 
     return (
-        <View style={styles.advertisementContainer}>
+        <View>
 
-            <View style={styles.advertisementImage}>
+            <Text>
                 {advertisement?.image?.length 
-                    ? (<Image source={{ uri: advertisement?.image }} />)
-                    : (<Image source={AdIcon} />)
+                    ? <Image source={{ uri: advertisement?.image }} />
+                    : <Image source={AdIcon} />
                 }
-            </View>
+            </Text>
 
-            <View style={styles.advertisementInfo}>
+            <View>
 
                 <Text>
 
                     <TouchableOpacity 
                         onPress={() => {}}
                     >
-                        <Text style={styles.orangeLink}>
-                            {advertisement?.title}
-                        </Text>
+                        <Text>{advertisement?.title}</Text>
                     </TouchableOpacity>
 
                 </Text>
 
-                <Text style={styles.bold}>
-                    {advertisement?.type}
-                </Text>
+                <Text>{advertisement?.type}</Text>
 
                 <Text>
                     {advertisement?.type === 'Require Female Dog' || advertisement?.type === 'Require Male Dog' 
-                        ? (<Text>{advertisement?.breed}</Text>) 
+                        ? <Text>{advertisement?.breed}</Text>
                         : null
                     }
                 </Text>
 
                 <Text>
                     {advertisement?.type !== 'Found' && advertisement?.type !== 'Lost' 
-                        ? (<Text>{advertisement?.currency}{advertisement?.price}</Text>)
+                        ? <Text>{advertisement?.currency}{advertisement?.price}</Text>
                         : null
                     }
                 </Text>
@@ -75,18 +71,16 @@ const Advertisement = ({ advertisementId }) => {
                         : null
                     }
 
-                    (<Text>
-                        {advertisement?.country}
-                    </Text>)
+                    <Text>{advertisement?.country}</Text>
                 </Text>
 
                 <Text>
 
-                    Posted by{' '}
+                    <Text>Posted by{' '}</Text>
                     <TouchableOpacity 
                         onPress={() => {}}
                     >
-                        (<Text>{user?.username}</Text>)
+                        <Text>{user?.username}</Text>
                     </TouchableOpacity>
 
                 </Text>

@@ -4,7 +4,7 @@ import { setCredentials } from '../../components/auth/authSlice'
 const baseQuery = fetchBaseQuery({
 
     // URL of the backend
-    baseUrl: 'http://localhost:3500',
+    baseUrl: 'https://ae1e-2001-1530-1012-485b-d03-3c7c-e102-7bd9.ngrok-free.app',
     credentials: 'include',
     prepareHeaders: (headers, { getState }) => {
         const token = getState().auth.token
@@ -43,6 +43,8 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
             }
             return refreshResult
         }
+    } else if (result?.error) {
+        console.log(result.error)
     }
 
     return result

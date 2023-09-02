@@ -1,8 +1,8 @@
-export const AdvertisementTypes = <>
-    <option value="For Sale">For Sale</option>
-    <option value="Looking to Buy">Looking to Buy</option>
-    <option value="Found">Found</option>
-    <option value="Lost">Lost</option>
-    <option value="Require Female Dog">Require Female Dog</option>
-    <option value="Require Male Dog">Require Male Dog</option>
-</>
+export const AdvertisementTypes = [
+    { label: 'For Sale', value: 'For Sale' },
+    { label: 'Looking to Buy', value: 'Looking to Buy' },
+    { label: 'Found', value: 'Found' },
+    { label: 'Lost', value: 'Lost' },
+    { label: 'Require Female Dog', value: 'Require Female Dog' },
+    { label: 'Require Male Dog', value: 'Require Male Dog' },
+]

@@ -9,5 +9,12 @@
     ],
     "name": "Dogs-Native",
     "slug": "Dogs-Native"
+  },
+  "ios": {
+    "infoPlist": {
+      "NSAppTransportSecurity": {
+        "NSAllowsArbitraryLoads": true
+      }
+    }
   }
 }

@@ -8,6 +8,8 @@ import { ScreenHeaderBtn } from "../components"
 import { Provider } from "react-redux"
 import { store } from "./store"
 
+import AdvertisementsList from "../components/advertisements/AdvertisementsList"
+
 const Home = () => {
     const router = useRouter()
 
@@ -36,7 +38,7 @@ const Home = () => {
                         }}
                     >
                     </View>
-
+                        <AdvertisementsList />
                 </ScrollView>
             </SafeAreaView>
         </Provider>

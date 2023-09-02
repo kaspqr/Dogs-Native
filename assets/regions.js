@@ -1,432 +1,432 @@
 export const Regions = { 
-    "Argentina": <>
-        <option value="Buenos Aires">Buenos Aires</option>
-        <option value="Catamarca">Catamarca</option>
-        <option value="Chaco">Chaco</option>
-        <option value="Chubut">Chubut</option>
-        <option value="Córdoba">Córdoba</option>
-        <option value="Corrientes">Corrientes</option>
-        <option value="Entre Ríos">Entre Ríos</option>
-        <option value="Formosa">Formosa</option>
-        <option value="Jujuy">Jujuy</option>
-        <option value="La Pampa">La Pampa</option>
-        <option value="La Rioja">La Rioja</option>
-        <option value="Mendoza">Mendoza</option>
-        <option value="Misiones">Misiones</option>
-        <option value="Neuquén">Neuquén</option>
-        <option value="Río Negro">Río Negro</option>
-        <option value="Salta">Salta</option>
-        <option value="San Juan">San Juan</option>
-        <option value="San Luis">San Luis</option>
-        <option value="Santa Cruz">Santa Cruz</option>
-        <option value="Santa Fe">Santa Fe</option>
-        <option value="Santiago del Estero">Santiago del Estero</option>
-        <option value="Tierra del Fuego">Tierra del Fuego</option>
-        <option value="Tucumán">Tucumán</option>
-    </>,
-    "Australia": <>
-        <option value="Australian Capital Territory">Australian Capital Territory</option>
-        <option value="New South Wales">New South Wales</option>
-        <option value="Northern Territory">Northern Territory</option>
-        <option value="Queensland">Queensland</option>
-        <option value="South Australia">South Australia</option>
-        <option value="Tasmania">Tasmania</option>
-        <option value="Victoria">Victoria</option>
-        <option value="Western Australia">Western Australia</option>
-    </>,
-    "Brazil": <>
-        <option value="Acre">Acre</option>
-        <option value="Alagoas">Alagoas</option>
-        <option value="Amapá">Amapá</option>
-        <option value="Amazonas">Amazonas</option>
-        <option value="Bahia">Bahia</option>
-        <option value="Ceará">Ceará</option>
-        <option value="Espírito Santo">Espírito Santo</option>
-        <option value="Goiás">Goiás</option>
-        <option value="Maranhão">Maranhão</option>
-        <option value="Mato Grosso">Mato Grosso</option>
-        <option value="Mato Grosso do Sul">Mato Grosso do Sul</option>
-        <option value="Minas Gerais">Minas Gerais</option>
-        <option value="Pará">Pará</option>
-        <option value="Paraíba">Paraíba</option>
-        <option value="Paraná">Paraná</option>
-        <option value="Pernambuco">Pernambuco</option>
-        <option value="Piauí">Piauí</option>
-        <option value="Rio de Janeiro">Rio de Janeiro</option>
-        <option value="Rio Grande do Norte">Rio Grande do Norte</option>
-        <option value="Rio Grande do Sul">Rio Grande do Sul</option>
-        <option value="Rondônia">Rondônia</option>
-        <option value="Roraima">Roraima</option>
-        <option value="Santa Catarina">Santa Catarina</option>
-        <option value="São Paulo">São Paulo</option>
-        <option value="Sergipe">Sergipe</option>
-        <option value="Tocantins">Tocantins</option>
-    </>,
-    "Canada": <>
-        <option value="Alberta">Alberta</option>
-        <option value="British Columbia">British Columbia</option>
-        <option value="Manitoba">Manitoba</option>
-        <option value="New Brunswick">New Brunswick</option>
-        <option value="Newfoundland and Labrador">Newfoundland and Labrador</option>
-        <option value="Nova Scotia">Nova Scotia</option>
-        <option value="Ontario">Ontario</option>
-        <option value="Prince Edward Island">Prince Edward Island</option>
-        <option value="Quebec">Quebec</option>
-        <option value="Saskatchewan">Saskatchewan</option>
-        <option value="Northwest Territories">Northwest Territories</option>
-        <option value="Nunavut">Nunavut</option>
-        <option value="Yukon">Yukon</option>
-    </>,
-    "Chile": <>
-        <option value="Aisén">Aisén</option>
-        <option value="Antofagasta">Antofagasta</option>
-        <option value="Araucanía">Araucanía</option>
-        <option value="Arica y Parinacota">Arica y Parinacota</option>
-        <option value="Atacama">Atacama</option>
-        <option value="Biobío">Biobío</option>
-        <option value="Coquimbo">Coquimbo</option>
-        <option value="Los Lagos">Los Lagos</option>
-        <option value="Los Ríos">Los Ríos</option>
-        <option value="Magallanes">Magallanes</option>
-        <option value="Maule">Maule</option>
-        <option value="Ñuble">Ñuble</option>
-        <option value="O'Higgins">O'Higgins</option>
-        <option value="Santiago Metropolitan">Santiago Metropolitan</option>
-        <option value="Tarapacá">Tarapacá</option>
-        <option value="Valparaíso">Valparaíso</option>
-    </>,
-    "Finland": <>
-        <option value="Åland Islands">Åland Islands</option>
-        <option value="South Karelia">South Karelia</option>
-        <option value="Southern Ostrobothnia">Southern Ostrobothnia</option>
-        <option value="Southern Savonia">Southern Savonia</option>
-        <option value="Kainuu">Kainuu</option>
-        <option value="Tavastia Proper">Tavastia Proper</option>
-        <option value="Central Ostrobothnia">Central Ostrobothnia</option>
-        <option value="Central Finland">Central Finland</option>
-        <option value="Kymenlaakso">Kymenlaakso</option>
-        <option value="Lapland">Lapland</option>
-        <option value="Pirkanmaa">Pirkanmaa</option>
-        <option value="North Karelia">North Karelia</option>
-        <option value="Northern Ostrobothnia">Northern Ostrobothnia</option>
-        <option value="Northern Savonia">Northern Savonia</option>
-        <option value="Päijänne Tavastia">Päijänne Tavastia</option>
-        <option value="Ostrobothnia">Ostrobothnia</option>
-        <option value="Satakunta">Satakunta</option>
-        <option value="Uusimaa">Uusimaa</option>
-        <option value="Varsinais-Suomi">Varsinais-Suomi</option>
-    </>,
-    "France": <>
-        <option value="Auvergne-Rhône-Alpes">Auvergne-Rhône-Alpes</option>
-        <option value="Bourgogne-Franche-Comté">Bourgogne-Franche-Comté</option>
-        <option value="Brittany">Brittany</option>
-        <option value="Centre-Val de Loire">Centre-Val de Loire</option>
-        <option value="Corsica">Corsica</option>
-        <option value="Grand Est">Grand Est</option>
-        <option value="Hauts-de-France">Hauts-de-France</option>
-        <option value="Île-de-France">Île-de-France</option>
-        <option value="Normandy">Normandy</option>
-        <option value="Nouvelle-Aquitaine">Nouvelle-Aquitaine</option>
-        <option value="Occitanie">Occitanie</option>
-        <option value="Pays de la Loire">Pays de la Loire</option>
-        <option value="Provence-Alpes-Côte d'Azur">Provence-Alpes-Côte d'Azur</option>
-    </>,
-    "Germany": <>
-        <option value="Baden-Württemberg">Baden-Württemberg</option>
-        <option value="Bavaria">Bavaria</option>
-        <option value="Berlin">Berlin</option>
-        <option value="Brandenburg">Brandenburg</option>
-        <option value="Bremen">Bremen</option>
-        <option value="Hamburg">Hamburg</option>
-        <option value="Hesse">Hesse</option>
-        <option value="Lower Saxony">Lower Saxony</option>
-        <option value="Mecklenburg-Vorpommern">Mecklenburg-Vorpommern</option>
-        <option value="North Rhine-Westphalia">North Rhine-Westphalia</option>
-        <option value="Rhineland-Palatinate">Rhineland-Palatinate</option>
-        <option value="Saarland">Saarland</option>
-        <option value="Saxony">Saxony</option>
-        <option value="Saxony-Anhalt">Saxony-Anhalt</option>
-        <option value="Schleswig-Holstein">Schleswig-Holstein</option>
-        <option value="Thuringia">Thuringia</option>
-    </>,
-    "Italy": <>
-        <option value="Abruzzo">Abruzzo</option>
-        <option value="Aosta Valley">Aosta Valley</option>
-        <option value="Apulia">Apulia</option>
-        <option value="Basilicata">Basilicata</option>
-        <option value="Calabria">Calabria</option>
-        <option value="Campania">Campania</option>
-        <option value="Emilia-Romagna">Emilia-Romagna</option>
-        <option value="Friuli-Venezia Giulia">Friuli-Venezia Giulia</option>
-        <option value="Lazio">Lazio</option>
-        <option value="Liguria">Liguria</option>
-        <option value="Lombardy">Lombardy</option>
-        <option value="Marche">Marche</option>
-        <option value="Molise">Molise</option>
-        <option value="Piedmont">Piedmont</option>
-        <option value="Sardinia">Sardinia</option>
-        <option value="Sicily">Sicily</option>
-        <option value="Trentino-Alto Adige/Südtirol">Trentino-Alto Adige/Südtirol</option>
-        <option value="Tuscany">Tuscany</option>
-        <option value="Umbria">Umbria</option>
-        <option value="Veneto">Veneto</option>
-    </>,
-    "Mexico": <>
-        <option value="Aguascalientes">Aguascalientes</option>
-        <option value="Baja California">Baja California</option>
-        <option value="Baja California Sur">Baja California Sur</option>
-        <option value="Campeche">Campeche</option>
-        <option value="Chiapas">Chiapas</option>
-        <option value="Chihuahua">Chihuahua</option>
-        <option value="Coahuila">Coahuila</option>
-        <option value="Colima">Colima</option>
-        <option value="Durango">Durango</option>
-        <option value="Guanajuato">Guanajuato</option>
-        <option value="Guerrero">Guerrero</option>
-        <option value="Hidalgo">Hidalgo</option>
-        <option value="Jalisco">Jalisco</option>
-        <option value="Mexico City">Mexico City</option>
-        <option value="Michoacán">Michoacán</option>
-        <option value="Morelos">Morelos</option>
-        <option value="Nayarit">Nayarit</option>
-        <option value="Nuevo León">Nuevo León</option>
-        <option value="Oaxaca">Oaxaca</option>
-        <option value="Puebla">Puebla</option>
-        <option value="Querétaro">Querétaro</option>
-        <option value="Quintana Roo">Quintana Roo</option>
-        <option value="San Luis Potosí">San Luis Potosí</option>
-        <option value="Sinaloa">Sinaloa</option>
-        <option value="Sonora">Sonora</option>
-        <option value="Tabasco">Tabasco</option>
-        <option value="Tamaulipas">Tamaulipas</option>
-        <option value="Tlaxcala">Tlaxcala</option>
-        <option value="Veracruz">Veracruz</option>
-        <option value="Yucatán">Yucatán</option>
-        <option value="Zacatecas">Zacatecas</option>
-    </>,
-    "Norway": <>
-        <option value="Oslo">Oslo</option>
-        <option value="Viken">Viken</option>
-        <option value="Innlandet">Innlandet</option>
-        <option value="Vestfold og Telemark">Vestfold og Telemark</option>
-        <option value="Agder">Agder</option>
-        <option value="Rogaland">Rogaland</option>
-        <option value="Vestland">Vestland</option>
-        <option value="Møre og Romsdal">Møre og Romsdal</option>
-        <option value="Trøndelag">Trøndelag</option>
-        <option value="Nordland">Nordland</option>
-        <option value="Troms og Finnmark">Troms og Finnmark</option>
-    </>,
-    "New Zealand": <>
-        <option value="Northland">Northland</option>
-        <option value="Auckland">Auckland</option>
-        <option value="Waikato">Waikato</option>
-        <option value="Bay of Plenty">Bay of Plenty</option>
-        <option value="Gisborne">Gisborne</option>
-        <option value="Hawke's Bay">Hawke's Bay</option>
-        <option value="Taranaki">Taranaki</option>
-        <option value="Manawatu-Wanganui">Manawatu-Wanganui</option>
-        <option value="Wellington">Wellington</option>
-        <option value="Tasman">Tasman</option>
-        <option value="Nelson">Nelson</option>
-        <option value="Marlborough">Marlborough</option>
-        <option value="West Coast">West Coast</option>
-        <option value="Canterbury">Canterbury</option>
-        <option value="Otago">Otago</option>
-        <option value="Southland">Southland</option>
-    </>,
-    "Poland": <>
-        <option value="Greater Poland Voivodeship">Greater Poland Voivodeship</option>
-        <option value="Kuyavian-Pomeranian Voivodeship">Kuyavian-Pomeranian Voivodeship</option>
-        <option value="Lesser Poland Voivodeship">Lesser Poland Voivodeship</option>
-        <option value="Lodz Voivodeship">Lodz Voivodeship</option>
-        <option value="Lower Silesian Voivodeship">Lower Silesian Voivodeship</option>
-        <option value="Lublin Voivodeship">Lublin Voivodeship</option>
-        <option value="Lubusz Voivodeship">Lubusz Voivodeship</option>
-        <option value="Masovian Voivodeship">Masovian Voivodeship</option>
-        <option value="Opole Voivodeship">Opole Voivodeship</option>
-        <option value="Podkarpackie Voivodeship">Podkarpackie Voivodeship</option>
-        <option value="Podlaskie Voivodeship">Podlaskie Voivodeship</option>
-        <option value="Pomeranian Voivodeship">Pomeranian Voivodeship</option>
-        <option value="Silesian Voivodeship">Silesian Voivodeship</option>
-        <option value="Subcarpathian Voivodeship">Subcarpathian Voivodeship</option>
-        <option value="Swietokrzyskie Voivodeship">Swietokrzyskie Voivodeship</option>
-        <option value="Warmian-Masurian Voivodeship">Warmian-Masurian Voivodeship</option>
-        <option value="West Pomeranian Voivodeship">West Pomeranian Voivodeship</option>
-    </>,
-    "Portugal": <>
-        <option value="Aveiro">Aveiro</option>
-        <option value="Azores">Azores</option>
-        <option value="Beja">Beja</option>
-        <option value="Braga">Braga</option>
-        <option value="Bragança">Bragança</option>
-        <option value="Castelo Branco">Castelo Branco</option>
-        <option value="Coimbra">Coimbra</option>
-        <option value="Évora">Évora</option>
-        <option value="Faro">Faro</option>
-        <option value="Guarda">Guarda</option>
-        <option value="Leiria">Leiria</option>
-        <option value="Lisbon">Lisbon</option>
-        <option value="Madeira">Madeira</option>
-        <option value="Portalegre">Portalegre</option>
-        <option value="Porto">Porto</option>
-        <option value="Santarém">Santarém</option>
-        <option value="Setúbal">Setúbal</option>
-        <option value="Viana do Castelo">Viana do Castelo</option>
-        <option value="Vila Real">Vila Real</option>
-        <option value="Viseu">Viseu</option>
-    </>,
-    "Romania": <>
-        <option value="Alba County">Alba County</option>
-        <option value="Arad County">Arad County</option>
-        <option value="Arges County">Arges County</option>
-        <option value="Bacau County">Bacau County</option>
-        <option value="Bihor County">Bihor County</option>
-        <option value="Bistrita-Nasaud County">Bistrita-Nasaud County</option>
-        <option value="Botosani County">Botosani County</option>
-        <option value="Braila County">Braila County</option>
-        <option value="Brasov County">Brasov County</option>
-        <option value="Buzau County">Buzau County</option>
-        <option value="Calarasi County">Calarasi County</option>
-        <option value="Caras-Severin County">Caras-Severin County</option>
-        <option value="Cluj County">Cluj County</option>
-        <option value="Constanta County">Constanta County</option>
-        <option value="Covasna County">Covasna County</option>
-        <option value="Dambovita County">Dambovita County</option>
-        <option value="Dolj County">Dolj County</option>
-        <option value="Galati County">Galati County</option>
-        <option value="Giurgiu County">Giurgiu County</option>
-        <option value="Gorj County">Gorj County</option>
-        <option value="Harghita County">Harghita County</option>
-        <option value="Hunedoara County">Hunedoara County</option>
-        <option value="Ialomita County">Ialomita County</option>
-        <option value="Iasi County">Iasi County</option>
-        <option value="Ilfov County">Ilfov County</option>
-        <option value="Maramures County">Maramures County</option>
-        <option value="Mehedinti County">Mehedinti County</option>
-        <option value="Mures County">Mures County</option>
-        <option value="Neamt County">Neamt County</option>
-        <option value="Olt County">Olt County</option>
-        <option value="Prahova County">Prahova County</option>
-        <option value="Salaj County">Salaj County</option>
-        <option value="Satu Mare County">Satu Mare County</option>
-        <option value="Sibiu County">Sibiu County</option>
-        <option value="Suceava County">Suceava County</option>
-        <option value="Teleorman County">Teleorman County</option>
-        <option value="Timis County">Timis County</option>
-        <option value="Tulcea County">Tulcea County</option>
-        <option value="Valcea County">Valcea County</option>
-        <option value="Vaslui County">Vaslui County</option>
-        <option value="Vrancea County">Vrancea County</option>
-    </>,
-    "South Africa": <>
-        <option value="Eastern Cape">Eastern Cape</option>
-        <option value="Free State">Free State</option>
-        <option value="Gauteng">Gauteng</option>
-        <option value="KwaZulu-Natal">KwaZulu-Natal</option>
-        <option value="Limpopo">Limpopo</option>
-        <option value="Mpumalanga">Mpumalanga</option>
-        <option value="North West">North West</option>
-        <option value="Northern Cape">Northern Cape</option>
-        <option value="Western Cape">Western Cape</option>
-    </>,
-    "Spain": <>
-        <option value="Andalusia">Andalusia</option>
-        <option value="Aragon">Aragon</option>
-        <option value="Asturias">Asturias</option>
-        <option value="Balearic Islands">Balearic Islands</option>
-        <option value="Basque Country">Basque Country</option>
-        <option value="Canary Islands">Canary Islands</option>
-        <option value="Cantabria">Cantabria</option>
-        <option value="Castilla-La Mancha">Castilla-La Mancha</option>
-        <option value="Castilla y León">Castilla y León</option>
-        <option value="Catalonia">Catalonia</option>
-        <option value="Extremadura">Extremadura</option>
-        <option value="Galicia">Galicia</option>
-        <option value="La Rioja">La Rioja</option>
-        <option value="Madrid">Madrid</option>
-        <option value="Murcia">Murcia</option>
-        <option value="Navarre">Navarre</option>
-        <option value="Valencian Community">Valencian Community</option>
-    </>,
-    "Sweden": <>
-        <option value="Stockholm">Stockholm</option>
-        <option value="Uppsala">Uppsala</option>
-        <option value="Södermanland">Södermanland</option>
-        <option value="Östergötland">Östergötland</option>
-        <option value="Jönköping">Jönköping</option>
-        <option value="Kronoberg">Kronoberg</option>
-        <option value="Kalmar">Kalmar</option>
-        <option value="Gotland">Gotland</option>
-        <option value="Blekinge">Blekinge</option>
-        <option value="Skåne">Skåne</option>
-        <option value="Halland">Halland</option>
-        <option value="Västra Götaland">Västra Götaland</option>
-        <option value="Värmland">Värmland</option>
-        <option value="Örebro">Örebro</option>
-        <option value="Västmanland">Västmanland</option>
-        <option value="Dalarna">Dalarna</option>
-        <option value="Gävleborg">Gävleborg</option>
-        <option value="Västernorrland">Västernorrland</option>
-        <option value="Jämtland Härjedalen">Jämtland Härjedalen</option>
-        <option value="Norrbotten">Norrbotten</option>
-    </>,
-    "United Kingdom": <>
-        <option value="England">England</option>
-        <option value="Scotland">Scotland</option>
-        <option value="Wales">Wales</option>
-        <option value="Northern Ireland">Northern Ireland</option>
-    </>,
-    "United States": <>
-        <option value="Alabama">Alabama</option>
-        <option value="Alaska">Alaska</option>
-        <option value="Arizona">Arizona</option>
-        <option value="Arkansas">Arkansas</option>
-        <option value="California">California</option>
-        <option value="Colorado">Colorado</option>
-        <option value="Connecticut">Connecticut</option>
-        <option value="Delaware">Delaware</option>
-        <option value="Florida">Florida</option>
-        <option value="Georgia">Georgia</option>
-        <option value="Hawaii">Hawaii</option>
-        <option value="Idaho">Idaho</option>
-        <option value="Illinois">Illinois</option>
-        <option value="Indiana">Indiana</option>
-        <option value="Iowa">Iowa</option>
-        <option value="Kansas">Kansas</option>
-        <option value="Kentucky">Kentucky</option>
-        <option value="Louisiana">Louisiana</option>
-        <option value="Maine">Maine</option>
-        <option value="Maryland">Maryland</option>
-        <option value="Massachusetts">Massachusetts</option>
-        <option value="Michigan">Michigan</option>
-        <option value="Minnesota">Minnesota</option>
-        <option value="Mississippi">Mississippi</option>
-        <option value="Missouri">Missouri</option>
-        <option value="Montana">Montana</option>
-        <option value="Nebraska">Nebraska</option>
-        <option value="Nevada">Nevada</option>
-        <option value="New Hampshire">New Hampshire</option>
-        <option value="New Jersey">New Jersey</option>
-        <option value="New Mexico">New Mexico</option>
-        <option value="New York">New York</option>
-        <option value="North Carolina">North Carolina</option>
-        <option value="North Dakota">North Dakota</option>
-        <option value="Ohio">Ohio</option>
-        <option value="Oklahoma">Oklahoma</option>
-        <option value="Oregon">Oregon</option>
-        <option value="Pennsylvania">Pennsylvania</option>
-        <option value="Rhode Island">Rhode Island</option>
-        <option value="South Carolina">South Carolina</option>
-        <option value="South Dakota">South Dakota</option>
-        <option value="Tennessee">Tennessee</option>
-        <option value="Texas">Texas</option>
-        <option value="Utah">Utah</option>
-        <option value="Vermont">Vermont</option>
-        <option value="Virginia">Virginia</option>
-        <option value="Washington">Washington</option>
-        <option value="West Virginia">West Virginia</option>
-        <option value="Wisconsin">Wisconsin</option>
-        <option value="Wyoming">Wyoming</option>
-    </>
+    "Argentina": [
+        { label: 'Buenos Aires', value: 'Buenos Aires' },
+        { label: 'Catamarca', value: 'Catamarca' },
+        { label: 'Chaco', value: 'Chaco' },
+        { label: 'Chubut', value: 'Chubut' },
+        { label: 'Córdoba', value: 'Córdoba' },
+        { label: 'Corrientes', value: 'Corrientes' },
+        { label: 'Entre Ríos', value: 'Entre Ríos' },
+        { label: 'Formosa', value: 'Formosa' },
+        { label: 'Jujuy', value: 'Jujuy' },
+        { label: 'La Pampa', value: 'La Pampa' },
+        { label: 'La Rioja', value: 'La Rioja' },
+        { label: 'Mendoza', value: 'Mendoza' },
+        { label: 'Misiones', value: 'Misiones' },
+        { label: 'Neuquén', value: 'Neuquén' },
+        { label: 'Río Negro', value: 'Río Negro' },
+        { label: 'Salta', value: 'Salta' },
+        { label: 'San Juan', value: 'San Juan' },
+        { label: 'San Luis', value: 'San Luis' },
+        { label: 'Santa Cruz', value: 'Santa Cruz' },
+        { label: 'Santa Fe', value: 'Santa Fe' },
+        { label: 'Santiago del Estero', value: 'Santiago del Estero' },
+        { label: 'Tierra del Fuego', value: 'Tierra del Fuego' },
+        { label: 'Tucumán', value: 'Tucumán' },
+    ],
+    "Australia": [
+        { label: 'Australian Capital Territory', value: 'Australian Capital Territory' },
+        { label: 'New South Wales', value: 'New South Wales' },
+        { label: 'Northern Territory', value: 'Northern Territory' },
+        { label: 'Queensland', value: 'Queensland' },
+        { label: 'South Australia', value: 'South Australia' },
+        { label: 'Tasmania', value: 'Tasmania' },
+        { label: 'Victoria', value: 'Victoria' },
+        { label: 'Western Australia', value: 'Western Australia' },
+    ],
+    "Brazil": [
+        { label: 'Acre', value: 'Acre' },
+        { label: 'Alagoas', value: 'Alagoas' },
+        { label: 'Amapá', value: 'Amapá' },
+        { label: 'Amazonas', value: 'Amazonas' },
+        { label: 'Bahia', value: 'Bahia' },
+        { label: 'Ceará', value: 'Ceará' },
+        { label: 'Espírito Santo', value: 'Espírito Santo' },
+        { label: 'Goiás', value: 'Goiás' },
+        { label: 'Maranhão', value: 'Maranhão' },
+        { label: 'Mato Grosso', value: 'Mato Grosso' },
+        { label: 'Mato Grosso do Sul', value: 'Mato Grosso do Sul' },
+        { label: 'Minas Gerais', value: 'Minas Gerais' },
+        { label: 'Pará', value: 'Pará' },
+        { label: 'Paraíba', value: 'Paraíba' },
+        { label: 'Paraná', value: 'Paraná' },
+        { label: 'Pernambuco', value: 'Pernambuco' },
+        { label: 'Piauí', value: 'Piauí' },
+        { label: 'Rio de Janeiro', value: 'Rio de Janeiro' },
+        { label: 'Rio Grande do Norte', value: 'Rio Grande do Norte' },
+        { label: 'Rio Grande do Sul', value: 'Rio Grande do Sul' },
+        { label: 'Rondônia', value: 'Rondônia' },
+        { label: 'Roraima', value: 'Roraima' },
+        { label: 'Santa Catarina', value: 'Santa Catarina' },
+        { label: 'São Paulo', value: 'São Paulo' },
+        { label: 'Sergipe', value: 'Sergipe' },
+        { label: 'Tocantins', value: 'Tocantins' },
+    ],
+    "Canada": [
+        { label: 'Alberta', value: 'Alberta' },
+        { label: 'British Columbia', value: 'British Columbia' },
+        { label: 'Manitoba', value: 'Manitoba' },
+        { label: 'New Brunswick', value: 'New Brunswick' },
+        { label: 'Newfoundland and Labrador', value: 'Newfoundland and Labrador' },
+        { label: 'Nova Scotia', value: 'Nova Scotia' },
+        { label: 'Ontario', value: 'Ontario' },
+        { label: 'Prince Edward Island', value: 'Prince Edward Island' },
+        { label: 'Quebec', value: 'Quebec' },
+        { label: 'Saskatchewan', value: 'Saskatchewan' },
+        { label: 'Northwest Territories', value: 'Northwest Territories' },
+        { label: 'Nunavut', value: 'Nunavut' },
+        { label: 'Yukon', value: 'Yukon' },
+    ],
+    "Chile": [
+        { label: 'Aisén', value: 'Aisén' },
+        { label: 'Antofagasta', value: 'Antofagasta' },
+        { label: 'Araucanía', value: 'Araucanía' },
+        { label: 'Arica y Parinacota', value: 'Arica y Parinacota' },
+        { label: 'Atacama', value: 'Atacama' },
+        { label: 'Biobío', value: 'Biobío' },
+        { label: 'Coquimbo', value: 'Coquimbo' },
+        { label: 'Los Lagos', value: 'Los Lagos' },
+        { label: 'Los Ríos', value: 'Los Ríos' },
+        { label: 'Magallanes', value: 'Magallanes' },
+        { label: 'Maule', value: 'Maule' },
+        { label: 'Ñuble', value: 'Ñuble' },
+        { label: "O'Higgins", value: "O'Higgins" },
+        { label: 'Santiago Metropolitan', value: 'Santiago Metropolitan' },
+        { label: 'Tarapacá', value: 'Tarapacá' },
+        { label: 'Valparaíso', value: 'Valparaíso' },
+    ],
+    "Finland": [
+        { label: 'Åland Islands', value: 'Åland Islands' },
+        { label: 'South Karelia', value: 'South Karelia' },
+        { label: 'Southern Ostrobothnia', value: 'Southern Ostrobothnia' },
+        { label: 'Southern Savonia', value: 'Southern Savonia' },
+        { label: 'Kainuu', value: 'Kainuu' },
+        { label: 'Tavastia Proper', value: 'Tavastia Proper' },
+        { label: 'Central Ostrobothnia', value: 'Central Ostrobothnia' },
+        { label: 'Central Finland', value: 'Central Finland' },
+        { label: 'Kymenlaakso', value: 'Kymenlaakso' },
+        { label: 'Lapland', value: 'Lapland' },
+        { label: 'Pirkanmaa', value: 'Pirkanmaa' },
+        { label: 'North Karelia', value: 'North Karelia' },
+        { label: 'Northern Ostrobothnia', value: 'Northern Ostrobothnia' },
+        { label: 'Northern Savonia', value: 'Northern Savonia' },
+        { label: 'Päijänne Tavastia', value: 'Päijänne Tavastia' },
+        { label: 'Ostrobothnia', value: 'Ostrobothnia' },
+        { label: 'Satakunta', value: 'Satakunta' },
+        { label: 'Uusimaa', value: 'Uusimaa' },
+        { label: 'Varsinais-Suomi', value: 'Varsinais-Suomi' },
+    ],
+    "France": [
+        { label: 'Auvergne-Rhône-Alpes', value: 'Auvergne-Rhône-Alpes' },
+        { label: 'Bourgogne-Franche-Comté', value: 'Bourgogne-Franche-Comté' },
+        { label: 'Brittany', value: 'Brittany' },
+        { label: 'Centre-Val de Loire', value: 'Centre-Val de Loire' },
+        { label: 'Corsica', value: 'Corsica' },
+        { label: 'Grand Est', value: 'Grand Est' },
+        { label: 'Hauts-de-France', value: 'Hauts-de-France' },
+        { label: 'Île-de-France', value: 'Île-de-France' },
+        { label: 'Normandy', value: 'Normandy' },
+        { label: 'Nouvelle-Aquitaine', value: 'Nouvelle-Aquitaine' },
+        { label: 'Occitanie', value: 'Occitanie' },
+        { label: 'Pays de la Loire', value: 'Pays de la Loire' },
+        { label: "Provence-Alpes-Côte d'Azur", value: "Provence-Alpes-Côte d'Azur" },
+    ],
+    "Germany": [
+        { label: 'Baden-Württemberg', value: 'Baden-Württemberg' },
+        { label: 'Bavaria', value: 'Bavaria' },
+        { label: 'Berlin', value: 'Berlin' },
+        { label: 'Brandenburg', value: 'Brandenburg' },
+        { label: 'Bremen', value: 'Bremen' },
+        { label: 'Hamburg', value: 'Hamburg' },
+        { label: 'Hesse', value: 'Hesse' },
+        { label: 'Lower Saxony', value: 'Lower Saxony' },
+        { label: 'Mecklenburg-Vorpommern', value: 'Mecklenburg-Vorpommern' },
+        { label: 'North Rhine-Westphalia', value: 'North Rhine-Westphalia' },
+        { label: 'Rhineland-Palatinate', value: 'Rhineland-Palatinate' },
+        { label: 'Saarland', value: 'Saarland' },
+        { label: 'Saxony', value: 'Saxony' },
+        { label: 'Saxony-Anhalt', value: 'Saxony-Anhalt' },
+        { label: 'Schleswig-Holstein', value: 'Schleswig-Holstein' },
+        { label: 'Thuringia', value: 'Thuringia' },
+    ],
+    "Italy": [
+        { label: 'Abruzzo', value: 'Abruzzo' },
+        { label: 'Aosta Valley', value: 'Aosta Valley' },
+        { label: 'Apulia', value: 'Apulia' },
+        { label: 'Basilicata', value: 'Basilicata' },
+        { label: 'Calabria', value: 'Calabria' },
+        { label: 'Campania', value: 'Campania' },
+        { label: 'Emilia-Romagna', value: 'Emilia-Romagna' },
+        { label: 'Friuli-Venezia Giulia', value: 'Friuli-Venezia Giulia' },
+        { label: 'Lazio', value: 'Lazio' },
+        { label: 'Liguria', value: 'Liguria' },
+        { label: 'Lombardy', value: 'Lombardy' },
+        { label: 'Marche', value: 'Marche' },
+        { label: 'Molise', value: 'Molise' },
+        { label: 'Piedmont', value: 'Piedmont' },
+        { label: 'Sardinia', value: 'Sardinia' },
+        { label: 'Sicily', value: 'Sicily' },
+        { label: 'Trentino-Alto Adige/Südtirol', value: 'Trentino-Alto Adige/Südtirol' },
+        { label: 'Tuscany', value: 'Tuscany' },
+        { label: 'Umbria', value: 'Umbria' },
+        { label: 'Veneto', value: 'Veneto' },
+    ],
+    "Mexico": [
+        { label: 'Aguascalientes', value: 'Aguascalientes' },
+        { label: 'Baja California', value: 'Baja California' },
+        { label: 'Baja California Sur', value: 'Baja California Sur' },
+        { label: 'Campeche', value: 'Campeche' },
+        { label: 'Chiapas', value: 'Chiapas' },
+        { label: 'Chihuahua', value: 'Chihuahua' },
+        { label: 'Coahuila', value: 'Coahuila' },
+        { label: 'Colima', value: 'Colima' },
+        { label: 'Durango', value: 'Durango' },
+        { label: 'Guanajuato', value: 'Guanajuato' },
+        { label: 'Guerrero', value: 'Guerrero' },
+        { label: 'Hidalgo', value: 'Hidalgo' },
+        { label: 'Jalisco', value: 'Jalisco' },
+        { label: 'Mexico City', value: 'Mexico City' },
+        { label: 'Michoacán', value: 'Michoacán' },
+        { label: 'Morelos', value: 'Morelos' },
+        { label: 'Nayarit', value: 'Nayarit' },
+        { label: 'Nuevo León', value: 'Nuevo León' },
+        { label: 'Oaxaca', value: 'Oaxaca' },
+        { label: 'Puebla', value: 'Puebla' },
+        { label: 'Querétaro', value: 'Querétaro' },
+        { label: 'Quintana Roo', value: 'Quintana Roo' },
+        { label: 'San Luis Potosí', value: 'San Luis Potosí' },
+        { label: 'Sinaloa', value: 'Sinaloa' },
+        { label: 'Sonora', value: 'Sonora' },
+        { label: 'Tabasco', value: 'Tabasco' },
+        { label: 'Tamaulipas', value: 'Tamaulipas' },
+        { label: 'Tlaxcala', value: 'Tlaxcala' },
+        { label: 'Veracruz', value: 'Veracruz' },
+        { label: 'Yucatán', value: 'Yucatán' },
+        { label: 'Zacatecas', value: 'Zacatecas' },
+    ],
+    "Norway": [
+        { label: 'Oslo', value: 'Oslo' },
+        { label: 'Viken', value: 'Viken' },
+        { label: 'Innlandet', value: 'Innlandet' },
+        { label: 'Vestfold og Telemark', value: 'Vestfold og Telemark' },
+        { label: 'Agder', value: 'Agder' },
+        { label: 'Rogaland', value: 'Rogaland' },
+        { label: 'Vestland', value: 'Vestland' },
+        { label: 'Møre og Romsdal', value: 'Møre og Romsdal' },
+        { label: 'Trøndelag', value: 'Trøndelag' },
+        { label: 'Nordland', value: 'Nordland' },
+        { label: 'Troms og Finnmark', value: 'Troms og Finnmark' },
+    ],
+    "New Zealand": [
+        { label: 'Northland', value: 'Northland' },
+        { label: 'Auckland', value: 'Auckland' },
+        { label: 'Waikato', value: 'Waikato' },
+        { label: 'Bay of Plenty', value: 'Bay of Plenty' },
+        { label: 'Gisborne', value: 'Gisborne' },
+        { label: "Hawke's Bay", value: "Hawke's Bay" },
+        { label: 'Taranaki', value: 'Taranaki' },
+        { label: 'Manawatu-Wanganui', value: 'Manawatu-Wanganui' },
+        { label: 'Wellington', value: 'Wellington' },
+        { label: 'Tasman', value: 'Tasman' },
+        { label: 'Nelson', value: 'Nelson' },
+        { label: 'Marlborough', value: 'Marlborough' },
+        { label: 'West Coast', value: 'West Coast' },
+        { label: 'Canterbury', value: 'Canterbury' },
+        { label: 'Otago', value: 'Otago' },
+        { label: 'Southland', value: 'Southland' },
+    ],
+    "Poland": [
+        { label: 'Greater Poland Voivodeship', value: 'Greater Poland Voivodeship' },
+        { label: 'Kuyavian-Pomeranian Voivodeship', value: 'Kuyavian-Pomeranian Voivodeship' },
+        { label: 'Lesser Poland Voivodeship', value: 'Lesser Poland Voivodeship' },
+        { label: 'Lodz Voivodeship', value: 'Lodz Voivodeship' },
+        { label: 'Lower Silesian Voivodeship', value: 'Lower Silesian Voivodeship' },
+        { label: 'Lublin Voivodeship', value: 'Lublin Voivodeship' },
+        { label: 'Lubusz Voivodeship', value: 'Lubusz Voivodeship' },
+        { label: 'Masovian Voivodeship', value: 'Masovian Voivodeship' },
+        { label: 'Opole Voivodeship', value: 'Opole Voivodeship' },
+        { label: 'Podkarpackie Voivodeship', value: 'Podkarpackie Voivodeship' },
+        { label: 'Podlaskie Voivodeship', value: 'Podlaskie Voivodeship' },
+        { label: 'Pomeranian Voivodeship', value: 'Pomeranian Voivodeship' },
+        { label: 'Silesian Voivodeship', value: 'Silesian Voivodeship' },
+        { label: 'Subcarpathian Voivodeship', value: 'Subcarpathian Voivodeship' },
+        { label: 'Swietokrzyskie Voivodeship', value: 'Swietokrzyskie Voivodeship' },
+        { label: 'Warmian-Masurian Voivodeship', value: 'Warmian-Masurian Voivodeship' },
+        { label: 'West Pomeranian Voivodeship', value: 'West Pomeranian Voivodeship' },
+    ],
+    "Portugal": [
+        { label: 'Aveiro', value: 'Aveiro' },
+        { label: 'Azores', value: 'Azores' },
+        { label: 'Beja', value: 'Beja' },
+        { label: 'Braga', value: 'Braga' },
+        { label: 'Bragança', value: 'Bragança' },
+        { label: 'Castelo Branco', value: 'Castelo Branco' },
+        { label: 'Coimbra', value: 'Coimbra' },
+        { label: 'Évora', value: 'Évora' },
+        { label: 'Faro', value: 'Faro' },
+        { label: 'Guarda', value: 'Guarda' },
+        { label: 'Leiria', value: 'Leiria' },
+        { label: 'Lisbon', value: 'Lisbon' },
+        { label: 'Madeira', value: 'Madeira' },
+        { label: 'Portalegre', value: 'Portalegre' },
+        { label: 'Porto', value: 'Porto' },
+        { label: 'Santarém', value: 'Santarém' },
+        { label: 'Setúbal', value: 'Setúbal' },
+        { label: 'Viana do Castelo', value: 'Viana do Castelo' },
+        { label: 'Vila Real', value: 'Vila Real' },
+        { label: 'Viseu', value: 'Viseu' },
+    ],
+    "Romania": [
+        { label: 'Alba County', value: 'Alba County' },
+        { label: 'Arad County', value: 'Arad County' },
+        { label: 'Arges County', value: 'Arges County' },
+        { label: 'Bacau County', value: 'Bacau County' },
+        { label: 'Bihor County', value: 'Bihor County' },
+        { label: 'Bistrita-Nasaud County', value: 'Bistrita-Nasaud County' },
+        { label: 'Botosani County', value: 'Botosani County' },
+        { label: 'Braila County', value: 'Braila County' },
+        { label: 'Brasov County', value: 'Brasov County' },
+        { label: 'Buzau County', value: 'Buzau County' },
+        { label: 'Calarasi County', value: 'Calarasi County' },
+        { label: 'Caras-Severin County', value: 'Caras-Severin County' },
+        { label: 'Cluj County', value: 'Cluj County' },
+        { label: 'Constanta County', value: 'Constanta County' },
+        { label: 'Covasna County', value: 'Covasna County' },
+        { label: 'Dambovita County', value: 'Dambovita County' },
+        { label: 'Dolj County', value: 'Dolj County' },
+        { label: 'Galati County', value: 'Galati County' },
+        { label: 'Giurgiu County', value: 'Giurgiu County' },
+        { label: 'Gorj County', value: 'Gorj County' },
+        { label: 'Harghita County', value: 'Harghita County' },
+        { label: 'Hunedoara County', value: 'Hunedoara County' },
+        { label: 'Ialomita County', value: 'Ialomita County' },
+        { label: 'Iasi County', value: 'Iasi County' },
+        { label: 'Ilfov County', value: 'Ilfov County' },
+        { label: 'Maramures County', value: 'Maramures County' },
+        { label: 'Mehedinti County', value: 'Mehedinti County' },
+        { label: 'Mures County', value: 'Mures County' },
+        { label: 'Neamt County', value: 'Neamt County' },
+        { label: 'Olt County', value: 'Olt County' },
+        { label: 'Prahova County', value: 'Prahova County' },
+        { label: 'Salaj County', value: 'Salaj County' },
+        { label: 'Satu Mare County', value: 'Satu Mare County' },
+        { label: 'Sibiu County', value: 'Sibiu County' },
+        { label: 'Suceava County', value: 'Suceava County' },
+        { label: 'Teleorman County', value: 'Teleorman County' },
+        { label: 'Timis County', value: 'Timis County' },
+        { label: 'Tulcea County', value: 'Tulcea County' },
+        { label: 'Valcea County', value: 'Valcea County' },
+        { label: 'Vaslui County', value: 'Vaslui County' },
+        { label: 'Vrancea County', value: 'Vrancea County' },
+    ],
+    "South Africa": [
+        { label: 'Eastern Cape', value: 'Eastern Cape' },
+        { label: 'Free State', value: 'Free State' },
+        { label: 'Gauteng', value: 'Gauteng' },
+        { label: 'KwaZulu-Natal', value: 'KwaZulu-Natal' },
+        { label: 'Limpopo', value: 'Limpopo' },
+        { label: 'Mpumalanga', value: 'Mpumalanga' },
+        { label: 'North West', value: 'North West' },
+        { label: 'Northern Cape', value: 'Northern Cape' },
+        { label: 'Western Cape', value: 'Western Cape' },
+    ],
+    "Spain": [
+        { label: 'Andalusia', value: 'Andalusia' },
+        { label: 'Aragon', value: 'Aragon' },
+        { label: 'Asturias', value: 'Asturias' },
+        { label: 'Balearic Islands', value: 'Balearic Islands' },
+        { label: 'Basque Country', value: 'Basque Country' },
+        { label: 'Canary Islands', value: 'Canary Islands' },
+        { label: 'Cantabria', value: 'Cantabria' },
+        { label: 'Castilla-La Mancha', value: 'Castilla-La Mancha' },
+        { label: 'Castilla y León', value: 'Castilla y León' },
+        { label: 'Catalonia', value: 'Catalonia' },
+        { label: 'Extremadura', value: 'Extremadura' },
+        { label: 'Galicia', value: 'Galicia' },
+        { label: 'La Rioja', value: 'La Rioja' },
+        { label: 'Madrid', value: 'Madrid' },
+        { label: 'Murcia', value: 'Murcia' },
+        { label: 'Navarre', value: 'Navarre' },
+        { label: 'Valencian Community', value: 'Valencian Community' },
+    ],
+    "Sweden": [
+        { label: 'Stockholm', value: 'Stockholm' },
+        { label: 'Uppsala', value: 'Uppsala' },
+        { label: 'Södermanland', value: 'Södermanland' },
+        { label: 'Östergötland', value: 'Östergötland' },
+        { label: 'Jönköping', value: 'Jönköping' },
+        { label: 'Kronoberg', value: 'Kronoberg' },
+        { label: 'Kalmar', value: 'Kalmar' },
+        { label: 'Gotland', value: 'Gotland' },
+        { label: 'Blekinge', value: 'Blekinge' },
+        { label: 'Skåne', value: 'Skåne' },
+        { label: 'Halland', value: 'Halland' },
+        { label: 'Västra Götaland', value: 'Västra Götaland' },
+        { label: 'Värmland', value: 'Värmland' },
+        { label: 'Örebro', value: 'Örebro' },
+        { label: 'Västmanland', value: 'Västmanland' },
+        { label: 'Dalarna', value: 'Dalarna' },
+        { label: 'Gävleborg', value: 'Gävleborg' },
+        { label: 'Västernorrland', value: 'Västernorrland' },
+        { label: 'Jämtland Härjedalen', value: 'Jämtland Härjedalen' },
+        { label: 'Norrbotten', value: 'Norrbotten' },
+    ],
+    "United Kingdom": [
+        { label: 'England', value: 'England' },
+        { label: 'Scotland', value: 'Scotland' },
+        { label: 'Wales', value: 'Wales' },
+        { label: 'Northern Ireland', value: 'Northern Ireland' },
+    ],
+    "United States": [
+        { label: 'Alabama', value: 'Alabama' },
+        { label: 'Alaska', value: 'Alaska' },
+        { label: 'Arizona', value: 'Arizona' },
+        { label: 'Arkansas', value: 'Arkansas' },
+        { label: 'California', value: 'California' },
+        { label: 'Colorado', value: 'Colorado' },
+        { label: 'Connecticut', value: 'Connecticut' },
+        { label: 'Delaware', value: 'Delaware' },
+        { label: 'Florida', value: 'Florida' },
+        { label: 'Georgia', value: 'Georgia' },
+        { label: 'Hawaii', value: 'Hawaii' },
+        { label: 'Idaho', value: 'Idaho' },
+        { label: 'Illinois', value: 'Illinois' },
+        { label: 'Indiana', value: 'Indiana' },
+        { label: 'Iowa', value: 'Iowa' },
+        { label: 'Kansas', value: 'Kansas' },
+        { label: 'Kentucky', value: 'Kentucky' },
+        { label: 'Louisiana', value: 'Louisiana' },
+        { label: 'Maine', value: 'Maine' },
+        { label: 'Maryland', value: 'Maryland' },
+        { label: 'Massachusetts', value: 'Massachusetts' },
+        { label: 'Michigan', value: 'Michigan' },
+        { label: 'Minnesota', value: 'Minnesota' },
+        { label: 'Mississippi', value: 'Mississippi' },
+        { label: 'Missouri', value: 'Missouri' },
+        { label: 'Montana', value: 'Montana' },
+        { label: 'Nebraska', value: 'Nebraska' },
+        { label: 'Nevada', value: 'Nevada' },
+        { label: 'New Hampshire', value: 'New Hampshire' },
+        { label: 'New Jersey', value: 'New Jersey' },
+        { label: 'New Mexico', value: 'New Mexico' },
+        { label: 'New York', value: 'New York' },
+        { label: 'North Carolina', value: 'North Carolina' },
+        { label: 'North Dakota', value: 'North Dakota' },
+        { label: 'Ohio', value: 'Ohio' },
+        { label: 'Oklahoma', value: 'Oklahoma' },
+        { label: 'Oregon', value: 'Oregon' },
+        { label: 'Pennsylvania', value: 'Pennsylvania' },
+        { label: 'Rhode Island', value: 'Rhode Island' },
+        { label: 'South Carolina', value: 'South Carolina' },
+        { label: 'South Dakota', value: 'South Dakota' },
+        { label: 'Tennessee', value: 'Tennessee' },
+        { label: 'Texas', value: 'Texas' },
+        { label: 'Utah', value: 'Utah' },
+        { label: 'Vermont', value: 'Vermont' },
+        { label: 'Virginia', value: 'Virginia' },
+        { label: 'Washington', value: 'Washington' },
+        { label: 'West Virginia', value: 'West Virginia' },
+        { label: 'Wisconsin', value: 'Wisconsin' },
+        { label: 'Wyoming', value: 'Wyoming' },
+    ]
 }

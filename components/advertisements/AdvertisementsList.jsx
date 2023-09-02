@@ -1,28 +1,21 @@
 import { useGetAdvertisementsQuery } from "./advertisementsApiSlice"
 import Advertisement from "./Advertisement"
 import useAuth from "../../hooks/useAuth"
-import { Link } from "react-router-dom"
 import { AdvertisementTypes } from "../../assets/advertisementTypes"
 import { Countries } from "../../assets/countries"
 import { bigCountries } from "../../assets/bigCountries"
 import { Regions } from "../../assets/regions"
 import { Currencies } from "../../assets/currencies"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faMagnifyingGlass, faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons"
 import { useState, useEffect } from "react"
 import { Breeds } from "../../assets/breeds"
 
-import { View, Text, Image } from 'react-native'
+import { View, Text, Image, TextInput } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import styles from "../header/screenheader.style"
 
 import RNPickerSelect from 'react-native-picker-select'
 
 const AdvertisementsList = () => {
-
-  const { userId } = useAuth()
-
-  const PRICE_REGEX = /^[1-9]\d{0,11}$/
 
   const [title, setTitle] = useState('')
   const [type, setType] = useState('')
@@ -37,9 +30,13 @@ const AdvertisementsList = () => {
   const [newPage, setNewPage] = useState('')
   const [sort, setSort] = useState('')
 
+  const { userId } = useAuth()
+
+  const PRICE_REGEX = /^[1-9]\d{0,11}$/
+
   const breeds = [ ...Object.values(Breeds) ]
   const breedOptions = breeds.map(breed => (
-      <option key={breed} value={breed}>{breed}</option>
+      { label: breed, value: breed }
   ))
 
   const currencyDisabled = type === 'Found' || type === 'Lost' || type === ''
@@ -57,23 +54,23 @@ const AdvertisementsList = () => {
     refetchOnMountOrArgChange: true
   })
   
-  const handleCountryChanged = (e) => {
+  const handleCountryChanged = (value) => {
     // New country doesn't have the regions of the old one, so reset the region first
     setRegion('')
-    setCountry(e.target.value)
+    setCountry(value)
   }
 
-  const handleCurrencyChanged = (e) => {
-    if (e.target.value === '') { // Cannot have a price without currency
+  const handleCurrencyChanged = (value) => {
+    if (value === '') { // Cannot have a price without currency
       setLowestPrice('')
       setHighestPrice('')
       setSort('')
     }
-    setCurrency(e.target.value)
+    setCurrency(value)
   }
 
-  const handleTypeChanged = (e) => {
-    if (e.target.value === '' || e.target.value === 'Found' || e.target.value === 'Lost') {
+  const handleTypeChanged = (value) => {
+    if (value === '' || value === 'Found' || value === 'Lost') {
       // Cannot have a currency nor price with above types
       setCurrency('')
       setLowestPrice('')
@@ -81,11 +78,11 @@ const AdvertisementsList = () => {
       setSort('')
     }
 
-    if (e.target.value !== 'Require Female Dog' && e.target.value !== 'Require Male Dog') {
+    if (value !== 'Require Female Dog' && value !== 'Require Male Dog') {
       setBreed('')
     }
 
-    setType(e.target.value)
+    setType(value)
   }
 
   const handleToggleFilterView = () => {
@@ -176,7 +173,7 @@ const AdvertisementsList = () => {
   if (isLoading) content = <Text>Loading...</Text>
 
   if (isError) {
-    content = <Text>{error?.data?.message}</Text>
+    content = <Text>aaa {error?.data?.message}</Text>
   }
 
   if (isSuccess) {
@@ -207,8 +204,9 @@ const AdvertisementsList = () => {
 
     content = (
       <View>
+        <Text>Hello</Text>
         {userId?.length 
-          ? <View><TouchableOpacity onPress={() => {}}>Post an Advertisement</TouchableOpacity></View> 
+          ? <View><TouchableOpacity onPress={() => {}}><Text>Post an Advertisement</Text></TouchableOpacity></View> 
           : null
         }
 
@@ -219,7 +217,7 @@ const AdvertisementsList = () => {
               <TouchableOpacity
                 onPress={handleToggleFilterView}
               >
-                Toggle Search View
+                <Text>Toggle Search View</Text>
               </TouchableOpacity>
 
               <View style={{display: "none"}}>
@@ -267,7 +265,6 @@ const AdvertisementsList = () => {
                 <RNPickerSelect 
                   value={country}
                   items={Countries}
-                  
                   onValueChange={handleCountryChanged}
                 />
                 
@@ -279,7 +276,7 @@ const AdvertisementsList = () => {
                   placeholder={{ label: '--', value: '' }}
                   items={bigCountries?.includes(country)
                     ? Regions[country]
-                    : null
+                    : [{ label: '--', value: '' }]
                   }
                   onValueChange={(value) => setRegion(value)}
                 />
@@ -336,7 +333,7 @@ const AdvertisementsList = () => {
                 <TouchableOpacity 
                   onPress={handleSearchClicked}
                 >
-                  Search
+                  <Text>Search</Text>
                 </TouchableOpacity>
 
               </View>
@@ -350,7 +347,7 @@ const AdvertisementsList = () => {
                   setCurrentPage(currentPage - 1)
                 }}
               >
-                <FontAwesomeIcon color="rgb(235, 155, 52)" icon={faArrowLeft} />
+                <Text>ArrowLeft</Text>
               </TouchableOpacity>
 
               <Text>{' '}Page {currentPage} of {maxPage}{' '}</Text>
@@ -362,7 +359,7 @@ const AdvertisementsList = () => {
                   setCurrentPage(currentPage + 1)
                 }}
               >
-                <FontAwesomeIcon color="rgb(235, 155, 52)" icon={faArrowRight} />
+                <Text>ArrowRight</Text>
               </TouchableOpacity>
 
               <View 
@@ -386,7 +383,7 @@ const AdvertisementsList = () => {
                     }
                   }}
                 >
-                  Go to Page
+                  <Text>Go to Page</Text>
                 </TouchableOpacity>
               </View>
 
@@ -402,7 +399,7 @@ const AdvertisementsList = () => {
                   setCurrentPage(currentPage - 1)
                 }}
               >
-                <FontAwesomeIcon color="rgb(235, 155, 52)" icon={faArrowLeft} />
+                <Text>ArrowLeft</Text>
               </TouchableOpacity>
 
               <Text>{' '}Page {currentPage} of {maxPage}{' '}</Text>
@@ -414,7 +411,7 @@ const AdvertisementsList = () => {
                   setCurrentPage(currentPage + 1)
                 }}
               >
-                <FontAwesomeIcon color="rgb(235, 155, 52)" icon={faArrowRight} />
+                <Text>ArrowRight</Text>
               </TouchableOpacity>
 
               <View 
@@ -439,7 +436,7 @@ const AdvertisementsList = () => {
                     }
                   }}
                 >
-                  Go to Page
+                  <Text>Go to Page</Text>
                 </TouchableOpacity>
               </View>
 
