@@ -9,13 +9,44 @@ import { Currencies } from "../../assets/currencies"
 import { useState, useEffect } from "react"
 import { Breeds } from "../../assets/breeds"
 
-import { View, Text, Image, TextInput } from 'react-native'
+import { View, Text, Image, TextInput, StyleSheet } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import styles from "../header/screenheader.style"
 
 import RNPickerSelect from 'react-native-picker-select'
 
 const AdvertisementsList = () => {
+
+  const [filterViewVisible, setFilterViewVisible] = useState(false)
+  const toggleFilterView = () => setFilterViewVisible(!filterViewVisible)
+
+  const styles = StyleSheet.create({
+    mainView: {
+        marginHorizontal: 10,
+    },
+    blackButtonWide: {
+      backgroundColor: '#000000',
+      borderRadius: 5,
+      padding: 10,
+      marginBottom: 10,
+    },
+    buttonText: {
+      color: '#ffffff',
+      fontWeight: 'bold',
+      textAlign: 'center',
+    },
+    filterViewVisible: {
+      flex: 1,
+    },
+    filterViewHidden: {
+      display: 'none',
+    },
+    textInputWide: {
+      borderWidth: 1,
+      borderRadius: 5,
+      padding: 5,
+      marginBottom: 10,
+    },
+  })
 
   const [title, setTitle] = useState('')
   const [type, setType] = useState('')
@@ -83,15 +114,6 @@ const AdvertisementsList = () => {
     }
 
     setType(value)
-  }
-
-  const handleToggleFilterView = () => {
-    const filterDiv = document.getElementById('ad-filter-div')
-    if (filterDiv?.style?.display === 'none') {
-      filterDiv.style.display = 'block'
-    } else {
-      filterDiv.style.display = 'none'
-    }
   }
 
   const handleSearchClicked = () => {
@@ -203,8 +225,7 @@ const AdvertisementsList = () => {
     ))
 
     content = (
-      <View>
-        <Text>Hello</Text>
+      <View style={styles.mainView}>
         {userId?.length 
           ? <View><TouchableOpacity onPress={() => {}}><Text>Post an Advertisement</Text></TouchableOpacity></View> 
           : null
@@ -215,16 +236,18 @@ const AdvertisementsList = () => {
           : <View>
 
               <TouchableOpacity
-                onPress={handleToggleFilterView}
+                style={styles.blackButtonWide}
+                onPress={toggleFilterView}
               >
-                <Text>Toggle Search View</Text>
+                <Text style={styles.buttonText}>Toggle Search View</Text>
               </TouchableOpacity>
 
-              <View style={{display: "none"}}>
+              <View style={filterViewVisible ? styles.filterViewVisible : styles.filterViewHidden}>
 
                 <Text>Title</Text>
 
                 <TextInput 
+                  style={styles.textInputWide}
                   value={title}
                   onChangeText={(text) => setTitle(text)}
                 />
@@ -239,14 +262,18 @@ const AdvertisementsList = () => {
                   style={{
                     inputIOS: {
                       borderWidth: 1,
-                      borderColor: 'gray',
-                      padding: 10,
+                      borderRadius: 5,
+                      borderColor: '#d3d3d3',
+                      padding: 5,
+                      marginBottom: 10,
                     },
                     inputAndroid: {
                       borderWidth: 1,
-                      borderColor: 'gray',
-                      padding: 10,
-                    },
+                      borderRadius: 5,
+                      borderColor: '#d3d3d3',
+                      padding: 5,
+                      marginBottom: 10,
+                    },   
                   }}
                 />
 
@@ -265,6 +292,7 @@ const AdvertisementsList = () => {
                 <RNPickerSelect 
                   value={country}
                   items={Countries}
+                  placeholder={{ label: '--', value: '' }}
                   onValueChange={handleCountryChanged}
                 />
                 
@@ -295,6 +323,7 @@ const AdvertisementsList = () => {
 
                 <TextInput 
                   value={lowestPrice}
+                  style={styles.textInputWide}
                   keyboardType="numeric"
                   onChangeText={(value) => {
                     if (PRICE_REGEX.test(value) || value === '') {
@@ -308,6 +337,7 @@ const AdvertisementsList = () => {
 
                 <TextInput 
                   value={highestPrice}
+                  style={styles.textInputWide}
                   keyboardType="numeric"
                   onChangeText={(value) => {
                     if (PRICE_REGEX.test(value) || value === '') {
@@ -331,9 +361,10 @@ const AdvertisementsList = () => {
                 />
 
                 <TouchableOpacity 
+                  style={styles.blackButtonWide}
                   onPress={handleSearchClicked}
                 >
-                  <Text>Search</Text>
+                  <Text style={styles.buttonText}>Search</Text>
                 </TouchableOpacity>
 
               </View>

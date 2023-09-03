@@ -3,9 +3,31 @@ import { useGetUsersQuery } from "../users/usersApiSlice"
 import { memo } from "react"
 import AdIcon from "../../assets/images/AdIcon.jpg"
 
-import { View, Text, Image } from 'react-native'
+import { View, Text, Image, StyleSheet } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import styles from "../header/screenheader.style"
+
+const styles = StyleSheet.create({
+    adPicture: {
+        width: 150,
+        height: 150,
+        marginRight: 10,
+        borderRadius: 5,
+    },
+    adView: {
+        flexDirection: 'row',
+        wordWrap: 'wrap',
+        borderWidth: 1,
+        borderRadius: 10,
+        borderColor: '#d3d3d3',
+        padding: 10,
+        marginTop: 5,
+        marginBottom: 5,
+    },
+    orangeLink: {
+        color: '#eb9b34',
+        fontWeight: 'bold',
+    }
+})
 
 const Advertisement = ({ advertisementId }) => {
 
@@ -28,14 +50,14 @@ const Advertisement = ({ advertisementId }) => {
     }
 
     return (
-        <View>
+        <View style={styles.adView}>
 
-            <Text>
+            <View>
                 {advertisement?.image?.length 
-                    ? <Image source={{ uri: advertisement?.image }} />
-                    : <Image source={AdIcon} />
+                    ? <Image style={styles.adPicture} source={{ uri: `${advertisement.image}` }} />
+                    : <Image style={styles.adPicture} source={AdIcon} />
                 }
-            </Text>
+            </View>
 
             <View>
 
@@ -44,7 +66,7 @@ const Advertisement = ({ advertisementId }) => {
                     <TouchableOpacity 
                         onPress={() => {}}
                     >
-                        <Text>{advertisement?.title}</Text>
+                        <Text style={styles.orangeLink}>{advertisement?.title}</Text>
                     </TouchableOpacity>
 
                 </Text>
@@ -80,7 +102,7 @@ const Advertisement = ({ advertisementId }) => {
                     <TouchableOpacity 
                         onPress={() => {}}
                     >
-                        <Text>{user?.username}</Text>
+                        <Text style={styles.orangeLink}>{user?.username}</Text>
                     </TouchableOpacity>
 
                 </Text>
