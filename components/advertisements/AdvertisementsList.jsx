@@ -29,6 +29,20 @@ const AdvertisementsList = () => {
       padding: 10,
       marginBottom: 10,
     },
+    blackButton: {
+      padding: 10,
+      borderRadius: 5,
+      backgroundColor: '#000000',
+      width: 50,
+    },
+    blackNewPageButton: {
+      backgroundColor: '#000000',
+      borderRadius: 5,
+      padding: 10,
+    },
+    greyButton: {
+      backgroundColor: 'lightgrey',
+    },
     buttonText: {
       color: '#ffffff',
       fontWeight: 'bold',
@@ -43,8 +57,35 @@ const AdvertisementsList = () => {
     textInputWide: {
       borderWidth: 1,
       borderRadius: 5,
-      padding: 5,
+      paddingHorizontal: 5,
+      paddingVertical: 13,
       marginBottom: 10,
+    },
+    textInput: {
+      borderWidth: 1,
+      borderRadius: 5,
+      paddingHorizontal: 5,
+      width: 60,
+    },
+    selectInputWide: {
+      borderWidth: 1,
+      borderRadius: 5,
+      marginBottom: 10,
+    },
+    paginationRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginBottom: 10,
+    },
+    paginationTextView: {
+      flex: 1,
+      alignItems: 'center',
+    },
+    paginationInputView: {
+      flexDirection: 'row',
+    },
+    inputTitle: {
+      fontWeight: 'bold',
     },
   })
 
@@ -227,7 +268,14 @@ const AdvertisementsList = () => {
     content = (
       <View style={styles.mainView}>
         {userId?.length 
-          ? <View><TouchableOpacity onPress={() => {}}><Text>Post an Advertisement</Text></TouchableOpacity></View> 
+          ? <View>
+            <TouchableOpacity
+              style={styles.blackButtonWide}
+              onPress={() => {}}
+            >
+              <Text style={styles.buttonText}>Post an Advertisement</Text>
+            </TouchableOpacity>
+          </View> 
           : null
         }
 
@@ -244,7 +292,7 @@ const AdvertisementsList = () => {
 
               <View style={filterViewVisible ? styles.filterViewVisible : styles.filterViewHidden}>
 
-                <Text>Title</Text>
+                <Text style={styles.inputTitle}>Title</Text>
 
                 <TextInput 
                   style={styles.textInputWide}
@@ -252,74 +300,68 @@ const AdvertisementsList = () => {
                   onChangeText={(text) => setTitle(text)}
                 />
                 
-                <Text>Type</Text>
+                <Text style={styles.inputTitle}>Type</Text>
 
-                <RNPickerSelect
-                  placeholder={{ label: '--', value: '' }} 
-                  items={AdvertisementTypes}
-                  value={type}
-                  onValueChange={value => handleTypeChanged(value)}
-                  style={{
-                    inputIOS: {
-                      borderWidth: 1,
-                      borderRadius: 5,
-                      borderColor: '#d3d3d3',
-                      padding: 5,
-                      marginBottom: 10,
-                    },
-                    inputAndroid: {
-                      borderWidth: 1,
-                      borderRadius: 5,
-                      borderColor: '#d3d3d3',
-                      padding: 5,
-                      marginBottom: 10,
-                    },   
-                  }}
-                />
+                <View style={styles.selectInputWide}>
+                  <RNPickerSelect
+                    placeholder={{ label: '--', value: '' }} 
+                    items={AdvertisementTypes}
+                    value={type}
+                    onValueChange={value => handleTypeChanged(value)}
+                  />
+                </View>
 
-                <Text>Breed Required</Text>
+                <Text style={styles.inputTitle}>Breed Required</Text>
 
-                <RNPickerSelect 
-                  placeholder={{ label: '--', value: '' }}
-                  items={breedOptions}
-                  disabled={type !== 'Require Female Dog' && type !== 'Require Male Dog'}
-                  value={breed}
-                  onValueChange={(value) => setBreed(value)}
-                />
+                <View style={styles.selectInputWide}>
+                  <RNPickerSelect 
+                    placeholder={{ label: '--', value: '' }}
+                    items={breedOptions}
+                    disabled={type !== 'Require Female Dog' && type !== 'Require Male Dog'}
+                    value={breed}
+                    onValueChange={(value) => setBreed(value)}
+                  />
+                </View>
                 
-                <Text>Country</Text>
+                <Text style={styles.inputTitle}>Country</Text>
 
-                <RNPickerSelect 
-                  value={country}
-                  items={Countries}
-                  placeholder={{ label: '--', value: '' }}
-                  onValueChange={handleCountryChanged}
-                />
+                <View style={styles.selectInputWide}>
+                  <RNPickerSelect 
+                    value={country}
+                    items={Countries}
+                    placeholder={{ label: '--', value: '' }}
+                    onValueChange={handleCountryChanged}
+                  />
+                </View>
                 
-                <Text>Region</Text>
+                <Text style={styles.inputTitle}>Region</Text>
 
-                <RNPickerSelect 
-                  disabled={!bigCountries.includes(country)}
-                  value={region}
-                  placeholder={{ label: '--', value: '' }}
-                  items={bigCountries?.includes(country)
-                    ? Regions[country]
-                    : [{ label: '--', value: '' }]
-                  }
-                  onValueChange={(value) => setRegion(value)}
-                />
+                <View style={styles.selectInputWide}>
+                  <RNPickerSelect 
+                    disabled={!bigCountries.includes(country)}
+                    value={region}
+                    placeholder={{ label: '--', value: '' }}
+                    items={bigCountries?.includes(country)
+                      ? Regions[country]
+                      : [{ label: '--', value: '' }]
+                    }
+                    onValueChange={(value) => setRegion(value)}
+                  />
+                </View>
 
-                <Text>Currency</Text>
+                <Text style={styles.inputTitle}>Currency</Text>
 
-                <RNPickerSelect 
-                  value={currency}
-                  placeholder={{ label: '--', value: '' }}
-                  items={Currencies}
-                  onValueChange={value => setCurrency(value)}
-                  disabled={currencyDisabled}
-                />
+                <View style={styles.selectInputWide}>
+                  <RNPickerSelect 
+                    value={currency}
+                    placeholder={{ label: '--', value: '' }}
+                    items={Currencies}
+                    onValueChange={value => setCurrency(value)}
+                    disabled={currencyDisabled}
+                  />
+                </View>
 
-                <Text>Lowest Price</Text>
+                <Text style={styles.inputTitle}>Lowest Price</Text>
 
                 <TextInput 
                   value={lowestPrice}
@@ -333,7 +375,7 @@ const AdvertisementsList = () => {
                   disabled={!currency?.length}
                 />
 
-                <Text>Highest Price</Text>
+                <Text style={styles.inputTitle}>Highest Price</Text>
 
                 <TextInput 
                   value={highestPrice}
@@ -347,18 +389,20 @@ const AdvertisementsList = () => {
                   disabled={!currency?.length}
                 />
 
-                <Text>Sort by Price</Text>
+                <Text style={styles.inputTitle}>Sort by Price</Text>
 
-                <RNPickerSelect 
-                  value={sort}
-                  placeholder={{ label: '--', value: '' }}
-                  items={
-                    [{ label: 'Ascending', value: 'ascending' },
-                    { label: 'Descending', value: 'descending' }]
-                  }
-                  onValueChange={(value) => setSort(value)}
-                  disabled={!currency?.length}
-                />
+                <View style={styles.selectInputWide}>
+                  <RNPickerSelect 
+                    value={sort}
+                    placeholder={{ label: '--', value: '' }}
+                    items={
+                      [{ label: 'Ascending', value: 'ascending' },
+                      { label: 'Descending', value: 'descending' }]
+                    }
+                    onValueChange={(value) => setSort(value)}
+                    disabled={!currency?.length}
+                  />
+                </View>
 
                 <TouchableOpacity 
                   style={styles.blackButtonWide}
@@ -370,107 +414,116 @@ const AdvertisementsList = () => {
               </View>
 
 
-            <View>
-              <TouchableOpacity 
-                style={currentPage === 1 ? {display: "none"} : null}
-                disabled={currentPage === 1}
-                onPress={() => {
-                  setCurrentPage(currentPage - 1)
-                }}
-              >
-                <Text>ArrowLeft</Text>
-              </TouchableOpacity>
-
-              <Text>{' '}Page {currentPage} of {maxPage}{' '}</Text>
-
-              <TouchableOpacity 
-                style={currentPage === maxPage ? {display: "none"} : null}
-                disabled={currentPage === maxPage}
-                onPress={() => {
-                  setCurrentPage(currentPage + 1)
-                }}
-              >
-                <Text>ArrowRight</Text>
-              </TouchableOpacity>
-
-              <View 
-                style={maxPage === 1 
-                  ? {display: "none"}
-                  : null
-                }
-              >
-
-                <TextInput 
-                  onChangeText={(value) => setNewPage(value)} 
-                  value={newPage} 
-                />
-
-                <TouchableOpacity
-                  style={goToPageButtonDisabled ? {backgroundColor: "grey"} : null}
-                  disabled={goToPageButtonDisabled}
-                  onPress={() => {
-                    if (newPage >= 1 && newPage <= maxPage) {
-                      setCurrentPage(parseInt(newPage))
-                    }
-                  }}
+            <View style={styles.paginationRow}>
+              <View style={{flex: 1}}>
+                <TouchableOpacity 
+                  style={currentPage === 1 ? [styles.blackButton, styles.greyButton] : styles.blackButton}
+                  disabled={currentPage === 1}
+                  onPress={() => setCurrentPage(currentPage - 1)}
                 >
-                  <Text>Go to Page</Text>
+                  <Text style={styles.buttonText}>{'<-'}</Text>
                 </TouchableOpacity>
               </View>
 
+              <View style={styles.paginationTextView}>
+                <Text>Page {currentPage} of {maxPage}</Text>
+              </View>
+
+              <View style={{flex: 1, alignItems: 'flex-end'}}>
+                <TouchableOpacity 
+                  style={currentPage === maxPage ? [styles.blackButton, styles.greyButton] : styles.blackButton}
+                  disabled={currentPage === maxPage}
+                  onPress={() => {
+                    setCurrentPage(currentPage + 1)
+                  }}
+                >
+                  <Text style={styles.buttonText}>{'->'}</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+
+            <View 
+              style={maxPage === 1 
+                ? {display: "none"}
+                : [styles.paginationInputView, {marginBottom: 5}]
+              }
+            >
+
+              <TextInput 
+                style={[styles.textInput, {height: 41, marginRight: 10}]}
+                onChangeText={(value) => setNewPage(value)} 
+                value={newPage} 
+                placeholder="Page #"
+              />
+
+              <TouchableOpacity
+                style={goToPageButtonDisabled ? [styles.blackNewPageButton, styles.greyButton] : styles.blackNewPageButton}
+                disabled={goToPageButtonDisabled}
+                onPress={() => {
+                  if (newPage >= 1 && newPage <= maxPage) {
+                    setCurrentPage(parseInt(newPage))
+                  }
+                }}
+              >
+                <Text style={styles.buttonText}>Go to Page</Text>
+              </TouchableOpacity>
             </View>
 
             {tableContent}
 
-            <View>
-              <TouchableOpacity 
-                style={currentPage === 1 ? {display: "none"} : null}
-                disabled={currentPage === 1}
-                onPress={() => {
-                  setCurrentPage(currentPage - 1)
-                }}
-              >
-                <Text>ArrowLeft</Text>
-              </TouchableOpacity>
-
-              <Text>{' '}Page {currentPage} of {maxPage}{' '}</Text>
-
-              <TouchableOpacity 
-                style={currentPage === maxPage ? {display: "none"} : null}
-                disabled={currentPage === maxPage}
-                onPRess={() => {
-                  setCurrentPage(currentPage + 1)
-                }}
-              >
-                <Text>ArrowRight</Text>
-              </TouchableOpacity>
-
-              <View 
-                className="new-page-input-span"
-                style={maxPage === 1 
-                  ? {display: "none"}
-                  : null
-                }
-              >
-
-                <TextInput 
-                  onChangeText={(value) => setNewPage(value)} 
-                  value={newPage} 
-                />
-
-                <TouchableOpacity
-                  style={goToPageButtonDisabled ? {backgroundColor: "grey", cursor: "default"} : null}
-                  disabled={goToPageButtonDisabled}
-                  onPress={() => {
-                    if (newPage >= 1 && newPage <= maxPage) {
-                      setCurrentPage(parseInt(newPage))
-                    }
-                  }}
+            <View style={[styles.paginationRow, {marginTop: 5}]}>
+              <View style={{flex: 1}}>
+                <TouchableOpacity 
+                  style={currentPage === 1 ? [styles.blackButton, styles.greyButton] : styles.blackButton}
+                  disabled={currentPage === 1}
+                  onPress={() => setCurrentPage(currentPage - 1)}
                 >
-                  <Text>Go to Page</Text>
+                  <Text style={styles.buttonText}>{'<-'}</Text>
                 </TouchableOpacity>
               </View>
 
+              <View style={styles.paginationTextView}>
+                <Text>Page {currentPage} of {maxPage}</Text>
+              </View>
+
+              <View style={{flex: 1, alignItems: 'flex-end'}}>
+                <TouchableOpacity 
+                  style={currentPage === maxPage ? [styles.blackButton, styles.greyButton] : styles.blackButton}
+                  disabled={currentPage === maxPage}
+                  onPress={() => {
+                    setCurrentPage(currentPage + 1)
+                  }}
+                >
+                  <Text style={styles.buttonText}>{'->'}</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+
+            <View 
+              style={maxPage === 1 
+                ? {display: "none"}
+                : [styles.paginationInputView, {marginBottom: 5}]
+              }
+            >
+
+              <TextInput 
+                style={[styles.textInput, {height: 41, marginRight: 10}]}
+                onChangeText={(value) => setNewPage(value)} 
+                value={newPage} 
+                placeholder="Page #"
+              />
+
+              <TouchableOpacity
+                style={goToPageButtonDisabled ? [styles.blackNewPageButton, styles.greyButton] : styles.blackNewPageButton}
+                disabled={goToPageButtonDisabled}
+                onPress={() => {
+                  if (newPage >= 1 && newPage <= maxPage) {
+                    setCurrentPage(parseInt(newPage))
+                  }
+                }}
+              >
+                <Text style={styles.buttonText}>Go to Page</Text>
+              </TouchableOpacity>
             </View>
           </View>
         }
