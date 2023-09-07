@@ -19,77 +19,6 @@ const AdvertisementsList = () => {
   const [filterViewVisible, setFilterViewVisible] = useState(false)
   const toggleFilterView = () => setFilterViewVisible(!filterViewVisible)
 
-  const styles = StyleSheet.create({
-    mainView: {
-        marginHorizontal: 10,
-    },
-    blackButtonWide: {
-      backgroundColor: '#000000',
-      borderRadius: 5,
-      padding: 10,
-      marginBottom: 10,
-    },
-    blackButton: {
-      padding: 10,
-      borderRadius: 5,
-      backgroundColor: '#000000',
-      width: 50,
-    },
-    blackNewPageButton: {
-      backgroundColor: '#000000',
-      borderRadius: 5,
-      padding: 10,
-    },
-    greyButton: {
-      backgroundColor: 'lightgrey',
-    },
-    buttonText: {
-      color: '#ffffff',
-      fontWeight: 'bold',
-      textAlign: 'center',
-    },
-    filterViewVisible: {
-      flex: 1,
-    },
-    filterViewHidden: {
-      display: 'none',
-    },
-    textInputWide: {
-      borderWidth: 1,
-      borderRadius: 5,
-      paddingHorizontal: 5,
-      paddingVertical: 13,
-      marginBottom: 10,
-    },
-    textInput: {
-      borderWidth: 1,
-      borderRadius: 5,
-      paddingLeft: 5,
-      width: 60,
-    },
-    selectInputWide: {
-      borderWidth: 1,
-      borderRadius: 5,
-      marginBottom: 10,
-    },
-    paginationRow: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      marginBottom: 5,
-    },
-    paginationTextView: {
-      flex: 1,
-      alignItems: 'center',
-    },
-    paginationInputView: {
-      flexDirection: 'row',
-      marginTop: 5,
-    },
-    inputTitle: {
-      fontWeight: 'bold',
-    },
-  })
-
   const [title, setTitle] = useState('')
   const [type, setType] = useState('')
   const [country, setCountry] = useState('')
@@ -131,15 +60,6 @@ const AdvertisementsList = () => {
     // New country doesn't have the regions of the old one, so reset the region first
     setRegion('')
     setCountry(value)
-  }
-
-  const handleCurrencyChanged = (value) => {
-    if (value === '') { // Cannot have a price without currency
-      setLowestPrice('')
-      setHighestPrice('')
-      setSort('')
-    }
-    setCurrency(value)
   }
 
   const handleTypeChanged = (value) => {
@@ -479,5 +399,76 @@ const AdvertisementsList = () => {
 
   return content
 }
+
+const styles = StyleSheet.create({
+  mainView: {
+      marginHorizontal: 10,
+  },
+  blackButtonWide: {
+    backgroundColor: '#000000',
+    borderRadius: 5,
+    padding: 10,
+    marginBottom: 10,
+  },
+  blackButton: {
+    padding: 10,
+    borderRadius: 5,
+    backgroundColor: '#000000',
+    width: 50,
+  },
+  blackNewPageButton: {
+    backgroundColor: '#000000',
+    borderRadius: 5,
+    padding: 10,
+  },
+  greyButton: {
+    backgroundColor: 'lightgrey',
+  },
+  buttonText: {
+    color: '#ffffff',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  filterViewVisible: {
+    flex: 1,
+  },
+  filterViewHidden: {
+    display: 'none',
+  },
+  textInputWide: {
+    borderWidth: 1,
+    borderRadius: 5,
+    paddingHorizontal: 5,
+    paddingVertical: 13,
+    marginBottom: 10,
+  },
+  textInput: {
+    borderWidth: 1,
+    borderRadius: 5,
+    paddingLeft: 5,
+    width: 60,
+  },
+  selectInputWide: {
+    borderWidth: 1,
+    borderRadius: 5,
+    marginBottom: 10,
+  },
+  paginationRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 5,
+  },
+  paginationTextView: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  paginationInputView: {
+    flexDirection: 'row',
+    marginTop: 5,
+  },
+  inputTitle: {
+    fontWeight: 'bold',
+  },
+})
 
 export default AdvertisementsList

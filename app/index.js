@@ -4,11 +4,12 @@ import { COLORS, icons, images, SIZES } from "../constants"
 import { ScreenHeaderBtn } from "../components"
 import { useState } from "react"
 
-import { Provider } from "react-redux"
-import { store } from "../store"
-
 import AdvertisementsList from "../components/advertisements/AdvertisementsList"
 import Login from "../components/auth/Login"
+import Logout from "../components/auth/Logout"
+
+import { Provider } from "react-redux"
+import { store } from "../store"
 
 const Index = () => {
 
@@ -18,6 +19,11 @@ const Index = () => {
     const changeComponent = (newComponent) => {
         setComponent(newComponent)
         setMenuOpened(false)
+    }
+
+    const handleLogout = () => {
+        changeComponent(<Logout />)
+        setTimeout(() => changeComponent(<AdvertisementsList />), 50)
     }
 
     const content = (
@@ -64,7 +70,7 @@ const Index = () => {
                 <Text style={styles.menuButtonText}>FAQ</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.menuButton}>
+            <TouchableOpacity onPress={handleLogout} style={styles.menuButton}>
                 <Text style={styles.menuButtonText}>Logout</Text>
             </TouchableOpacity>
 

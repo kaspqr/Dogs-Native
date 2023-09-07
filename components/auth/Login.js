@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react"
-import { useDispatch, Provider } from "react-redux"
-import { store } from "../../store"
+import { useDispatch } from "react-redux"
 import { setCredentials } from "./authSlice"
 import { useLoginMutation } from "./authApiSlice"
 import usePersist from "../../hooks/usePersist"
 import useAuth from "../../hooks/useAuth"
-import { TouchableOpacity, View, Text, TextInput, Switch } from "react-native"
+import { TouchableOpacity, View, Text, TextInput, Switch, StyleSheet } from "react-native"
+import AdvertisementsList from "../advertisements/AdvertisementsList"
 
 const Login = () => {
 
@@ -19,7 +19,7 @@ const Login = () => {
   const [persist, setPersist] = usePersist()
 
   // POST method for auth (login)
-  const [login, { isLoading }] = useLoginMutation()
+  const [login, { isLoading, isSuccess }] = useLoginMutation()
 
   useEffect(() => {
     // Clear the error message if the username or password has changed
@@ -62,53 +62,123 @@ const Login = () => {
 
   if (isLoading) return <Text>Loading...</Text>
 
+  if (isSuccess) return <AdvertisementsList />
+
   if (auth?.username?.length) {
     return <Text>You are already logged in.</Text>
   }
 
   return (
-    <Provider store={store}>
-    <View>
-      <View>
-        <Text>User Login</Text>
-      </View>
+    <View style={styles.mainView}>
 
       <View>
         <Text>{errMsg}</Text>
 
-        <Text>Username or Email</Text>
+        <Text style={styles.inputTitle}>Username or Email</Text>
 
         <TextInput 
+          style={styles.textInputWide}
           value={username}
           onChangeText={handleUserInput}
           autoComplete="off"
         />
 
-        <Text>Password</Text>
+        <Text style={styles.inputTitle}>Password</Text>
 
         <TextInput 
+          style={styles.textInputWide}
           onChangeText={handlePwdInput}
           value={password}
         />
 
-        <View>
-          <Text>Stay Logged In</Text>
+        <View style={styles.paginationRow}>
+          <Text style={styles.inputTitle}>Stay Logged In</Text>
           <Switch value={persist} onValueChange={handleToggle} />
         </View>
 
         <TouchableOpacity 
           onPress={handleSubmit}
           disabled={!username?.length || !password?.length}
-          style={!username?.length || !password?.length ? {backgroundColor: "grey"} : null}
+          style={!username?.length || !password?.length ? [styles.blackButtonWide, styles.greyButton] : styles.blackButtonWide}
         >
-          <Text>Sign In</Text>
+          <Text style={styles.buttonText}>Sign In</Text>
         </TouchableOpacity>
 
-        <Text>Forgot Password? Click here</Text>
+        <Text style={{textDecorationLine: 'underline', marginTop: 10}}>Forgot Password? Click here</Text>
       </View>
     </View>
-    </Provider>
   )
 }
+
+const styles = StyleSheet.create({
+  mainView: {
+      marginHorizontal: 10,
+  },
+  blackButtonWide: {
+    backgroundColor: '#000000',
+    borderRadius: 5,
+    padding: 10,
+    marginBottom: 10,
+  },
+  blackButton: {
+    padding: 10,
+    borderRadius: 5,
+    backgroundColor: '#000000',
+    width: 50,
+  },
+  blackNewPageButton: {
+    backgroundColor: '#000000',
+    borderRadius: 5,
+    padding: 10,
+  },
+  greyButton: {
+    backgroundColor: 'lightgrey',
+  },
+  buttonText: {
+    color: '#ffffff',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  filterViewVisible: {
+    flex: 1,
+  },
+  filterViewHidden: {
+    display: 'none',
+  },
+  textInputWide: {
+    borderWidth: 1,
+    borderRadius: 5,
+    paddingHorizontal: 5,
+    paddingVertical: 13,
+    marginBottom: 10,
+  },
+  textInput: {
+    borderWidth: 1,
+    borderRadius: 5,
+    paddingLeft: 5,
+    width: 60,
+  },
+  selectInputWide: {
+    borderWidth: 1,
+    borderRadius: 5,
+    marginBottom: 10,
+  },
+  paginationRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 5,
+  },
+  paginationTextView: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  paginationInputView: {
+    flexDirection: 'row',
+    marginTop: 5,
+  },
+  inputTitle: {
+    fontWeight: 'bold',
+  },
+})
 
 export default Login
