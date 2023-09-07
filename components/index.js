@@ -1,4 +1,4 @@
-import ScreenHeaderBtn from "./header/ScreenHeaderBtn";
+import ScreenHeaderBtn from "./header/ScreenHeaderBtn"
 
 export {
   ScreenHeaderBtn,

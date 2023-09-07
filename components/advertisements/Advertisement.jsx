@@ -82,7 +82,7 @@ const Advertisement = ({ advertisementId }) => {
 
                 <Text>
                     {advertisement?.type !== 'Found' && advertisement?.type !== 'Lost' 
-                        ? <Text>{advertisement?.currency}{advertisement?.price}</Text>
+                        ? <Text style={{ fontWeight: 'bold' }}>{advertisement?.currency}{advertisement?.price}</Text>
                         : null
                     }
                 </Text>

@@ -6,10 +6,10 @@ import { Countries } from "../../assets/countries"
 import { bigCountries } from "../../assets/bigCountries"
 import { Regions } from "../../assets/regions"
 import { Currencies } from "../../assets/currencies"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { Breeds } from "../../assets/breeds"
 
-import { View, Text, Image, TextInput, StyleSheet } from 'react-native'
+import { View, Text, TextInput, StyleSheet } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 
 import RNPickerSelect from 'react-native-picker-select'
@@ -64,7 +64,7 @@ const AdvertisementsList = () => {
     textInput: {
       borderWidth: 1,
       borderRadius: 5,
-      paddingHorizontal: 5,
+      paddingLeft: 5,
       width: 60,
     },
     selectInputWide: {
@@ -75,7 +75,7 @@ const AdvertisementsList = () => {
     paginationRow: {
       flexDirection: 'row',
       alignItems: 'center',
-      marginBottom: 10,
+      marginBottom: 5,
     },
     paginationTextView: {
       flex: 1,
@@ -83,6 +83,7 @@ const AdvertisementsList = () => {
     },
     paginationInputView: {
       flexDirection: 'row',
+      marginTop: 5,
     },
     inputTitle: {
       fontWeight: 'bold',
@@ -246,7 +247,7 @@ const AdvertisementsList = () => {
       return ad._id
     })
 
-    const itemsPerPage = 20
+    const itemsPerPage = 1
 
     const maxPage = Math.ceil(filteredIds?.length ? filteredIds?.length / itemsPerPage : reversedNewIds?.length / itemsPerPage)
 
@@ -442,62 +443,7 @@ const AdvertisementsList = () => {
               </View>
             </View>
 
-            <View 
-              style={maxPage === 1 
-                ? {display: "none"}
-                : [styles.paginationInputView, {marginBottom: 5}]
-              }
-            >
-
-              <TextInput 
-                style={[styles.textInput, {height: 41, marginRight: 10}]}
-                onChangeText={(value) => setNewPage(value)} 
-                value={newPage} 
-                placeholder="Page #"
-              />
-
-              <TouchableOpacity
-                style={goToPageButtonDisabled ? [styles.blackNewPageButton, styles.greyButton] : styles.blackNewPageButton}
-                disabled={goToPageButtonDisabled}
-                onPress={() => {
-                  if (newPage >= 1 && newPage <= maxPage) {
-                    setCurrentPage(parseInt(newPage))
-                  }
-                }}
-              >
-                <Text style={styles.buttonText}>Go to Page</Text>
-              </TouchableOpacity>
-            </View>
-
             {tableContent}
-
-            <View style={[styles.paginationRow, {marginTop: 5}]}>
-              <View style={{flex: 1}}>
-                <TouchableOpacity 
-                  style={currentPage === 1 ? [styles.blackButton, styles.greyButton] : styles.blackButton}
-                  disabled={currentPage === 1}
-                  onPress={() => setCurrentPage(currentPage - 1)}
-                >
-                  <Text style={styles.buttonText}>{'<-'}</Text>
-                </TouchableOpacity>
-              </View>
-
-              <View style={styles.paginationTextView}>
-                <Text>Page {currentPage} of {maxPage}</Text>
-              </View>
-
-              <View style={{flex: 1, alignItems: 'flex-end'}}>
-                <TouchableOpacity 
-                  style={currentPage === maxPage ? [styles.blackButton, styles.greyButton] : styles.blackButton}
-                  disabled={currentPage === maxPage}
-                  onPress={() => {
-                    setCurrentPage(currentPage + 1)
-                  }}
-                >
-                  <Text style={styles.buttonText}>{'->'}</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
 
             <View 
               style={maxPage === 1 
