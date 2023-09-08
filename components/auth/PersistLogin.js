@@ -1,9 +1,10 @@
-import { Outlet } from "react-router-dom"
 import { useEffect, useRef, useState } from "react"
 import { useRefreshMutation } from "./authApiSlice"
 import usePersist from "../../hooks/usePersist"
 import { useSelector } from "react-redux"
 import { selectCurrentToken } from "./authSlice"
+import Index from "../../app/index"
+import { Text } from "react-native"
 
 const PersistLogin = () => {
 
@@ -45,26 +46,26 @@ const PersistLogin = () => {
     
     if (!persist) { // persist: no
         console.log('no persist')
-        return <Outlet />
+        return <Index />
     } else if (isLoading) { // persist: yes, token: no
         console.log('loading')
-        return <p>Loading...</p>
+        return <Text>Loading...</Text>
     } else if (isError) { // persist: yes, token: no
         console.log('You are not logged in')
         console.log(error?.data?.message)
-        return <Outlet />
+        return <Index />
     } else if (isSuccess && trueSuccess) { // persist: yes, token: yes
         console.log('success')
-        return <Outlet />
+        return <Index />
     } else if (token && isUninitialized) { // persist: yes, token: yes
         console.log('token and uninit')
         console.log(isUninitialized)
-        return <Outlet />
+        return <Index />
     }
 
     console.log('You are logged out.')
 
-    return <Outlet />
+    return <Index />
 }
 
 export default PersistLogin

@@ -1,14 +1,22 @@
 import React from 'react'
-import Layout from './app/_layout'
 import Index from './app/index'
 
 import { Provider } from 'react-redux'
 import { store } from './store'
+import PersistLogin from './components/auth/PersistLogin'
+import Prefetch from './components/auth/Prefetch'
+import Layout from './app/_layout'
 
 const App = () => {
     return (
         <Provider store={store}>
-            <Index />
+            <PersistLogin>
+                <Prefetch>
+                    <Layout>
+                        <Index />
+                    </Layout>
+                </Prefetch>
+            </PersistLogin>
         </Provider>
     )
 }

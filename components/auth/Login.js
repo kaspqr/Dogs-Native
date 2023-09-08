@@ -72,7 +72,7 @@ const Login = () => {
     <View style={styles.mainView}>
 
       <View>
-        <Text>{errMsg}</Text>
+        <Text style={styles.errMsg}>{errMsg}</Text>
 
         <Text style={styles.inputTitle}>Username or Email</Text>
 
@@ -89,6 +89,7 @@ const Login = () => {
           style={styles.textInputWide}
           onChangeText={handlePwdInput}
           value={password}
+          secureTextEntry={true}
         />
 
         <View style={styles.paginationRow}>
@@ -178,6 +179,9 @@ const styles = StyleSheet.create({
   },
   inputTitle: {
     fontWeight: 'bold',
+  },
+  errMsg: {
+    color: 'red',
   },
 })
 
