@@ -5,7 +5,8 @@ import { Countries } from "../assets/countries"
 import { bigCountries } from "../assets/bigCountries"
 import { Regions } from "../assets/regions"
 
-import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, ScrollView } from 'react-native'
+import { COLORS, SIZES } from "../constants"
 
 import RNPickerSelect from 'react-native-picker-select'
 
@@ -100,116 +101,125 @@ const UsersList = ({ navigation }) => {
     if (!reversedNewIds?.length) return <Text>There are currently no active users</Text>
 
     return (
-      <View style={styles.mainView}>
-        <TouchableOpacity
-          style={styles.blackButtonWide}
-          onPress={toggleFilterView}
+      <ScrollView style={{ backgroundColor: COLORS.lightWhite }} showsVerticalScrollIndicator={false}>
+        <View
+            style={{
+                flex: 1,
+                padding: SIZES.xSmall
+            }}
         >
-          <Text style={styles.buttonText}>Toggle Search View</Text>
-        </TouchableOpacity>
+        </View>
+        <View style={styles.mainView}>
+          <TouchableOpacity
+            style={styles.blackButtonWide}
+            onPress={toggleFilterView}
+          >
+            <Text style={styles.buttonText}>Toggle Search View</Text>
+          </TouchableOpacity>
 
-        <View style={filterViewVisible ? styles.filterViewVisible : styles.filterViewHidden}>
+          <View style={filterViewVisible ? styles.filterViewVisible : styles.filterViewHidden}>
 
-            <Text style={styles.inputTitle}>Username</Text>
+              <Text style={styles.inputTitle}>Username</Text>
+
+              <TextInput 
+                style={styles.textInputWide}
+                value={username}
+                onChangeText={(value) => setUsername(value)}
+              />
+
+              <Text style={styles.inputTitle}>Country</Text>
+
+              <View style={styles.selectInputWide}>
+                <RNPickerSelect 
+                  value={country}
+                  items={Countries}
+                  placeholder={{ label: '--', value: '' }} 
+                  onValueChange={(value) => {
+                    setRegion('')
+                    setCountry(value)
+                  }}
+                />
+              </View>
+              
+              <Text style={styles.inputTitle}>Region</Text>
+
+              <View style={styles.selectInputWide}>
+                <RNPickerSelect 
+                  disabled={!bigCountries?.includes(country)}
+                  placeholder={{ label: '--', value: '' }} 
+                  items={bigCountries?.includes(country) ? Regions[country] : []}
+                  value={region}
+                  onValueChange={(value) => setRegion(value)}
+                />
+              </View>
+
+            <TouchableOpacity 
+              onPress={handleSearchClicked}
+              style={styles.blackButtonWide}
+            >
+              <Text style={styles.buttonText}>Search</Text>
+            </TouchableOpacity>
+
+          </View>
+
+          <View style={styles.paginationRow}>
+            <View style={{flex: 1}}>
+              <TouchableOpacity 
+                style={currentPage === 1 ? [styles.blackButton, styles.greyButton] : styles.blackButton}
+                disabled={currentPage === 1}
+                onPress={() => setCurrentPage(currentPage - 1)}
+              >
+                <Text style={styles.buttonText}>{'<-'}</Text>
+              </TouchableOpacity>
+            </View>
+
+            <View style={styles.paginationTextView}>
+              <Text>Page {currentPage} of {maxPage}</Text>
+            </View>
+
+            <View style={{flex: 1, alignItems: 'flex-end'}}>
+              <TouchableOpacity 
+                style={currentPage === maxPage ? [styles.blackButton, styles.greyButton] : styles.blackButton}
+                disabled={currentPage === maxPage}
+                onPress={() => {
+                  setCurrentPage(currentPage + 1)
+                }}
+              >
+                <Text style={styles.buttonText}>{'->'}</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+
+          {tableContent}
+
+          <View 
+            style={maxPage === 1 
+              ? {display: "none"}
+              : [styles.paginationInputView, {marginBottom: 5}]
+            }
+          >
 
             <TextInput 
-              style={styles.textInputWide}
-              value={username}
-              onChangeText={(value) => setUsername(value)}
+              style={[styles.textInput, {height: 41, marginRight: 10}]}
+              onChangeText={(value) => setNewPage(value)} 
+              value={newPage} 
+              placeholder="Page #"
             />
 
-            <Text style={styles.inputTitle}>Country</Text>
-
-            <View style={styles.selectInputWide}>
-              <RNPickerSelect 
-                value={country}
-                items={Countries}
-                placeholder={{ label: '--', value: '' }} 
-                onValueChange={(value) => {
-                  setRegion('')
-                  setCountry(value)
-                }}
-              />
-            </View>
-            
-            <Text style={styles.inputTitle}>Region</Text>
-
-            <View style={styles.selectInputWide}>
-              <RNPickerSelect 
-                disabled={!bigCountries?.includes(country)}
-                placeholder={{ label: '--', value: '' }} 
-                items={bigCountries?.includes(country) ? Regions[country] : []}
-                value={region}
-                onValueChange={(value) => setRegion(value)}
-              />
-            </View>
-
-          <TouchableOpacity 
-            onPress={handleSearchClicked}
-            style={styles.blackButtonWide}
-          >
-            <Text style={styles.buttonText}>Search</Text>
-          </TouchableOpacity>
-
-        </View>
-
-        <View style={styles.paginationRow}>
-          <View style={{flex: 1}}>
-            <TouchableOpacity 
-              style={currentPage === 1 ? [styles.blackButton, styles.greyButton] : styles.blackButton}
-              disabled={currentPage === 1}
-              onPress={() => setCurrentPage(currentPage - 1)}
-            >
-              <Text style={styles.buttonText}>{'<-'}</Text>
-            </TouchableOpacity>
-          </View>
-
-          <View style={styles.paginationTextView}>
-            <Text>Page {currentPage} of {maxPage}</Text>
-          </View>
-
-          <View style={{flex: 1, alignItems: 'flex-end'}}>
-            <TouchableOpacity 
-              style={currentPage === maxPage ? [styles.blackButton, styles.greyButton] : styles.blackButton}
-              disabled={currentPage === maxPage}
+            <TouchableOpacity
+              style={goToPageButtonDisabled ? [styles.blackNewPageButton, styles.greyButton] : styles.blackNewPageButton}
+              disabled={goToPageButtonDisabled}
               onPress={() => {
-                setCurrentPage(currentPage + 1)
+                if (newPage >= 1 && newPage <= maxPage) {
+                  setCurrentPage(parseInt(newPage))
+                }
               }}
             >
-              <Text style={styles.buttonText}>{'->'}</Text>
+              <Text style={styles.buttonText}>Go to Page</Text>
             </TouchableOpacity>
           </View>
         </View>
-
-        {tableContent}
-
-        <View 
-          style={maxPage === 1 
-            ? {display: "none"}
-            : [styles.paginationInputView, {marginBottom: 5}]
-          }
-        >
-
-          <TextInput 
-            style={[styles.textInput, {height: 41, marginRight: 10}]}
-            onChangeText={(value) => setNewPage(value)} 
-            value={newPage} 
-            placeholder="Page #"
-          />
-
-          <TouchableOpacity
-            style={goToPageButtonDisabled ? [styles.blackNewPageButton, styles.greyButton] : styles.blackNewPageButton}
-            disabled={goToPageButtonDisabled}
-            onPress={() => {
-              if (newPage >= 1 && newPage <= maxPage) {
-                setCurrentPage(parseInt(newPage))
-              }
-            }}
-          >
-            <Text style={styles.buttonText}>Go to Page</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
+      </ScrollView>
     )
   }
 }

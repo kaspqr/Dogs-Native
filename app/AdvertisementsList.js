@@ -16,7 +16,7 @@ import { SIZES, COLORS } from "../constants"
 
 import RNPickerSelect from 'react-native-picker-select'
 
-const AdvertisementsList = ({ navigator }) => {
+const AdvertisementsList = ({ navigation }) => {
 
   const [filterViewVisible, setFilterViewVisible] = useState(false)
   const toggleFilterView = () => setFilterViewVisible(!filterViewVisible)
@@ -185,7 +185,7 @@ const AdvertisementsList = ({ navigator }) => {
 
     // Advertisement component for each advertisement
     const tableContent = advertisementsToDisplay.map(advertisementId => (
-      <Advertisement key={advertisementId} advertisementId={advertisementId} />
+      <Advertisement navigation={navigation} key={advertisementId} advertisementId={advertisementId} />
     ))
 
     content = (

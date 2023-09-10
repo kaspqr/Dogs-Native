@@ -2,7 +2,7 @@ import { useGetAdvertisementsQuery } from "./advertisementsApiSlice"
 import { memo } from "react"
 import AdIcon from "../../assets/images/AdIcon.jpg"
 
-import { View, Image, Text } from "react-native"
+import { View, Image, Text, StyleSheet, TouchableOpacity } from "react-native"
 
 const UserAdvertisement = ({ advertisementId }) => {
 
@@ -18,25 +18,29 @@ const UserAdvertisement = ({ advertisementId }) => {
     }
 
     return (
-        <View>
+        <View style={styles.adView}>
             <View>
                 {advertisement?.image?.length 
-                    ? <Image style={{width: 150, height: 150, borderRadius: 75}} source={{ uri: `${advertisement?.image}`}} />
-                    : <Image style={{width: 150, height: 150, borderRadius: 75}} source={AdIcon} />
+                    ? <Image style={styles.adPicture} source={{ uri: `${advertisement?.image}`}} />
+                    : <Image style={styles.adPicture} source={AdIcon} />
                 }
             </View>
             
             <View>
-                <Text>{advertisement?.title}</Text>
+                <TouchableOpacity>
+                    <Text style={styles.orangeLink}>{advertisement?.title}</Text>
+                </TouchableOpacity>
 
                 <Text>{advertisement?.type}</Text>
 
-                <Text>{advertisement?.type === 'Require Female Dog' || advertisement?.type === 'Require Male Dog' 
-                    ? advertisement?.breed : null}
-                </Text>
+                {advertisement?.type === 'Require Female Dog' || advertisement?.type === 'Require Male Dog' 
+                    ? <Text>{advertisement?.breed}</Text> 
+                    : null
+                }
+                
 
                 {advertisement?.type !== 'Found' && advertisement?.type !== 'Lost' 
-                    ? <Text>{advertisement?.currency}{advertisement?.price}</Text> 
+                    ? <Text style={{ fontWeight: 'bold' }}>{advertisement?.currency}{advertisement?.price}</Text> 
                     : null
                 }
 
@@ -48,6 +52,29 @@ const UserAdvertisement = ({ advertisementId }) => {
         </View>
     )
 }
+
+const styles = StyleSheet.create({
+    adPicture: {
+        width: 150,
+        height: 150,
+        marginRight: 10,
+        borderRadius: 5,
+    },
+    adView: {
+        flexDirection: 'row',
+        wordWrap: 'wrap',
+        borderWidth: 1,
+        borderRadius: 10,
+        borderColor: '#d3d3d3',
+        padding: 10,
+        marginTop: 5,
+        marginBottom: 5,
+    },
+    orangeLink: {
+        color: '#eb9b34',
+        fontWeight: 'bold',
+    }
+})
 
 const memoizedUserAdvertisement = memo(UserAdvertisement)
 

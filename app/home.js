@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { COLORS, images, icons } from "../constants"
 import ScreenHeaderBtn from "../components/header/ScreenHeaderBtn"
 import Menu from "./Menu"
+import UserPage from "./UserPage"
 
 const Stack = createNativeStackNavigator()
 
@@ -18,6 +19,7 @@ const Home = ({ navigation }) => {
                     <ScreenHeaderBtn 
                         iconUrl={images.home} 
                         dimension="100%" 
+                        handlePress={() => navigation.navigate('AdvertisementsList')}
                     />
                 ),
                 headerRight: () => (
@@ -37,6 +39,10 @@ const Home = ({ navigation }) => {
             <Stack.Screen 
                 name='Menu' 
                 component={Menu} 
+            />
+            <Stack.Screen 
+                name='UserPage' 
+                component={UserPage} 
             />
         </Stack.Navigator>
     )

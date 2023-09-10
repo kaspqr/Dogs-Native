@@ -2,7 +2,7 @@ import { useGetDogsQuery } from "./dogsApiSlice"
 import { memo } from "react"
 import DogIcon from "../../assets/images/DogIcon.jpg"
 
-import { View, Image, Text, StyleSheet } from "react-native"
+import { View, Image, Text, StyleSheet, TouchableOpacity } from "react-native"
 
 const UserDog = ({ dogId }) => {
 
@@ -16,28 +16,50 @@ const UserDog = ({ dogId }) => {
     if (!dog) return null
 
     return (
-        <View>
+        <View style={styles.dogView}>
+
             <View>
                 {dog?.image?.length 
-                    ? <Image style={{width: 150, height: 150, borderRadius: 75}} source={{ uri: `${dog?.image}`}} />
-                    : <Image style={{width: 150, height: 150, borderRadius: 75}} source={DogIcon} />
+                    ? <Image style={styles.dogPicture} source={{ uri: `${dog?.image}`}} />
+                    : <Image style={styles.dogPicture} source={DogIcon} />
                 }
             </View>
-            <View className="dog-div-info">
-                <Text style={styles.orangeLink}>{dog.name}</Text>
 
+            <View>
+                <TouchableOpacity>
+                    <Text style={styles.orangeLink}>{dog.name}</Text>
+                </TouchableOpacity>
+                
                 <Text>{dog.breed}</Text>
                 <Text>{dog.female === true ? 'Good Girl' : 'Good Boy'}</Text>
                 <Text>Born {dog.birth.split(' ').slice(1, 4).join(' ')}</Text>
             </View>
+
         </View>
     )
 }
 
 const styles = StyleSheet.create({
-    orangeLink: {
-        color: 'orange',
+    dogPicture: {
+        width: 150,
+        height: 150,
+        marginRight: 10,
+        borderRadius: 75,
     },
+    dogView: {
+        flexDirection: 'row',
+        wordWrap: 'wrap',
+        borderWidth: 1,
+        borderRadius: 10,
+        borderColor: '#d3d3d3',
+        padding: 10,
+        marginTop: 5,
+        marginBottom: 5,
+    },
+    orangeLink: {
+        color: '#eb9b34',
+        fontWeight: 'bold',
+    }
 })
 
 const memoizedUserDog = memo(UserDog)

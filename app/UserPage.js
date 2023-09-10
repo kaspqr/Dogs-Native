@@ -11,10 +11,9 @@ import UserDog from "../components/dogs/UserDog"
 import UserAdvertisement from "../components/advertisements/UserAdvertisement"
 import EditUserForm from "../components/users/EditUserForm"
 // import ConversationPage from "../conversations/ConversationPage"
-import { TouchableOpacity, View, Text, ScrollView, TextInput, Image } from "react-native"
+import { TouchableOpacity, View, Text, ScrollView, TextInput, Image, StyleSheet } from "react-native"
 import { COLORS, SIZES } from "../constants"
 import RNPickerSelect from 'react-native-picker-select'
-import styles from "../components/header/screenheader.style"
 
 const UserPage = ({ route, navigation }) => {
 
@@ -358,7 +357,7 @@ const UserPage = ({ route, navigation }) => {
 
             proposeDogContent = proposeDogs?.length
                 ? <View>
-                        <Text>Transfer Dog to {user?.username}</Text>
+                        <Text style={styles.bold}>Transfer Dog to {user?.username}</Text>
 
                         <View style={styles.selectInputWide}>
                             <RNPickerSelect 
@@ -429,26 +428,34 @@ const UserPage = ({ route, navigation }) => {
         ))
 
         finalAdvertisementsContent = !filteredAdvertisementIds?.length ? null : <View>
-            <Text>{filteredAdvertisementIds?.length} Active Advertisement{filteredAdvertisementIds?.length === 1 ? null : 's'}</Text>
+            <Text style={[styles.bold, { marginBottom: 10 }]}>{filteredAdvertisementIds?.length} Active Advertisement{filteredAdvertisementIds?.length === 1 ? null : 's'}</Text>
 
             <View>
-                <TouchableOpacity 
-                    style={currentAdvertisementPage === 1 ? [styles.blackButton, styles.greyButton] : styles.blackButton}
-                    disabled={currentAdvertisementPage === 1}
-                    onPress={() => setCurrentAdvertisementPage(currentAdvertisementPage - 1)}
-                >
-                    <Text style={styles.buttonText}>{'<-'}</Text>
-                </TouchableOpacity>
+                <View style={styles.paginationRow}>
+                    <View style={{flex: 1}}>
+                        <TouchableOpacity 
+                            style={currentAdvertisementPage === 1 ? [styles.blackButton, styles.greyButton] : styles.blackButton}
+                            disabled={currentAdvertisementPage === 1}
+                            onPress={() => setCurrentAdvertisementPage(currentAdvertisementPage - 1)}
+                        >
+                            <Text style={styles.buttonText}>{'<-'}</Text>
+                        </TouchableOpacity>
+                    </View>
 
-                <Text>Page ${currentAdvertisementPage} of ${maxAdvertisementPage}</Text>
+                    <View style={styles.paginationTextView}>
+                        <Text>Page {currentAdvertisementPage} of {maxAdvertisementPage}</Text>
+                    </View>
 
-                <TouchableOpacity 
-                    style={currentAdvertisementPage === maxAdvertisementPage ? [styles.blackButton, styles.greyButton] : styles.blackButton}
-                    disabled={currentAdvertisementPage === maxAdvertisementPage}
-                    onPress={() => setCurrentAdvertisementPage(currentAdvertisementPage + 1)}
-                >
-                    <Text style={styles.buttonText}>{'->'}</Text>
-                </TouchableOpacity>
+                    <View style={{flex: 1, alignItems: 'flex-end'}}>
+                        <TouchableOpacity 
+                            style={currentAdvertisementPage === maxAdvertisementPage ? [styles.blackButton, styles.greyButton] : styles.blackButton}
+                            disabled={currentAdvertisementPage === maxAdvertisementPage}
+                            onPress={() => setCurrentAdvertisementPage(currentAdvertisementPage + 1)}
+                        >
+                            <Text style={styles.buttonText}>{'->'}</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
 
             </View>
 
@@ -456,24 +463,32 @@ const UserPage = ({ route, navigation }) => {
 
             <View>
 
-                <TextInput 
-                    style={styles.textInput}
-                    onChangeText={(value) => setNewAdvertisementPage(value)} 
-                    value={newAdvertisementPage} 
-                    placeholder="Page #"
-                />
-
-                <TouchableOpacity
-                    style={goToAdvertisementPageButtonDisabled ? [styles.blackButton, styles.greyButton] : styles.blackButton}
-                    disabled={goToAdvertisementPageButtonDisabled}
-                    onPress={() => {
-                        if (newAdvertisementPage >= 1 && newAdvertisementPage <= maxAdvertisementPage) {
-                            setCurrentAdvertisementPage(parseInt(newAdvertisementPage))
-                        }
-                    }}
+                <View 
+                    style={maxAdvertisementPage === 1 
+                        ? {display: "none"}
+                        : [styles.paginationInputView]
+                    }
                 >
-                    <Text>Go to Page</Text>
-                </TouchableOpacity>
+
+                    <TextInput 
+                        style={[styles.textInput, {height: 41, marginRight: 10}]}
+                        onChangeText={(value) => setNewAdvertisementPage(value)} 
+                        value={newAdvertisementPage} 
+                        placeholder="Page #"
+                    />
+
+                    <TouchableOpacity
+                        style={goToAdvertisementPageButtonDisabled ? [styles.blackNewPageButton, styles.greyButton] : styles.blackNewPageButton}
+                        disabled={goToAdvertisementPageButtonDisabled}
+                        onPress={() => {
+                            if (newAdvertisementPage >= 1 && newAdvertisementPage <= maxAdvertisementPage) {
+                                setCurrentAdvertisementPage(parseInt(newAdvertisementPage))
+                            }
+                        }}
+                    >
+                        <Text style={styles.buttonText}>Go to Page</Text>
+                    </TouchableOpacity>
+                </View>
 
             </View>
 
@@ -501,46 +516,65 @@ const UserPage = ({ route, navigation }) => {
             <UserDog key={dogId} dogId={dogId} />
         ))
 
-        dogPaginationContent = !filteredIds?.length ? null : <View>
-            <Text>{filteredIds?.length} Dog{filteredIds?.length === 1 ? null : 's'} Administered</Text>
+        dogPaginationContent = !filteredIds?.length ? null : <View style={{ marginTop: 20 }}>
+            <Text style={[styles.bold, { marginBottom: 10 }]}>
+                {filteredIds?.length} Dog{filteredIds?.length === 1 ? null : 's'} Administered
+            </Text>
 
-            <TouchableOpacity 
-                style={currentDogPage === 1 ? [styles.blackButton, styles.greyButton] : styles.blackButton}
-                disabled={currentDogPage === 1}
-                onPress={() => setCurrentDogPage(currentDogPage - 1)}
-            >
-                <Text style={styles.buttonText}>{'<-'}</Text>
-            </TouchableOpacity>
+            <View style={styles.paginationRow}>
+                    <View style={{flex: 1}}>
+                        <TouchableOpacity 
+                            style={currentDogPage === 1 ? [styles.blackButton, styles.greyButton] : styles.blackButton}
+                            disabled={currentDogPage === 1}
+                            onPress={() => setCurrentDogPage(currentDogPage - 1)}
+                        >
+                            <Text style={styles.buttonText}>{'<-'}</Text>
+                        </TouchableOpacity>
+                    </View>
 
-            <Text>Page ${currentDogPage} of ${maxDogPage}</Text>
+                    <View style={styles.paginationTextView}>
+                        <Text>Page {currentDogPage} of {maxDogPage}</Text>
+                    </View>
 
-            <TouchableOpacity 
-                style={currentDogPage === maxDogPage ? [styles.blackButton, styles.greyButton] : styles.blackButton}
-                disabled={currentDogPage === maxDogPage}
-                onPress={() => setCurrentDogPage(currentDogPage + 1)}
-            >
-                <Text style={styles.buttonText}>{'->'}</Text>
-            </TouchableOpacity>        
+                    <View style={{flex: 1, alignItems: 'flex-end'}}>
+                        <TouchableOpacity 
+                            style={currentDogPage === maxDogPage ? [styles.blackButton, styles.greyButton] : styles.blackButton}
+                            disabled={currentDogPage === maxDogPage}
+                            onPress={() => setCurrentDogPage(currentDogPage + 1)}
+                        >
+                            <Text style={styles.buttonText}>{'->'}</Text>
+                        </TouchableOpacity>  
+                    </View>
+                </View>
 
             {tableDogContent}
 
-            <TextInput 
-                onChangeText={(value) => setNewDogPage(value)} 
-                value={newDogPage} 
-                placeholder="Page #"
-            />
-
-            <TouchableOpacity
-                style={goToDogPageButtonDisabled ? [styles.blackButton, styles.greyButton] : styles.blackButton}
-                disabled={goToDogPageButtonDisabled}
-                onPress={() => {
-                    if (newDogPage >= 1 && newDogPage <= maxDogPage) {
-                        setCurrentDogPage(parseInt(newDogPage))
-                    }
-                }}
+            <View 
+                style={maxDogPage === 1 
+                    ? {display: "none"}
+                    : [styles.paginationInputView]
+                }
             >
-                <Text>Go to Page</Text>
-            </TouchableOpacity>
+
+                <TextInput 
+                    style={[styles.textInput, {height: 41, marginRight: 10}]}
+                    onChangeText={(value) => setNewDogPage(value)} 
+                    value={newDogPage} 
+                    placeholder="Page #"
+                />
+
+                <TouchableOpacity
+                    style={goToDogPageButtonDisabled ? [styles.blackNewPageButton, styles.greyButton] : styles.blackNewPageButton}
+                    disabled={goToDogPageButtonDisabled}
+                    onPress={() => {
+                        if (newDogPage >= 1 && newDogPage <= maxDogPage) {
+                            setCurrentDogPage(parseInt(newDogPage))
+                        }
+                    }}
+                >
+                    <Text style={styles.buttonText}>Go to Page</Text>
+                </TouchableOpacity>
+            </View>
 
         </View>
     }
@@ -585,46 +619,45 @@ const UserPage = ({ route, navigation }) => {
 
     return (
         <ScrollView style={{ backgroundColor: COLORS.lightWhite }} showsVerticalScrollIndicator={false}>
-            <View
-                style={{
-                    flex: 1,
-                    padding: SIZES.xSmall
-                }}
-            >
-            </View>
-            <View>
-                <Text>{user?.username}</Text>
+            <View style={{ flex: 1, padding: SIZES.xSmall }} />
+            <View style={styles.mainView}>
+                <Text style={styles.username}>{user?.username}</Text>
                 {userId === id 
                     ? <TouchableOpacity
-                        style={styles.blackButton}
+                        style={[styles.blackButtonWide, {marginTop: 10}]}
                         onPress={handleEdit}
                     >
-                        <Text style={buttonText}>Edit Profile</Text>
+                        <Text style={styles.buttonText}>Edit Profile</Text>
                     </TouchableOpacity> 
                     : null
                 }
                 {userId?.length && userId !== id 
                     ? <TouchableOpacity
-                        style={styles.blackButton}
+                        style={[styles.blackButtonWide, {marginTop: 10}]}
                         onClick={handleMessage}
                     >
-                        <Text style={buttonText}>Message</Text>
+                        <Text style={styles.buttonText}>Message</Text>
                     </TouchableOpacity> 
                     : null
                 }
 
-                <View>
-                    {user?.image?.length && user?.image !== 'none ' 
-                        ? <Image style={{ width: 300, height: 300, borderRadius: 150 }} source={{ uri: `${user.image}` }} />
-                        : null
-                    }
-                </View>
+                
+                {user?.image?.length && user?.image !== 'none ' 
+                    ? <View style={{ alignItems: 'center' }}>
+                        <Image 
+                            style={{ width: 300, height: 300, borderRadius: 150, marginTop: 10 }} 
+                            source={{ uri: `${user.image}` }} 
+                        />
+                    </View>
+                    : null
+                }
+                
 
-                <Text>{user?.name}</Text>
+                <Text style={[styles.bold, {marginTop: 10}]}>{user?.name}</Text>
 
-                <Text>From {user?.region && user?.region !== 'none ' ? `${user?.region}, ` : null}{user?.country}</Text>
+                <Text style={{ marginBottom: 10 }}>From {user?.region && user?.region !== 'none ' ? `${user?.region}, ` : null}{user?.country}</Text>
 
-                {user?.bio?.length ? <View><Text>Bio</Text><Text>{user.bio}</Text></View> : null}
+                {user?.bio?.length ? <View style={{ marginBottom: 10 }}><Text style={styles.bold}>Bio</Text><Text>{user.bio}</Text></View> : null}
 
                 {proposeDogContent}
                 {myProposalsContent}
@@ -642,15 +675,15 @@ const UserPage = ({ route, navigation }) => {
 
                 {(isAdmin || isSuperAdmin) && !user?.roles?.includes("Admin", "SuperAdmin") && id !== userId
                     ? user?.active
-                        ? <TouchableOpacity style={styles.blackButtonWide} onPress={handleBanUser}><Text>Ban User</Text></TouchableOpacity>
-                        : <TouchableOpacity style={styles.blackButtonWide} onPress={handleUnbanUser}><Text>Unban User</Text></TouchableOpacity>
+                        ? <TouchableOpacity style={styles.blackButtonWide} onPress={handleBanUser}><Text style={styles.buttonText}>Ban User</Text></TouchableOpacity>
+                        : <TouchableOpacity style={styles.blackButtonWide} onPress={handleUnbanUser}><Text style={styles.buttonText}>Unban User</Text></TouchableOpacity>
                     : null
                 }
 
                 {isSuperAdmin && !user?.roles?.includes("SuperAdmin") && id !== userId
                     ? !user?.roles?.includes("Admin")
-                        ? <TouchableOpacity style={styles.blackButtonWide} onPress={handleMakeAdmin}><Text>Make Admin</Text></TouchableOpacity>
-                        : <TouchableOpacity style={styles.blackButtonWide} onPress={handleRemoveAdmin}><Text>Remove Admin</Text></TouchableOpacity>
+                        ? <TouchableOpacity style={styles.blackButtonWide} onPress={handleMakeAdmin}><Text style={styles.buttonText}>Make Admin</Text></TouchableOpacity>
+                        : <TouchableOpacity style={styles.blackButtonWide} onPress={handleRemoveAdmin}><Text style={styles.buttonText}>Remove Admin</Text></TouchableOpacity>
                     : null
                 }
 
@@ -658,8 +691,101 @@ const UserPage = ({ route, navigation }) => {
                 {dogPaginationContent}
 
             </View>
+            <View style={{flex: 1, padding: SIZES.xSmall}} />
         </ScrollView>
     )
 }
+
+const styles = StyleSheet.create({
+    username: {
+        fontSize: 20,
+        fontWeight: 'bold',
+    },
+    bold: {
+        fontWeight: 'bold',
+    },
+    adView: {
+        flexDirection: 'row',
+        wordWrap: 'wrap',
+        borderWidth: 1,
+        borderRadius: 10,
+        borderColor: '#d3d3d3',
+        padding: 10,
+        marginTop: 5,
+        marginBottom: 5,
+    },
+    orangeLink: {
+        color: '#eb9b34',
+        fontWeight: 'bold',
+    },
+    mainView: {
+        marginHorizontal: 10,
+    },
+    blackButtonWide: {
+      backgroundColor: '#000000',
+      borderRadius: 5,
+      padding: 10,
+      marginBottom: 10,
+    },
+    blackButton: {
+      padding: 10,
+      borderRadius: 5,
+      backgroundColor: '#000000',
+      width: 50,
+    },
+    blackNewPageButton: {
+      backgroundColor: '#000000',
+      borderRadius: 5,
+      padding: 10,
+    },
+    greyButton: {
+      backgroundColor: 'lightgrey',
+    },
+    buttonText: {
+      color: '#ffffff',
+      fontWeight: 'bold',
+      textAlign: 'center',
+    },
+    filterViewVisible: {
+      flex: 1,
+    },
+    filterViewHidden: {
+      display: 'none',
+    },
+    textInputWide: {
+      borderWidth: 1,
+      borderRadius: 5,
+      paddingHorizontal: 5,
+      paddingVertical: 13,
+      marginBottom: 10,
+    },
+    textInput: {
+      borderWidth: 1,
+      borderRadius: 5,
+      paddingLeft: 5,
+      width: 60,
+    },
+    selectInputWide: {
+      borderWidth: 1,
+      borderRadius: 5,
+      marginBottom: 10,
+    },
+    paginationRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginBottom: 5,
+    },
+    paginationTextView: {
+      flex: 1,
+      alignItems: 'center',
+    },
+    paginationInputView: {
+      flexDirection: 'row',
+      marginTop: 5,
+    },
+    inputTitle: {
+      fontWeight: 'bold',
+    },
+})
 
 export default UserPage

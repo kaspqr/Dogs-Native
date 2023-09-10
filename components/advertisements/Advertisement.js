@@ -6,7 +6,7 @@ import AdIcon from "../../assets/images/AdIcon.jpg"
 import { View, Text, Image, StyleSheet } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 
-const Advertisement = ({ advertisementId }) => {
+const Advertisement = ({ advertisementId, navigation }) => {
 
     // GET the advertisement in props with all of it's .values
     const { advertisement } = useGetAdvertisementsQuery("advertisementsList", {
@@ -73,16 +73,15 @@ const Advertisement = ({ advertisementId }) => {
                     <Text>{advertisement?.country}</Text>
                 </Text>
 
-                <Text>
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
 
                     <Text>Posted by{' '}</Text>
-                    <TouchableOpacity 
-                        onPress={() => {}}
-                    >
-                        <Text style={styles.orangeLink}>{user?.username}</Text>
+
+                    <TouchableOpacity onPress={() => {navigation.navigate('UserPage', { id: user?.id, navigation })}}>
+                        <Text style={[styles.orangeLink]}>{user?.username}</Text>
                     </TouchableOpacity>
 
-                </Text>
+                </View>
 
             </View>
 
