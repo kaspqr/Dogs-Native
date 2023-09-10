@@ -4,7 +4,7 @@ import AdIcon from "../../assets/images/AdIcon.jpg"
 
 import { View, Image, Text, StyleSheet, TouchableOpacity } from "react-native"
 
-const UserAdvertisement = ({ advertisementId }) => {
+const UserAdvertisement = ({ navigation, advertisementId }) => {
 
     // GET the advertisement in props with all of it's .values
     const { advertisement } = useGetAdvertisementsQuery("advertisementsList", {
@@ -27,7 +27,7 @@ const UserAdvertisement = ({ advertisementId }) => {
             </View>
             
             <View>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('AdvertisementPage', { advertisementId, navigation })}>
                     <Text style={styles.orangeLink}>{advertisement?.title}</Text>
                 </TouchableOpacity>
 

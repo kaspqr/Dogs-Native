@@ -23,7 +23,7 @@ const User = ({ userId, navigation }) => {
                     }
                 </View>
                 <View>
-                    <TouchableOpacity onPress={() => navigation.navigate('UserPage', { id: user?.id, navigation })}>
+                    <TouchableOpacity onPress={() => navigation.navigate('UserPage', { id: userId, navigation })}>
                         <Text style={styles.orangeLink}>{user?.username}</Text>
                     </TouchableOpacity>
                     <Text>{user?.name}</Text>

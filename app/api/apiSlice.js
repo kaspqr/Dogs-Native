@@ -4,7 +4,7 @@ import { setCredentials } from '../../components/auth/authSlice'
 const baseQuery = fetchBaseQuery({
 
     // URL of the backend
-    baseUrl: 'https://934a-2001-1530-1012-485b-d4c4-e144-e8c-e3a6.ngrok-free.app',
+    baseUrl: 'https://f2b2-2001-1530-1012-485b-d4c4-e144-e8c-e3a6.ngrok-free.app',
     credentials: 'include',
     prepareHeaders: (headers, { getState }) => {
         const token = getState().auth.token

@@ -424,7 +424,7 @@ const UserPage = ({ route, navigation }) => {
 
         // Advertisement component for each advertisement
         const tableAdvertisementContent = advertisementsToDisplay?.map(advertisementId => (
-            <UserAdvertisement key={advertisementId} advertisementId={advertisementId} />
+            <UserAdvertisement navigation={navigation} key={advertisementId} advertisementId={advertisementId} />
         ))
 
         finalAdvertisementsContent = !filteredAdvertisementIds?.length ? null : <View>
@@ -513,7 +513,7 @@ const UserPage = ({ route, navigation }) => {
 
         // Dog component for each dog
         const tableDogContent = dogsToDisplay?.map(dogId => (
-            <UserDog key={dogId} dogId={dogId} />
+            <UserDog navigation={navigation} key={dogId} dogId={dogId} />
         ))
 
         dogPaginationContent = !filteredIds?.length ? null : <View style={{ marginTop: 20 }}>

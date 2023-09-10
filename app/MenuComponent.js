@@ -21,7 +21,7 @@ const MenuComponent = ({ navigation }) => {
 
             {userId?.length 
                 ? <View>
-                    <TouchableOpacity style={styles.menuButton}>
+                    <TouchableOpacity onPress={() => {navigation.navigate('UserPage', { id: userId })}} style={styles.menuButton}>
                         <Text style={styles.menuButtonText}>My Profile</Text>
                     </TouchableOpacity>
 
@@ -30,11 +30,11 @@ const MenuComponent = ({ navigation }) => {
                     </TouchableOpacity>
                 </View>
                 : <View>
-                    <TouchableOpacity onPress={() => {navigation.navigate('Login')}} style={styles.menuButton}>
+                    <TouchableOpacity onPress={() => {navigation.navigate('Login', { navigation })}} style={styles.menuButton}>
                         <Text style={styles.menuButtonText}>Login</Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity onPress={() => {navigation.navigate('NewUserForm')}} style={styles.menuButton}>
+                    <TouchableOpacity onPress={() => {navigation.navigate('NewUserForm', { navigation })}} style={styles.menuButton}>
                         <Text style={styles.menuButtonText}>Register</Text>
                     </TouchableOpacity>
                 </View>
@@ -48,11 +48,11 @@ const MenuComponent = ({ navigation }) => {
                 <Text style={styles.menuButtonText}>Litters</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => navigation.navigate('UsersList')} style={styles.menuButton}>
+            <TouchableOpacity onPress={() => navigation.navigate('UsersList', { navigation })} style={styles.menuButton}>
                 <Text style={styles.menuButtonText}>Users</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => navigation.navigate('Faq')} style={styles.menuButton}>
+            <TouchableOpacity onPress={() => navigation.navigate('Faq', { navigation })} style={styles.menuButton}>
                 <Text style={styles.menuButtonText}>FAQ</Text>
             </TouchableOpacity>
 

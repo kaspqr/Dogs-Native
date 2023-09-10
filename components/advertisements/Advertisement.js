@@ -22,6 +22,8 @@ const Advertisement = ({ advertisementId, navigation }) => {
         }),
     })
 
+    const id = user?.id
+
     if (!advertisement) {
         return null
     }
@@ -41,7 +43,7 @@ const Advertisement = ({ advertisementId, navigation }) => {
                 <Text>
 
                     <TouchableOpacity 
-                        onPress={() => {}}
+                        onPress={() => navigation.navigate('AdvertisementPage', { advertisementId, navigation })}
                     >
                         <Text style={styles.orangeLink}>{advertisement?.title}</Text>
                     </TouchableOpacity>
@@ -77,7 +79,7 @@ const Advertisement = ({ advertisementId, navigation }) => {
 
                     <Text>Posted by{' '}</Text>
 
-                    <TouchableOpacity onPress={() => {navigation.navigate('UserPage', { id: user?.id, navigation })}}>
+                    <TouchableOpacity onPress={() => {navigation.navigate('UserPage', { id, navigation })}}>
                         <Text style={[styles.orangeLink]}>{user?.username}</Text>
                     </TouchableOpacity>
 

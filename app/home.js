@@ -4,6 +4,8 @@ import { COLORS, images, icons } from "../constants"
 import ScreenHeaderBtn from "../components/header/ScreenHeaderBtn"
 import Menu from "./Menu"
 import UserPage from "./UserPage"
+import AdvertisementPage from "./AdvertisementPage"
+import DogPage from "./DogPage"
 
 const Stack = createNativeStackNavigator()
 
@@ -43,6 +45,14 @@ const Home = ({ navigation }) => {
             <Stack.Screen 
                 name='UserPage' 
                 component={UserPage} 
+            />
+            <Stack.Screen 
+                name='AdvertisementPage' 
+                component={AdvertisementPage} 
+            />
+            <Stack.Screen 
+                name='DogPage' 
+                component={DogPage} 
             />
         </Stack.Navigator>
     )

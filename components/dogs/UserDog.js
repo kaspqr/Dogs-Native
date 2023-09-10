@@ -4,7 +4,7 @@ import DogIcon from "../../assets/images/DogIcon.jpg"
 
 import { View, Image, Text, StyleSheet, TouchableOpacity } from "react-native"
 
-const UserDog = ({ dogId }) => {
+const UserDog = ({ dogId, navigation }) => {
 
     // GET the dog with all of it's .values
     const { dog } = useGetDogsQuery("dogsList", {
@@ -26,7 +26,7 @@ const UserDog = ({ dogId }) => {
             </View>
 
             <View>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('DogPage', { dogid: dogId, navigation })}>
                     <Text style={styles.orangeLink}>{dog.name}</Text>
                 </TouchableOpacity>
                 

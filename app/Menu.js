@@ -7,6 +7,8 @@ import ScreenHeaderBtn from '../components/header/ScreenHeaderBtn'
 import FAQ from './Faq'
 import UsersList from './UsersList'
 import UserPage from './UserPage'
+import AdvertisementPage from './AdvertisementPage'
+import DogPage from './DogPage'
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
@@ -60,6 +62,14 @@ const Menu = ({ navigation }) => {
             <Stack.Screen 
                 name='UserPage' 
                 component={UserPage} 
+            />
+            <Stack.Screen 
+                name='AdvertisementPage' 
+                component={AdvertisementPage} 
+            />
+            <Stack.Screen 
+                name='DogPage' 
+                component={DogPage} 
             />
         </Stack.Navigator>
     )
