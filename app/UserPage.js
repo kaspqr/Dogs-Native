@@ -1,21 +1,24 @@
-import { useParams, useNavigate } from "react-router-dom"
-import useAuth from "../../hooks/useAuth"
-import { useGetUsersQuery, useUpdateUserMutation } from "./usersApiSlice"
-import { useGetDogsQuery, useUpdateDogMutation } from "../dogs/dogsApiSlice"
-import { useGetConversationsQuery, useAddNewConversationMutation } from "../conversations/conversationsApiSlice"
-import { useGetDogProposesQuery, useAddNewDogProposeMutation, useDeleteDogProposeMutation } from "../dogs/proposeDogApiSlice"
-import { useGetFatherProposesQuery, useDeleteFatherProposeMutation } from "../litters/fatherProposesApiSlice"
-import { useGetPuppyProposesQuery, useDeletePuppyProposeMutation } from "../litters/puppyProposesApiSlice"
-import { useGetAdvertisementsQuery } from "../advertisements/advertisementsApiSlice"
+import useAuth from "../hooks/useAuth"
+import { useGetUsersQuery, useUpdateUserMutation } from "../components/users/usersApiSlice"
+import { useGetDogsQuery, useUpdateDogMutation } from "../components/dogs/dogsApiSlice"
+import { useGetConversationsQuery, useAddNewConversationMutation } from "../components/conversations/conversationsApiSlice"
+import { useGetDogProposesQuery, useAddNewDogProposeMutation, useDeleteDogProposeMutation } from "../components/dogs/proposeDogApiSlice"
+import { useGetFatherProposesQuery, useDeleteFatherProposeMutation } from "../components/litters/fatherProposesApiSlice"
+import { useGetPuppyProposesQuery, useDeletePuppyProposeMutation } from "../components/litters/puppyProposesApiSlice"
+import { useGetAdvertisementsQuery } from "../components/advertisements/advertisementsApiSlice"
 import { useState, useEffect } from "react"
-import UserDog from "../dogs/UserDog"
-import UserAdvertisement from "../advertisements/UserAdvertisement"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons"
+import UserDog from "../components/dogs/UserDog"
+import UserAdvertisement from "../components/advertisements/UserAdvertisement"
+import EditUserForm from "../components/users/EditUserForm"
+// import ConversationPage from "../conversations/ConversationPage"
+import { TouchableOpacity, View, Text, ScrollView, TextInput, Image } from "react-native"
+import { COLORS, SIZES } from "../constants"
+import RNPickerSelect from 'react-native-picker-select'
+import styles from "../components/header/screenheader.style"
 
-const UserPage = () => {
+const UserPage = ({ route, navigation }) => {
 
-    const navigate = useNavigate()
+    const { id } = route.params
 
     // User that's logged in
     const { userId, isAdmin, isSuperAdmin } = useAuth()
@@ -28,26 +31,6 @@ const UserPage = () => {
 
     const [currentDogPage, setCurrentDogPage] = useState(1)
     const [newDogPage, setNewDogPage] = useState('')
-
-    // State for checking how wide is the user's screen
-    const [windowWidth, setWindowWidth] = useState(window.innerWidth)
-
-    // Function for handling the resizing of screen
-    const handleResize = () => {
-        setWindowWidth(window.innerWidth)
-    }
-
-    // Always check if a window is being resized
-    useEffect(() => {
-        window.addEventListener('resize', handleResize);
-
-        return () => {
-        window.removeEventListener('resize', handleResize)
-        }
-    }, [])
-
-    // User whose page we're on
-    const { id } = useParams()
 
     // POST method for /conversations
     const [addNewConversation, {
@@ -216,21 +199,21 @@ const UserPage = () => {
     if (isLoading || isConversationLoading || isDogProposeLoading || isPuppyProposeLoading 
         || isFatherProposeLoading || isUpdateDogLoading || isUpdateLoading || isLoadingDeleteDogPropose 
         || isLoadingDeleteFatherPropose || isLoadingDeletePuppyPropose || isLoadingNewConversation 
-        || isLoadingNewDogPropose || isAdvertisementLoading) finalAdvertisementsContent = <p>Loading...</p>
+        || isLoadingNewDogPropose || isAdvertisementLoading) finalAdvertisementsContent = <Text>Loading...</Text>
     
-    if (isError) finalAdvertisementsContent = <p>{error?.data?.message}</p>
-    if (isPuppyProposeError) finalAdvertisementsContent = <p>{puppyProposeError?.data?.message}</p>
-    if (isFatherProposeError) finalAdvertisementsContent = <p>{fatherProposeError?.data?.message}</p>
-    if (isConversationError) finalAdvertisementsContent = <p>{conversationError?.data?.message}</p>
-    if (isDogProposeError) finalAdvertisementsContent = <p>{dogProposeError?.data?.message}</p>
-    if (isUpdateDogError) finalAdvertisementsContent = <p>{updateDogError?.data?.message}</p>
-    if (isUpdateError) finalAdvertisementsContent = <p>{updateError?.data?.message}</p>
-    if (isErrorDeleteDogPropose) finalAdvertisementsContent = <p>{errorDeleteDogPropose?.data?.message}</p>
-    if (isErrorDeletePuppyPropose) finalAdvertisementsContent = <p>{errorDeletePuppyPropose?.data?.message}</p>
-    if (isErrorDeleteFatherPropose) finalAdvertisementsContent = <p>{errorDeleteFatherPropose?.data?.message}</p>
-    if (isErrorNewDogPropose) finalAdvertisementsContent = <p>{errorNewDogPropose?.data?.message}</p>
-    if (isErrorNewConversation) finalAdvertisementsContent = <p>{errorNewConversation?.data?.message}</p>
-    if (isAdvertisementError) finalAdvertisementsContent = <p>{advertisementError?.data?.message}</p>
+    if (isError) finalAdvertisementsContent = <Text>{error?.data?.message}</Text>
+    if (isPuppyProposeError) finalAdvertisementsContent = <Text>{puppyProposeError?.data?.message}</Text>
+    if (isFatherProposeError) finalAdvertisementsContent = <Text>{fatherProposeError?.data?.message}</Text>
+    if (isConversationError) finalAdvertisementsContent = <Text>{conversationError?.data?.message}</Text>
+    if (isDogProposeError) finalAdvertisementsContent = <Text>{dogProposeError?.data?.message}</Text>
+    if (isUpdateDogError) finalAdvertisementsContent = <Text>{updateDogError?.data?.message}</Text>
+    if (isUpdateError) finalAdvertisementsContent = <Text>{updateError?.data?.message}</Text>
+    if (isErrorDeleteDogPropose) finalAdvertisementsContent = <Text>{errorDeleteDogPropose?.data?.message}</Text>
+    if (isErrorDeletePuppyPropose) finalAdvertisementsContent = <Text>{errorDeletePuppyPropose?.data?.message}</Text>
+    if (isErrorDeleteFatherPropose) finalAdvertisementsContent = <Text>{errorDeleteFatherPropose?.data?.message}</Text>
+    if (isErrorNewDogPropose) finalAdvertisementsContent = <Text>{errorNewDogPropose?.data?.message}</Text>
+    if (isErrorNewConversation) finalAdvertisementsContent = <Text>{errorNewConversation?.data?.message}</Text>
+    if (isAdvertisementError) finalAdvertisementsContent = <Text>{advertisementError?.data?.message}</Text>
 
     const handleProposeDog = async () => {
         await addNewDogPropose({ "dog": selectedProposeDog, "user": user?.id })
@@ -302,55 +285,43 @@ const UserPage = () => {
 
         if (filteredMadeDogProposes?.length || filteredMadeFatherProposes?.length || filteredMadePuppyProposes?.length) {
             const madeDogProposesContent = filteredMadeDogProposes?.length
-                ? <><button 
-                    title="Delete Dog Transfer Proposals Made by Me"
-                    className="black-button three-hundred" 
-                    onClick={() => filteredMadeDogProposes?.forEach((proposal) => {
+                ? <TouchableOpacity 
+                    style={styles.blackButtonWide}
+                    onPress={() => filteredMadeDogProposes?.forEach((proposal) => {
                         handleDeleteDogProposal(proposal)
                     })}
                 >
-                    Delete Dog Proposals Made by Me
-                </button>
-                <br />
-                <br />
-                </>
+                    <Text style={styles.buttonText}>Delete Dog Proposals Made by Me</Text>
+                </TouchableOpacity>
                 : null
 
             const madeFatherProposesContent = filteredMadeFatherProposes?.length
-                ? <><button 
-                    title="Delete Father Proposals Made by Me"
-                    className="black-button three-hundred" 
-                    onClick={() => filteredMadeFatherProposes?.forEach((proposal) => {
+                ? <TouchableOpacity 
+                    style={styles.blackButtonWide}
+                    onPress={() => filteredMadeFatherProposes?.forEach((proposal) => {
                         handleDeleteFatherProposal(proposal)
                     })}
                 >
-                    Delete Father Proposals Made by Me
-                </button>
-                <br />
-                <br />
-                </>
+                    <Text style={styles.buttonText}>Delete Father Proposals Made by Me</Text>
+                </TouchableOpacity>
                 : null
 
             const madePuppyProposesContent = filteredMadePuppyProposes?.length
-                ? <><button 
-                    title="Delete Puppy Proposals Made by Me"
-                    className="black-button three-hundred" 
-                    onClick={() => filteredMadePuppyProposes?.forEach((proposal) => {
+                ? <TouchableOpacity 
+                    style={styles.blackButtonWide}
+                    onPress={() => filteredMadePuppyProposes?.forEach((proposal) => {
                         handleDeletePuppyProposal(proposal)
                     })}
                 >
-                    Delete Puppy Proposals Made by Me
-                </button>
-                <br />
-                <br />
-                </>
+                    <Text style={styles.buttonText}>Delete Puppy Proposals Made by Me</Text>
+                </TouchableOpacity>
                 : null
 
-            deleteProposalsContent = <>
+            deleteProposalsContent = <View>
                 {madeDogProposesContent}
                 {madeFatherProposesContent}
                 {madePuppyProposesContent}
-            </>
+            </View>
         }
 
         // All Dog Objects of the user that's logged in AND is not the user whose page we're on
@@ -383,62 +354,56 @@ const UserPage = () => {
         })
 
         if (filteredProposeDogs?.length) {
-            const proposeDogs = filteredProposeDogs?.map(dog => <option value={dog?.id} key={dog?.id}>{dog?.name}</option>)
+            const proposeDogs = filteredProposeDogs?.map(dog => { return { label: `${dog?.name}`, value: `${dog?.id}` } })
 
             proposeDogContent = proposeDogs?.length
-                ? <>
-                    <form onSubmit={(e) => e.preventDefault()}>
-                        <label htmlFor="transfer-selected-dog"><b>Transfer Dog to {user?.username}</b></label>
-                        <br />
-                        <select name="transfer-selected-dog" value={selectedProposeDog} onChange={(e) => setSelectedProposeDog(e.target.value)}>
-                            <option value="">--</option>
-                            {proposeDogs}
-                        </select>
-                        <br />
-                        <br />
-                        <button 
-                            title="Propose Transferring Selected Dog to User"
-                            className="black-button three-hundred"
+                ? <View>
+                        <Text>Transfer Dog to {user?.username}</Text>
+
+                        <View style={styles.selectInputWide}>
+                            <RNPickerSelect 
+                                items={proposeDogs}
+                                placeholder={{ label: '--', value: '' }} 
+                                value={selectedProposeDog} 
+                                onValueChange={(value) => setSelectedProposeDog(value)}
+                            />
+                        </View>
+
+                        <TouchableOpacity 
                             disabled={!selectedProposeDog?.length}
-                            style={!selectedProposeDog?.length ? {backgroundColor: "grey", cursor: "default"} : null}
-                            onClick={handleProposeDog}
+                            style={!selectedProposeDog?.length ? [styles.blackButtonWide, styles.greyButton] : styles.blackButtonWide}
+                            onPress={handleProposeDog}
                         >
-                            Propose Transfer
-                        </button>
-                        <br />
-                        <br />
-                    </form>
-                </>
+                            <Text style={styles.buttonText}>Propose Transfer</Text>
+                        </TouchableOpacity>
+                </View>
                 : null
         }
 
         if (myProposals?.length) {
-            const acceptDogs = myProposals?.map(dog => <option value={dog?.id} key={dog?.id}>{dog?.name}</option>)
+            const acceptDogs = myProposals?.map(dog => { return { label: `${dog?.name}`, value: `${dog?.id}` } })
 
             myProposalsContent = acceptDogs?.length 
-                ? <>
-                    <form onSubmit={(e) => e.preventDefault()}>
-                        <label htmlFor="accept-selected-dog"><b>Accept Dog{myProposals?.length > 1 ? 's' : null} Offered by {user?.username}</b></label>
-                        <br />
-                        <select name="accept-selected-dog" value={selectedAcceptDog} onChange={(e) => setSelectedAcceptDog(e.target.value)}>
-                            <option value="">--</option>
-                            {acceptDogs}
-                        </select>
-                        <br />
-                        <br />
-                        <button
-                            title="Accept Ownership of Selected Dog's Account"
-                            className="black-button three-hundred"
-                            disabled={!selectedAcceptDog?.length}
-                            style={!selectedAcceptDog?.length ? {backgroundColor: "grey", cursor: "default"} : null}
-                            onClick={handleAcceptDog}
-                        >
-                            Accept Dog
-                        </button>
-                        <br />
-                        <br />
-                    </form>
-                </>
+                ? <View>
+                    <Text>Accept Dog{myProposals?.length > 1 ? 's' : null} Offered by {user?.username}</Text>
+
+                    <View style={styles.selectInputWide}>
+                        <RNPickerSelect 
+                            value={selectedAcceptDog} 
+                            items={acceptDogs}
+                            placeholder={{ label: '--', value: '' }} 
+                            onValueChange={(value) => setSelectedAcceptDog(value)}
+                        />
+                    </View>
+
+                    <TouchableOpacity
+                        disabled={!selectedAcceptDog?.length}
+                        style={!selectedAcceptDog?.length ? [styles.blackButtonWide, styles.greyButton] : styles.blackButtonWide}
+                        onPress={handleAcceptDog}
+                    >
+                        <Text>Accept Dog</Text>
+                    </TouchableOpacity>
+                </View>
                 : null
         }
 
@@ -463,78 +428,56 @@ const UserPage = () => {
             <UserAdvertisement key={advertisementId} advertisementId={advertisementId} />
         ))
 
-        finalAdvertisementsContent = !filteredAdvertisementIds?.length ? null : <>
-            {userId === user?.id || !userId ? null : <><br /><br /></>}
-            <p><b>{filteredAdvertisementIds?.length} Active Advertisement{filteredAdvertisementIds?.length === 1 ? null : 's'}</b></p>
-            <br />
-            <p>
-            <button 
-                title="Go to Previous Advertisements Page"
-                style={currentAdvertisementPage === 1 ? {display: "none"} : null}
-                disabled={currentAdvertisementPage === 1}
-                className="pagination-button"
-                onClick={() => {
-                setCurrentAdvertisementPage(currentAdvertisementPage - 1)
-                }}
-            >
-                <FontAwesomeIcon color="rgb(235, 155, 52)" icon={faArrowLeft} />
-            </button>
+        finalAdvertisementsContent = !filteredAdvertisementIds?.length ? null : <View>
+            <Text>{filteredAdvertisementIds?.length} Active Advertisement{filteredAdvertisementIds?.length === 1 ? null : 's'}</Text>
 
-            {` Page ${currentAdvertisementPage} of ${maxAdvertisementPage} `}
+            <View>
+                <TouchableOpacity 
+                    style={currentAdvertisementPage === 1 ? [styles.blackButton, styles.greyButton] : styles.blackButton}
+                    disabled={currentAdvertisementPage === 1}
+                    onPress={() => setCurrentAdvertisementPage(currentAdvertisementPage - 1)}
+                >
+                    <Text style={styles.buttonText}>{'<-'}</Text>
+                </TouchableOpacity>
 
-            <button 
-                title="Go to Next Advertisement Page"
-                className="pagination-button"
-                style={currentAdvertisementPage === maxAdvertisementPage ? {display: "none"} : null}
-                disabled={currentAdvertisementPage === maxAdvertisementPage}
-                onClick={() => {
-                setCurrentAdvertisementPage(currentAdvertisementPage + 1)
-                }}
-            >
-                <FontAwesomeIcon color="rgb(235, 155, 52)" icon={faArrowRight} />
-            </button>
+                <Text>Page ${currentAdvertisementPage} of ${maxAdvertisementPage}</Text>
 
-            {windowWidth > 600 || maxAdvertisementPage === 1 ? null : <><br /><br /></>}
+                <TouchableOpacity 
+                    style={currentAdvertisementPage === maxAdvertisementPage ? [styles.blackButton, styles.greyButton] : styles.blackButton}
+                    disabled={currentAdvertisementPage === maxAdvertisementPage}
+                    onPress={() => setCurrentAdvertisementPage(currentAdvertisementPage + 1)}
+                >
+                    <Text style={styles.buttonText}>{'->'}</Text>
+                </TouchableOpacity>
 
-            <span 
-                className="new-page-input-span"
-                style={maxAdvertisementPage === 1 
-                ? {display: "none"}
-                : windowWidth > 600 
-                    ? null 
-                    : {float: "none"}
-                }
-            >
-                <label htmlFor="new-advertisement-page-input" className="off-screen">Advertisements Page Number</label>
-                <input 
-                    name="new-advertisement-page-input"
-                    onChange={(e) => setNewAdvertisementPage(e.target.value)} 
+            </View>
+
+            {tableAdvertisementContent}
+
+            <View>
+
+                <TextInput 
+                    style={styles.textInput}
+                    onChangeText={(value) => setNewAdvertisementPage(value)} 
                     value={newAdvertisementPage} 
-                    type="number" 
-                    className="new-page-input"
-                    placeholder="Page no."
+                    placeholder="Page #"
                 />
-                <button
-                    title="Go to the Specified Advertisements Page"
-                    style={goToAdvertisementPageButtonDisabled ? {backgroundColor: "grey", cursor: "default"} : null}
+
+                <TouchableOpacity
+                    style={goToAdvertisementPageButtonDisabled ? [styles.blackButton, styles.greyButton] : styles.blackButton}
                     disabled={goToAdvertisementPageButtonDisabled}
-                    onClick={() => {
+                    onPress={() => {
                         if (newAdvertisementPage >= 1 && newAdvertisementPage <= maxAdvertisementPage) {
                             setCurrentAdvertisementPage(parseInt(newAdvertisementPage))
                         }
                     }}
-                    className="black-button"
                 >
-                    Go to Page
-                </button>
-            </span>
+                    <Text>Go to Page</Text>
+                </TouchableOpacity>
 
-            </p>
+            </View>
 
-            <br />
-            {tableAdvertisementContent}
-            <br />
-        </>
+        </View>
 
 
         // Pagination for the user's dogs
@@ -558,94 +501,66 @@ const UserPage = () => {
             <UserDog key={dogId} dogId={dogId} />
         ))
 
-        dogPaginationContent = !filteredIds?.length ? null : <>
-            <p><b>{filteredIds?.length} Dog{filteredIds?.length === 1 ? null : 's'} Administered</b></p><br />
-            <p>
-            <button 
-                title="Go to Previous Dogs Page"
-                style={currentDogPage === 1 ? {display: "none"} : null}
+        dogPaginationContent = !filteredIds?.length ? null : <View>
+            <Text>{filteredIds?.length} Dog{filteredIds?.length === 1 ? null : 's'} Administered</Text>
+
+            <TouchableOpacity 
+                style={currentDogPage === 1 ? [styles.blackButton, styles.greyButton] : styles.blackButton}
                 disabled={currentDogPage === 1}
-                className="pagination-button"
-                onClick={() => {
-                setCurrentDogPage(currentDogPage - 1)
-                }}
+                onPress={() => setCurrentDogPage(currentDogPage - 1)}
             >
-                <FontAwesomeIcon color="rgb(235, 155, 52)" icon={faArrowLeft} />
-            </button>
+                <Text style={styles.buttonText}>{'<-'}</Text>
+            </TouchableOpacity>
 
-            {` Page ${currentDogPage} of ${maxDogPage} `}
+            <Text>Page ${currentDogPage} of ${maxDogPage}</Text>
 
-            <button 
-                title="Go to Next Dog Page"
-                className="pagination-button"
-                style={currentDogPage === maxDogPage ? {display: "none"} : null}
+            <TouchableOpacity 
+                style={currentDogPage === maxDogPage ? [styles.blackButton, styles.greyButton] : styles.blackButton}
                 disabled={currentDogPage === maxDogPage}
-                onClick={() => {
-                setCurrentDogPage(currentDogPage + 1)
+                onPress={() => setCurrentDogPage(currentDogPage + 1)}
+            >
+                <Text style={styles.buttonText}>{'->'}</Text>
+            </TouchableOpacity>        
+
+            {tableDogContent}
+
+            <TextInput 
+                onChangeText={(value) => setNewDogPage(value)} 
+                value={newDogPage} 
+                placeholder="Page #"
+            />
+
+            <TouchableOpacity
+                style={goToDogPageButtonDisabled ? [styles.blackButton, styles.greyButton] : styles.blackButton}
+                disabled={goToDogPageButtonDisabled}
+                onPress={() => {
+                    if (newDogPage >= 1 && newDogPage <= maxDogPage) {
+                        setCurrentDogPage(parseInt(newDogPage))
+                    }
                 }}
             >
-                <FontAwesomeIcon color="rgb(235, 155, 52)" icon={faArrowRight} />
-            </button>
+                <Text>Go to Page</Text>
+            </TouchableOpacity>
 
-            {windowWidth > 600 || maxDogPage === 1 ? null : <><br /><br /></>}
-
-            <span 
-                className="new-page-input-span"
-                style={maxDogPage === 1 
-                ? {display: "none"}
-                : windowWidth > 600 
-                    ? null 
-                    : {float: "none"}
-                }
-            >
-                <label htmlFor="new-dog-page-input" className="off-screen">Dogs Page Number</label>
-                <input 
-                    name="new-dog-page-input"
-                    onChange={(e) => setNewDogPage(e.target.value)} 
-                    value={newDogPage} 
-                    type="number" 
-                    className="new-page-input"
-                    placeholder="Page no."
-                />
-                <button
-                    title="Go to the Specified Dogs Page"
-                    style={goToDogPageButtonDisabled ? {backgroundColor: "grey", cursor: "default"} : null}
-                    disabled={goToDogPageButtonDisabled}
-                    onClick={() => {
-                        if (newDogPage >= 1 && newDogPage <= maxDogPage) {
-                            setCurrentDogPage(parseInt(newDogPage))
-                        }
-                    }}
-                    className="black-button"
-                >
-                    Go to Page
-                </button>
-            </span>
-
-            </p>
-
-            <br />
-            {tableDogContent}
-            <br />
-        </>
+        </View>
     }
 
-    if (!user) return <p>User not found</p>
+    if (!user) return <Text>User not found</Text>
 
     // Only available when userId === id (the user visiting === the user whose page we're on)
-    const handleEdit = () => navigate(`/users/edit/${id}`)
+    const handleEdit = () => { return <EditUserForm user={id} /> }
 
     // If the user visiting is someone else, they can send a message instead
     const handleMessage = async () => {
         // If they already have a conversation started, navigate to it
         if (filteredConversation?.length) {
-            navigate(`/conversations/${filteredConversation}`)
+            return {/* <ConversationPage conversationid={filteredConversation} /> */}
         } else {
             // Create a new conversation, then navigate to it
             const response = await addNewConversation({ sender: userId, receiver: id })
 
             if (response) {
-                navigate(`/conversations/${response?.data?.newConversationId}`)
+                return {/* <ConversationPage conversationid={response?.data?.newConversationId} /> */}
             }
         }
     }
@@ -666,73 +581,85 @@ const UserPage = () => {
         await updateUser({ id: user?.id, roles: ["User"] })
     }
 
-    const content = (
-        <>
-            <p className="user-page-username">
-                {user?.username}
+    if (!isAdmin && !isSuperAdmin && user?.active === false) return <Text>This user is banned</Text>
+
+    return (
+        <ScrollView style={{ backgroundColor: COLORS.lightWhite }} showsVerticalScrollIndicator={false}>
+            <View
+                style={{
+                    flex: 1,
+                    padding: SIZES.xSmall
+                }}
+            >
+            </View>
+            <View>
+                <Text>{user?.username}</Text>
                 {userId === id 
-                    ? <button
-                        title="Edit Profile"
-                        className="user-page-edit-button black-button"
-                        onClick={handleEdit}
+                    ? <TouchableOpacity
+                        style={styles.blackButton}
+                        onPress={handleEdit}
                     >
-                        Edit Profile
-                    </button> 
+                        <Text style={buttonText}>Edit Profile</Text>
+                    </TouchableOpacity> 
                     : null
                 }
                 {userId?.length && userId !== id 
-                    ? <button
-                        title="Message User"
-                        className="user-page-edit-button black-button"
+                    ? <TouchableOpacity
+                        style={styles.blackButton}
                         onClick={handleMessage}
                     >
-                        Message
-                    </button> 
+                        <Text style={buttonText}>Message</Text>
+                    </TouchableOpacity> 
                     : null
                 }
-            </p>
-            {user?.image?.length && user?.image !== 'none ' 
-                ? <><p><img width="300" height="300" className="user-profile-picture" src={user?.image} alt="User" /></p><br /></> 
-                : null
-            }
-            <p><b>{user?.name}</b></p>
-            <br />
-            <p><b>From </b>{user?.region && user?.region !== 'none ' ? `${user?.region}, ` : null}{user?.country}</p>
-            <br />
-            {user?.bio?.length ? <><p><b>Bio</b></p><p>{user.bio}</p><br /></> : null}
-            {proposeDogContent}
-            {myProposalsContent}
-            {deleteProposalsContent}
-            {userId?.length && id !== userId
-                ? <button 
-                    title="Report User"
-                    className="black-button three-hundred"
-                    onClick={() => navigate(`/reportuser/${id}`)}
-                >
-                    Report User
-                </button>
-                : null
-            }
-            {(isAdmin || isSuperAdmin) && !user?.roles?.includes("Admin", "SuperAdmin") && id !== userId
-                ? user?.active
-                    ? <><br /><br /><button title="Ban User" className="black-button three-hundred" onClick={handleBanUser}>Ban User</button></>
-                    : <><br /><br /><button title="Unban User" className="black-button three-hundred" onClick={handleUnbanUser}>Unban User</button></>
-                : null
-            }
-            {isSuperAdmin && !user?.roles?.includes("SuperAdmin") && id !== userId
-                ? !user?.roles?.includes("Admin")
-                    ? <><br /><br /><button title="Make Admin" className="black-button three-hundred" onClick={handleMakeAdmin}>Make Admin</button></>
-                    : <><br /><br /><button title="Remove Admin" className="black-button three-hundred" onClick={handleRemoveAdmin}>Remove Admin</button></>
-                : null
-            }
-            {finalAdvertisementsContent}
-            {dogPaginationContent}
-        </>
+
+                <View>
+                    {user?.image?.length && user?.image !== 'none ' 
+                        ? <Image style={{ width: 300, height: 300, borderRadius: 150 }} source={{ uri: `${user.image}` }} />
+                        : null
+                    }
+                </View>
+
+                <Text>{user?.name}</Text>
+
+                <Text>From {user?.region && user?.region !== 'none ' ? `${user?.region}, ` : null}{user?.country}</Text>
+
+                {user?.bio?.length ? <View><Text>Bio</Text><Text>{user.bio}</Text></View> : null}
+
+                {proposeDogContent}
+                {myProposalsContent}
+                {deleteProposalsContent}
+
+                {userId?.length && id !== userId
+                    ? <TouchableOpacity 
+                        style={styles.blackButtonWide}
+                        onPress={() => {}}
+                    >
+                        <Text style={styles.buttonText}>Report User</Text>
+                    </TouchableOpacity>
+                    : null
+                }
+
+                {(isAdmin || isSuperAdmin) && !user?.roles?.includes("Admin", "SuperAdmin") && id !== userId
+                    ? user?.active
+                        ? <TouchableOpacity style={styles.blackButtonWide} onPress={handleBanUser}><Text>Ban User</Text></TouchableOpacity>
+                        : <TouchableOpacity style={styles.blackButtonWide} onPress={handleUnbanUser}><Text>Unban User</Text></TouchableOpacity>
+                    : null
+                }
+
+                {isSuperAdmin && !user?.roles?.includes("SuperAdmin") && id !== userId
+                    ? !user?.roles?.includes("Admin")
+                        ? <TouchableOpacity style={styles.blackButtonWide} onPress={handleMakeAdmin}><Text>Make Admin</Text></TouchableOpacity>
+                        : <TouchableOpacity style={styles.blackButtonWide} onPress={handleRemoveAdmin}><Text>Remove Admin</Text></TouchableOpacity>
+                    : null
+                }
+
+                {finalAdvertisementsContent}
+                {dogPaginationContent}
+
+            </View>
+        </ScrollView>
     )
-
-    if (!isAdmin && !isSuperAdmin && user?.active === false) return <p>This user is banned</p>
-
-    return content
 }
 
 export default UserPage

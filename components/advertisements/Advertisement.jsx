@@ -6,29 +6,6 @@ import AdIcon from "../../assets/images/AdIcon.jpg"
 import { View, Text, Image, StyleSheet } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 
-const styles = StyleSheet.create({
-    adPicture: {
-        width: 150,
-        height: 150,
-        marginRight: 10,
-        borderRadius: 5,
-    },
-    adView: {
-        flexDirection: 'row',
-        wordWrap: 'wrap',
-        borderWidth: 1,
-        borderRadius: 10,
-        borderColor: '#d3d3d3',
-        padding: 10,
-        marginTop: 5,
-        marginBottom: 5,
-    },
-    orangeLink: {
-        color: '#eb9b34',
-        fontWeight: 'bold',
-    }
-})
-
 const Advertisement = ({ advertisementId }) => {
 
     // GET the advertisement in props with all of it's .values
@@ -112,6 +89,29 @@ const Advertisement = ({ advertisementId }) => {
         </View>
     )
 }
+
+const styles = StyleSheet.create({
+    adPicture: {
+        width: 150,
+        height: 150,
+        marginRight: 10,
+        borderRadius: 5,
+    },
+    adView: {
+        flexDirection: 'row',
+        wordWrap: 'wrap',
+        borderWidth: 1,
+        borderRadius: 10,
+        borderColor: '#d3d3d3',
+        padding: 10,
+        marginTop: 5,
+        marginBottom: 5,
+    },
+    orangeLink: {
+        color: '#eb9b34',
+        fontWeight: 'bold',
+    }
+})
 
 const memoizedAdvertisement = memo(Advertisement)
 

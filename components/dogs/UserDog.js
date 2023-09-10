@@ -1,7 +1,8 @@
-import { Link } from "react-router-dom"
 import { useGetDogsQuery } from "./dogsApiSlice"
 import { memo } from "react"
-import DogIcon from "../../config/images/DogIcon.jpg"
+import DogIcon from "../../assets/images/DogIcon.jpg"
+
+import { View, Image, Text, StyleSheet } from "react-native"
 
 const UserDog = ({ dogId }) => {
 
@@ -15,23 +16,29 @@ const UserDog = ({ dogId }) => {
     if (!dog) return null
 
     return (
-        <div className="dog-div">
-            <div className="dog-div-image">
+        <View>
+            <View>
                 {dog?.image?.length 
-                    ? <img width="150px" height="150px" className="dog-profile-picture" src={dog?.image} alt="Dog" />
-                    : <img width="150px" height="150px" className="dog-profile-picture" src={DogIcon} alt="Dog" />
+                    ? <Image style={{width: 150, height: 150, borderRadius: 75}} source={{ uri: `${dog?.image}`}} />
+                    : <Image style={{width: 150, height: 150, borderRadius: 75}} source={DogIcon} />
                 }
-            </div>
-            <div className="dog-div-info">
-                <p><Link className="orange-link" to={`/dogs/${dog.id}`}><b>{dog.name}</b></Link></p>
-                <br />
-                <p>{dog.breed}</p>
-                <p>{dog.female === true ? 'Good Girl' : 'Good Boy'}</p>
-                <p>Born {dog.birth.split(' ').slice(1, 4).join(' ')}</p>
-            </div>
-        </div>
+            </View>
+            <View className="dog-div-info">
+                <Text style={styles.orangeLink}>{dog.name}</Text>
+
+                <Text>{dog.breed}</Text>
+                <Text>{dog.female === true ? 'Good Girl' : 'Good Boy'}</Text>
+                <Text>Born {dog.birth.split(' ').slice(1, 4).join(' ')}</Text>
+            </View>
+        </View>
     )
 }
+
+const styles = StyleSheet.create({
+    orangeLink: {
+        color: 'orange',
+    },
+})
 
 const memoizedUserDog = memo(UserDog)
 

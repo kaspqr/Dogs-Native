@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react"
 import { useDispatch } from "react-redux"
-import { setCredentials } from "./authSlice"
-import { useLoginMutation } from "./authApiSlice"
-import usePersist from "../../hooks/usePersist"
-import useAuth from "../../hooks/useAuth"
+import { setCredentials } from "../components/auth/authSlice"
+import { useLoginMutation } from "../components/auth/authApiSlice"
+import usePersist from "../hooks/usePersist"
+import useAuth from "../hooks/useAuth"
 import { TouchableOpacity, View, Text, TextInput, Switch, StyleSheet } from "react-native"
-import AdvertisementsList from "../advertisements/AdvertisementsList"
+import AdvertisementsList from "./AdvertisementsList"
 
 const Login = () => {
 

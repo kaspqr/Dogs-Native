@@ -1,25 +1,22 @@
 import React from 'react'
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import useAuth from '../hooks/useAuth'
+import { useSendLogoutMutation } from '../components/auth/authApiSlice'
 
-const Menu = () => {
+const MenuComponent = ({ navigation }) => {
 
-    const [menuOpened, setMenuOpened] = useState(false)
-    const [component, setComponent] = useState(<AdvertisementsList />)
-
-    const changeComponent = (newComponent) => {
-        setComponent(newComponent)
-        setMenuOpened(false)
-    }
-
-    const handleLogout = () => {
-        changeComponent(<Logout />)
-        setTimeout(() => changeComponent(<AdvertisementsList />), 50)
-    }
+    // POST request to clear the refreshtoken
+    const [sendLogout, {
+        isLoading,
+        isSuccess,
+        isError,
+        error
+    }] = useSendLogoutMutation()
 
     const { userId } = useAuth()
 
     return (
+        
         <View>
 
             {userId?.length 
@@ -33,11 +30,11 @@ const Menu = () => {
                     </TouchableOpacity>
                 </View>
                 : <View>
-                    <TouchableOpacity onPress={() => {changeComponent(<Login />)}} style={styles.menuButton}>
+                    <TouchableOpacity onPress={() => {navigation.navigate('Login')}} style={styles.menuButton}>
                         <Text style={styles.menuButtonText}>Login</Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity onPress={() => {changeComponent(<NewUserForm />)}} style={styles.menuButton}>
+                    <TouchableOpacity onPress={() => {navigation.navigate('NewUserForm')}} style={styles.menuButton}>
                         <Text style={styles.menuButtonText}>Register</Text>
                     </TouchableOpacity>
                 </View>
@@ -51,16 +48,16 @@ const Menu = () => {
                 <Text style={styles.menuButtonText}>Litters</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.menuButton}>
+            <TouchableOpacity onPress={() => navigation.navigate('UsersList')} style={styles.menuButton}>
                 <Text style={styles.menuButtonText}>Users</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.menuButton}>
+            <TouchableOpacity onPress={() => navigation.navigate('Faq')} style={styles.menuButton}>
                 <Text style={styles.menuButtonText}>FAQ</Text>
             </TouchableOpacity>
 
             {userId?.length 
-                ? <TouchableOpacity onPress={handleLogout} style={styles.menuButton}>
+                ? <TouchableOpacity onPress={() => sendLogout()} style={styles.menuButton}>
                     <Text style={styles.menuButtonText}>Logout</Text>
                 </TouchableOpacity> 
                 : null
@@ -83,4 +80,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Menu
+export default MenuComponent

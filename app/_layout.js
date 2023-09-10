@@ -1,20 +1,26 @@
-import { Stack } from "expo-router"
-// import * as SplashScreen from "expo-splash-screen"
+import Index from './index'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
-// SplashScreen.preventAutoHideAsync()
+import React from 'react'
 
-export const unstable_settings = {
-  // Ensure any route can link back to `/`
-  initialRouteName: "index",
-}
+const Stack = createNativeStackNavigator()
 
 const Layout = () => {
 
-  return (
-    <Stack initialRouteName="index">
-      <Stack.Screen name="index" />
-    </Stack>
-  )
+  /* return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false
+      }}
+    >
+      <Stack.Screen 
+        name="index" 
+        component={Index} 
+      />
+    </Stack.Navigator>
+  ) */
+
+  return <Index />
 }
 
 export default Layout

@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react"
-import { useAddNewUserMutation } from "./usersApiSlice"
-import useAuth from "../../hooks/useAuth"
-import { Countries } from "../../assets/countries"
-import { bigCountries } from "../../assets/bigCountries"
-import { Regions } from "../../assets/regions"
+import { useAddNewUserMutation } from "../components/users/usersApiSlice"
+import useAuth from "../hooks/useAuth"
+import { Countries } from "../assets/countries"
+import { bigCountries } from "../assets/bigCountries"
+import { Regions } from "../assets/regions"
 
 import { Text, TextInput, TouchableOpacity, View, StyleSheet } from "react-native"
 import RNPickerSelect from 'react-native-picker-select'
 
-import { SIZES } from "../../constants"
+import { SIZES } from "../constants"
 
 const NewUserForm = () => {
 
