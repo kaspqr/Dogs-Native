@@ -40,7 +40,7 @@ const MenuComponent = ({ navigation }) => {
                 </View>
             }
 
-            <TouchableOpacity style={styles.menuButton}>
+            <TouchableOpacity onPress={() => navigation.navigate('DogsList', { navigation })} style={styles.menuButton}>
                 <Text style={styles.menuButtonText}>Dogs</Text>
             </TouchableOpacity>
 

@@ -5,7 +5,7 @@ import { Countries } from "../assets/countries"
 import { bigCountries } from "../assets/bigCountries"
 import { Regions } from "../assets/regions"
 
-import { Text, TextInput, TouchableOpacity, View, StyleSheet } from "react-native"
+import { Text, TextInput, TouchableOpacity, View, StyleSheet, ScrollView } from "react-native"
 import RNPickerSelect from 'react-native-picker-select'
 
 import { SIZES } from "../constants"
@@ -96,107 +96,109 @@ const NewUserForm = () => {
     if (isLoading) return <Text>Loading...</Text>
 
     const content = successMsg?.length ? <Text style={styles.successMsg}>{successMsg}</Text> :
-    <View style={styles.mainView}>
-        {isError ? <Text style={styles.errMsg}>{error?.data?.message}</Text> : null}
+    <ScrollView>
+        <View style={styles.mainView}>
+            {isError ? <Text style={styles.errMsg}>{error?.data?.message}</Text> : null}
 
-        <Text style={styles.inputTitle}>Fields marked with * are required</Text>
+            <Text style={styles.inputTitle}>Fields marked with * are required</Text>
 
-        <View
-            style={{
-                flex: 1,
-                padding: SIZES.medium
-            }}
-        >
-        </View>
-        
-        <Text style={styles.inputTitle}>Username (6-20 Letters and/or Numbers)*</Text>
-
-        <TextInput 
-            style={styles.textInputWide}
-            value={username}
-            onChangeText={handleUsernameChanged}
-        />
-
-        <Text style={styles.inputTitle}>Password (8-20 Characters, Optionally Including !@#%)*</Text>
-
-        <TextInput 
-            style={styles.textInputWide}
-            secureTextEntry={true}
-            value={password}
-            onChangeText={handlePasswordChanged}
-        />
-
-        <Text style={styles.inputTitle}>Confirm Password*</Text>
-
-        <TextInput 
-            style={styles.textInputWide}
-            secureTextEntry={true}
-            value={confirmPassword}
-            onChangeText={handleConfirmPasswordChanged}
-        />
-
-        <Text style={styles.inputTitle}>Email*</Text>
-
-        <TextInput 
-            style={styles.textInputWide}
-            value={email}
-            onChangeText={handleEmailChanged}
-        />
-
-        <Text style={styles.inputTitle}>Name*</Text>
-
-        <TextInput 
-            value={name}
-            style={styles.textInputWide}
-            onChangeText={handleNameChanged}
-        />
-
-        <Text style={styles.inputTitle}>Country*</Text>
-
-        <View style={styles.selectInputWide}>
-            <RNPickerSelect 
-                value={country}
-                items={Countries}
-                onValueChange={(value) => {
-                    setRegion('')
-                    setCountry(value)
+            <View
+                style={{
+                    flex: 1,
+                    padding: SIZES.medium
                 }}
-            />
-        </View>
-
-        <Text style={styles.inputTitle}>Region</Text>
-
-        <View style={styles.selectInputWide}>
-            <RNPickerSelect 
-                disabled={!bigCountries?.includes(country)}
-                placeholder={{ label: '--', value: '' }} 
-                items={bigCountries?.includes(country) ? Regions[country] : []}
-                value={region}
-                onValueChange={(value) => setRegion(value)}
-            />
-        </View>
-
-        <Text style={styles.inputTitle}>Bio</Text>
-
-        <TextInput 
-            style={styles.textInputWide}
-            multiline={true}
-            numberOfLines={5}
-            maxLength={500}
-            value={bio}
-            onChangeText={handleBioChanged}
-        />
-
-        <View>
-            <TouchableOpacity
-                onPress={handleSaveUserClicked}
-                disabled={!canSave}
-                style={!canSave ? [styles.blackButtonWide, styles.greyButton] : styles.blackButtonWide}
             >
-                <Text style={styles.buttonText}>Register</Text>
-            </TouchableOpacity>
+            </View>
+            
+            <Text style={styles.inputTitle}>Username (6-20 Letters and/or Numbers)*</Text>
+
+            <TextInput 
+                style={styles.textInputWide}
+                value={username}
+                onChangeText={handleUsernameChanged}
+            />
+
+            <Text style={styles.inputTitle}>Password (8-20 Characters, Optionally Including !@#%)*</Text>
+
+            <TextInput 
+                style={styles.textInputWide}
+                secureTextEntry={true}
+                value={password}
+                onChangeText={handlePasswordChanged}
+            />
+
+            <Text style={styles.inputTitle}>Confirm Password*</Text>
+
+            <TextInput 
+                style={styles.textInputWide}
+                secureTextEntry={true}
+                value={confirmPassword}
+                onChangeText={handleConfirmPasswordChanged}
+            />
+
+            <Text style={styles.inputTitle}>Email*</Text>
+
+            <TextInput 
+                style={styles.textInputWide}
+                value={email}
+                onChangeText={handleEmailChanged}
+            />
+
+            <Text style={styles.inputTitle}>Name*</Text>
+
+            <TextInput 
+                value={name}
+                style={styles.textInputWide}
+                onChangeText={handleNameChanged}
+            />
+
+            <Text style={styles.inputTitle}>Country*</Text>
+
+            <View style={styles.selectInputWide}>
+                <RNPickerSelect 
+                    value={country}
+                    items={Countries}
+                    onValueChange={(value) => {
+                        setRegion('')
+                        setCountry(value)
+                    }}
+                />
+            </View>
+
+            <Text style={styles.inputTitle}>Region</Text>
+
+            <View style={styles.selectInputWide}>
+                <RNPickerSelect 
+                    disabled={!bigCountries?.includes(country)}
+                    placeholder={{ label: '--', value: '' }} 
+                    items={bigCountries?.includes(country) ? Regions[country] : []}
+                    value={region}
+                    onValueChange={(value) => setRegion(value)}
+                />
+            </View>
+
+            <Text style={styles.inputTitle}>Bio</Text>
+
+            <TextInput 
+                style={styles.textInputWide}
+                multiline={true}
+                numberOfLines={5}
+                maxLength={500}
+                value={bio}
+                onChangeText={handleBioChanged}
+            />
+
+            <View>
+                <TouchableOpacity
+                    onPress={handleSaveUserClicked}
+                    disabled={!canSave}
+                    style={!canSave ? [styles.blackButtonWide, styles.greyButton] : styles.blackButtonWide}
+                >
+                    <Text style={styles.buttonText}>Register</Text>
+                </TouchableOpacity>
+            </View>
         </View>
-    </View>
+    </ScrollView>
 
     return content
 }
@@ -204,6 +206,8 @@ const NewUserForm = () => {
 const styles = StyleSheet.create({
     mainView: {
         marginHorizontal: 10,
+        marginBottom: 30,
+        marginTop: 10,
     },
     blackButtonWide: {
         backgroundColor: '#000000',

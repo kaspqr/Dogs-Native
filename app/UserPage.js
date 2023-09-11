@@ -619,7 +619,6 @@ const UserPage = ({ route, navigation }) => {
 
     return (
         <ScrollView style={{ backgroundColor: COLORS.lightWhite }} showsVerticalScrollIndicator={false}>
-            <View style={{ flex: 1, padding: SIZES.xSmall }} />
             <View style={styles.mainView}>
                 <Text style={styles.username}>{user?.username}</Text>
                 {userId === id 
@@ -720,6 +719,8 @@ const styles = StyleSheet.create({
     },
     mainView: {
         marginHorizontal: 10,
+        marginBottom: 30,
+        marginTop: 10,
     },
     blackButtonWide: {
       backgroundColor: '#000000',

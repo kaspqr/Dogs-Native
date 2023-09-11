@@ -1,13 +1,12 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
-import { SIZES } from '../constants'
 import { ScrollView } from 'react-native-gesture-handler'
 
 const FAQ = () => {
     return <ScrollView>
         <View style={styles.mainView}>
             <View>
-                <Text style={[styles.h1, {marginTop: 20}]}>Frequently Asked Questions</Text>
+                <Text style={styles.h1}>Frequently Asked Questions</Text>
 
                 <Text>Last Updated: 27th of August, 2023</Text>
                 <Text>Contact: info@pawretriever.com</Text>
@@ -258,6 +257,8 @@ const FAQ = () => {
 const styles = StyleSheet.create({
     mainView: {
         paddingHorizontal: 10,
+        marginBottom: 30,
+        marginTop: 10,
     },
     h1: {
         fontSize: 25,

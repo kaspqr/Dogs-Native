@@ -48,13 +48,6 @@ const AdvertisementPage = ({ route, navigation }) => {
 
     return (
         <ScrollView style={{ backgroundColor: COLORS.lightWhite }} showsVerticalScrollIndicator={false}>
-            <View
-                style={{
-                    flex: 1,
-                    padding: SIZES.small
-                }}
-            >
-            </View>
 
             <View style={styles.mainView}>
                 <Text style={{ fontSize: 20, fontWeight: 'bold' }}>
@@ -154,6 +147,8 @@ const styles = StyleSheet.create({
     },
     mainView: {
         marginHorizontal: 10,
+        marginBottom: 30,
+        marginTop: 10,
     },
 })
 

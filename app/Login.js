@@ -4,7 +4,7 @@ import { setCredentials } from "../components/auth/authSlice"
 import { useLoginMutation } from "../components/auth/authApiSlice"
 import usePersist from "../hooks/usePersist"
 import useAuth from "../hooks/useAuth"
-import { TouchableOpacity, View, Text, TextInput, Switch, StyleSheet } from "react-native"
+import { TouchableOpacity, View, Text, TextInput, Switch, StyleSheet, ScrollView } from "react-native"
 import AdvertisementsList from "./AdvertisementsList"
 
 const Login = () => {
@@ -69,51 +69,55 @@ const Login = () => {
   }
 
   return (
-    <View style={styles.mainView}>
+    <ScrollView>
+      <View style={styles.mainView}>
 
-      <View>
-        <Text style={styles.errMsg}>{errMsg}</Text>
+        <View>
+          {errMsg?.length ? <Text style={styles.errMsg}>{errMsg}</Text> : null}
 
-        <Text style={styles.inputTitle}>Username or Email</Text>
+          <Text style={styles.inputTitle}>Username or Email</Text>
 
-        <TextInput 
-          style={styles.textInputWide}
-          value={username}
-          onChangeText={handleUserInput}
-          autoComplete="off"
-        />
+          <TextInput 
+            style={styles.textInputWide}
+            value={username}
+            onChangeText={handleUserInput}
+            autoComplete="off"
+          />
 
-        <Text style={styles.inputTitle}>Password</Text>
+          <Text style={styles.inputTitle}>Password</Text>
 
-        <TextInput 
-          style={styles.textInputWide}
-          onChangeText={handlePwdInput}
-          value={password}
-          secureTextEntry={true}
-        />
+          <TextInput 
+            style={styles.textInputWide}
+            onChangeText={handlePwdInput}
+            value={password}
+            secureTextEntry={true}
+          />
 
-        <View style={styles.paginationRow}>
-          <Text style={styles.inputTitle}>Stay Logged In</Text>
-          <Switch value={persist} onValueChange={handleToggle} />
+          <View style={styles.paginationRow}>
+            <Text style={styles.inputTitle}>Stay Logged In</Text>
+            <Switch value={persist} onValueChange={handleToggle} />
+          </View>
+
+          <TouchableOpacity 
+            onPress={handleSubmit}
+            disabled={!username?.length || !password?.length}
+            style={!username?.length || !password?.length ? [styles.blackButtonWide, styles.greyButton] : styles.blackButtonWide}
+          >
+            <Text style={styles.buttonText}>Sign In</Text>
+          </TouchableOpacity>
+
+          <Text style={{textDecorationLine: 'underline', marginTop: 10}}>Forgot Password? Click here</Text>
         </View>
-
-        <TouchableOpacity 
-          onPress={handleSubmit}
-          disabled={!username?.length || !password?.length}
-          style={!username?.length || !password?.length ? [styles.blackButtonWide, styles.greyButton] : styles.blackButtonWide}
-        >
-          <Text style={styles.buttonText}>Sign In</Text>
-        </TouchableOpacity>
-
-        <Text style={{textDecorationLine: 'underline', marginTop: 10}}>Forgot Password? Click here</Text>
       </View>
-    </View>
+    </ScrollView>
   )
 }
 
 const styles = StyleSheet.create({
   mainView: {
-      marginHorizontal: 10,
+    marginHorizontal: 10,
+    marginBottom: 30,
+    marginTop: 10,
   },
   blackButtonWide: {
     backgroundColor: '#000000',

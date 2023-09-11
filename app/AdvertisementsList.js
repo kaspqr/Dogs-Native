@@ -190,13 +190,6 @@ const AdvertisementsList = ({ navigation }) => {
 
     content = (
       <ScrollView style={{ backgroundColor: COLORS.lightWhite }} showsVerticalScrollIndicator={false}>
-        <View
-            style={{
-                flex: 1,
-                padding: SIZES.xSmall
-            }}
-        >
-        </View>
       
         <View style={styles.mainView}>
           {userId?.length 
@@ -304,7 +297,7 @@ const AdvertisementsList = ({ navigation }) => {
                         setLowestPrice(value)}
                       }
                     }
-                    disabled={!currency?.length}
+                    editable={currency?.length > 0}
                   />
 
                   <Text style={styles.inputTitle}>Highest Price</Text>
@@ -318,7 +311,7 @@ const AdvertisementsList = ({ navigation }) => {
                         setHighestPrice(value)}
                       }
                     }
-                    disabled={!currency?.length}
+                    editable={currency?.length > 0}
                   />
 
                   <Text style={styles.inputTitle}>Sort by Price</Text>
@@ -415,6 +408,8 @@ const AdvertisementsList = ({ navigation }) => {
 const styles = StyleSheet.create({
   mainView: {
       marginHorizontal: 10,
+      marginBottom: 30,
+      marginTop: 10,
   },
   blackButtonWide: {
     backgroundColor: '#000000',

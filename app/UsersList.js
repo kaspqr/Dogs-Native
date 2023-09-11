@@ -102,13 +102,7 @@ const UsersList = ({ navigation }) => {
 
     return (
       <ScrollView style={{ backgroundColor: COLORS.lightWhite }} showsVerticalScrollIndicator={false}>
-        <View
-            style={{
-                flex: 1,
-                padding: SIZES.xSmall
-            }}
-        >
-        </View>
+
         <View style={styles.mainView}>
           <TouchableOpacity
             style={styles.blackButtonWide}
@@ -227,6 +221,8 @@ const UsersList = ({ navigation }) => {
 const styles = StyleSheet.create({
   mainView: {
       marginHorizontal: 10,
+      marginBottom: 30,
+      marginTop: 10,
   },
   blackButtonWide: {
     backgroundColor: '#000000',

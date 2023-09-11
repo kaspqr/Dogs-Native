@@ -1,10 +1,10 @@
-import { Link } from "react-router-dom"
 import { useGetDogsQuery } from "./dogsApiSlice"
 import { useGetUsersQuery } from "../users/usersApiSlice"
 import { memo } from "react"
-import DogIcon from "../../config/images/DogIcon.jpg"
+import DogIcon from "../../assets/images/DogIcon.jpg"
+import { Image, Text, TouchableOpacity, StyleSheet, View } from "react-native"
 
-const Dog = ({ dogId }) => {
+const Dog = ({ dogId, navigation }) => {
 
     // GET the dog with all of it's .values
     const { dog } = useGetDogsQuery("dogsList", {
@@ -20,42 +20,64 @@ const Dog = ({ dogId }) => {
         }),
     })
 
-    if (!dog) return null
+    if (!dog) return <Text style={{ margin: 10 }}>Dog not found</Text>
 
     return (
-        <div className="dog-div">
-
-            <div className="dog-div-image">
-                <img 
-                    width="150px" 
-                    height="150px" 
-                    className="dog-profile-picture" 
-                    src={dog?.image?.length ? dog?.image : DogIcon} 
-                    alt="Dog" 
+        <View style={styles.dogView}>
+            <View>
+                <Image 
+                    style={styles.dogPicture} 
+                    source={dog?.image?.length ? { uri: `${dog?.image}`} : DogIcon} 
                 />
-            </div>
+            </View>
 
-            <div className="dog-div-info">
-                <p><Link className="orange-link" to={`/dogs/${dogId}`}><b>{dog.name}</b></Link></p>
+            <View>
+                <View>
+                    <TouchableOpacity onPress={() => navigation.navigate('DogPage', { navigation, dogid: dogId })}>
+                        <Text style={styles.orangeLink}>
+                            {dog.name}
+                        </Text>
+                    </TouchableOpacity>
+                </View>
 
-                <br />
+                <Text>{dog.breed}</Text>
+                <Text>Good{dog.female === true ? ' Girl' : ' Boy'}</Text>
+                <Text>Born {dog.birth?.split(' ').slice(1, 4).join(' ')}</Text>
 
-                <p>{dog.breed}</p>
-                <p>Good{dog.female === true ? ' Girl' : ' Boy'}</p>
-                <p>Born {dog.birth?.split(' ').slice(1, 4).join(' ')}</p>
+                <View>
+                    <Text>Administered by{' '}</Text>
+                    <TouchableOpacity onPress={() => navigation.navigate('UserPage', { navigation, id: user?.id })}>
+                        <Text style={styles.orangeLink}>{user?.username}</Text>
+                    </TouchableOpacity>
+                </View>
 
-                <br />
-
-                <p className="dog-div-admin">
-                    <span>
-                        Administered by <Link className="orange-link" to={`/users/${user?.id}`}><b>{user?.username}</b></Link>
-                    </span>
-                </p>
-            </div>
-
-        </div>
+            </View>
+        </View>
     )
 }
+
+const styles = StyleSheet.create({
+    dogPicture: {
+        width: 150,
+        height: 150,
+        marginRight: 10,
+        borderRadius: 75,
+    },
+    dogView: {
+        flexDirection: 'row',
+        wordWrap: 'wrap',
+        borderWidth: 1,
+        borderRadius: 10,
+        borderColor: '#d3d3d3',
+        padding: 10,
+        marginTop: 5,
+        marginBottom: 5,
+    },
+    orangeLink: {
+        color: '#eb9b34',
+        fontWeight: 'bold',
+    }
+})
 
 const memoizedDog = memo(Dog)
 

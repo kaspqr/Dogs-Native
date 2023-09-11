@@ -9,6 +9,7 @@ import UsersList from './UsersList'
 import UserPage from './UserPage'
 import AdvertisementPage from './AdvertisementPage'
 import DogPage from './DogPage'
+import DogsList from './DogsList'
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
@@ -70,6 +71,10 @@ const Menu = ({ navigation }) => {
             <Stack.Screen 
                 name='DogPage' 
                 component={DogPage} 
+            />
+            <Stack.Screen 
+                name='DogsList' 
+                component={DogsList} 
             />
         </Stack.Navigator>
     )
