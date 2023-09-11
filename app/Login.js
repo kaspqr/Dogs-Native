@@ -7,7 +7,7 @@ import useAuth from "../hooks/useAuth"
 import { TouchableOpacity, View, Text, TextInput, Switch, StyleSheet, ScrollView } from "react-native"
 import AdvertisementsList from "./AdvertisementsList"
 
-const Login = () => {
+const Login = ({ navigation }) => {
 
   const dispatch = useDispatch()
 
@@ -62,7 +62,7 @@ const Login = () => {
 
   if (isLoading) return <Text>Loading...</Text>
 
-  if (isSuccess) return <AdvertisementsList />
+  if (isSuccess) navigation.navigate('AdvertisementsList', { navigation })
 
   if (auth?.username?.length) {
     return <Text>You are already logged in.</Text>

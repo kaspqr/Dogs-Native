@@ -4,7 +4,7 @@ import useAuth from "../hooks/useAuth"
 
 import { View, Text, Image, ScrollView, StyleSheet } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import { COLORS, SIZES } from "../constants"
+import { COLORS } from "../constants"
 
 const AdvertisementPage = ({ route, navigation }) => {
 

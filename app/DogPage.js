@@ -141,7 +141,7 @@ const DogPage = ({ route, navigation }) => {
         littersContent = filteredLitters?.map(litter => 
             <View key={litter?.id}>
                 <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 10 }}>
-                    <TouchableOpacity key={litter?.id}>
+                    <TouchableOpacity onPress={() => navigation.navigate('LitterPage', { navigation, litterid: litter?.id })} key={litter?.id}>
                         <Text style={styles.orangeLink}>Litter</Text>
                     </TouchableOpacity>
                     {(dog?.female === true && litter?.father?.length) || (dog?.female === false && litter?.mother?.length) 
@@ -248,7 +248,10 @@ const DogPage = ({ route, navigation }) => {
                 <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{dog?.name}</Text>
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                     <Text>Administered by{' '}</Text>
-                    <TouchableOpacity style={{ fontWeight: 'bold' }}>
+                    <TouchableOpacity 
+                        onPress={() => navigation.navigate('UserPage', { navigation, id: user?.id })} 
+                        style={{ fontWeight: 'bold' }}
+                    >
                         <Text style={styles.orangeLink}>{user?.username}</Text>
                     </TouchableOpacity>
                 </View>
@@ -328,10 +331,10 @@ const DogPage = ({ route, navigation }) => {
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                             <Text style={{ fontWeight: 'bold', fontSize: 16 }}>{dog?.name}'s</Text>
                             {dog?.litter 
-                                ? <TouchableOpacity>
+                                ? <TouchableOpacity onPress={() => navigation.navigate('LitterPage', { navigation, litterid: dog?.litter })}>
                                     <Text style={[styles.orangeLink, { fontSize: 16 }]}> Litter</Text>
                                 </TouchableOpacity> 
-                                : 'litter'
+                                : 'Litter'
                             }
                         </View>
 

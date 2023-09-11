@@ -1,11 +1,9 @@
-import { Link } from "react-router-dom"
 import { useGetLittersQuery } from "./littersApiSlice"
 import { useGetDogsQuery } from "../dogs/dogsApiSlice"
 import { memo } from "react"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faEye } from "@fortawesome/free-solid-svg-icons"
+import { Text, TouchableOpacity, StyleSheet, View } from "react-native"
 
-const Litter = ({ litterId }) => {
+const Litter = ({ litterId, navigation }) => {
 
     // GET the litter with all of it's .values
     const { litter } = useGetLittersQuery("littersList", {
@@ -33,32 +31,54 @@ const Litter = ({ litterId }) => {
     }
 
     return (
-        <div className="litter-div">
-            <div className="litter-div-info">
-                
-                <p>Mother <Link className="orange-link" to={`/dogs/${mother?.id}`}><b>{mother?.name}</b></Link></p>
+        <View style={styles.litterView}>
+            <View style={{ flex: 1 }}>
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <Text>Mother </Text> 
+                    <TouchableOpacity onPress={() => navigation.navigate('DogPage', { navigation, dogid: mother?.id })}>
+                        <Text style={styles.orangeLink}>{mother?.name}</Text>
+                    </TouchableOpacity>
+                </View>
                 {father 
-                    ? <p>Father <Link className="orange-link" to={`/dogs/${father?.id}`}><b>{father?.name}</b></Link></p>
-                    : <p>Father Not Added</p>
+                    ? <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <Text>Father </Text> 
+                        <TouchableOpacity onPress={() => navigation.navigate('DogPage', { navigation, dogid: father?.id })}>
+                            <Text style={styles.orangeLink}>{father?.name}</Text>
+                        </TouchableOpacity>
+                    </View>
+                    : <Text>Father Not Added</Text>
                 }
-                <p>Born {litter?.born?.split(' ').slice(1, 4).join(' ')}</p>
-                <p>{litter?.region?.length ? `${litter?.region}, ` : null}{litter?.country}</p>
-                <p>{litter?.breed}</p>
-                <p>{litter?.children} {litter?.children === 1 ? 'Puppy' : 'Puppies'}</p>
-            </div>
+                <Text>Born {litter?.born?.split(' ').slice(1, 4).join(' ')}</Text>
+                <Text>{litter?.region?.length ? `${litter?.region}, ` : null}{litter?.country}</Text>
+                <Text>{litter?.breed}</Text>
+                <Text>{litter?.children} {litter?.children === 1 ? 'Puppy' : 'Puppies'}</Text>
+            </View>
 
-            <div className="litter-div-link">
-                <span className="litter-link-span">
-                    <p><Link className="eye-view" to={`/litters/${litterId}`}>
-                        <FontAwesomeIcon icon={faEye} size="xl"/>
-                        <br />
-                        <b>View Litter</b>
-                    </Link></p>
-                </span>
-            </div>
-        </div>
+            <View style={{ flex: 1, alignItems: 'flex-end', justifyContent: 'center' }}>
+                <TouchableOpacity onPress={() => navigation.navigate('LitterPage', { litterid: litterId })}>
+                    <Text style={styles.orangeLink}>View Litter</Text>
+                </TouchableOpacity>
+            </View>
+        </View>
     )
 }
+
+const styles = StyleSheet.create({
+    litterView: {
+        flexDirection: 'row',
+        wordWrap: 'wrap',
+        borderWidth: 1,
+        borderRadius: 10,
+        borderColor: '#d3d3d3',
+        padding: 10,
+        marginTop: 5,
+        marginBottom: 5,
+    },
+    orangeLink: {
+        color: '#eb9b34',
+        fontWeight: 'bold',
+    }
+})
 
 const memoizedLitter = memo(Litter)
 

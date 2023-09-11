@@ -6,10 +6,13 @@ import Menu from "./Menu"
 import UserPage from "./UserPage"
 import AdvertisementPage from "./AdvertisementPage"
 import DogPage from "./DogPage"
+import { useState } from "react"
 
 const Stack = createNativeStackNavigator()
 
 const Home = ({ navigation }) => {
+
+    const [menuOpened, setMenuOpened] = useState(false)
 
     return (
         <Stack.Navigator

@@ -10,12 +10,17 @@ import UserPage from './UserPage'
 import AdvertisementPage from './AdvertisementPage'
 import DogPage from './DogPage'
 import DogsList from './DogsList'
+import LittersList from './LittersList'
+import LitterPage from './LitterPage'
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { useState } from "react"
 
 const Stack = createNativeStackNavigator()
 
 const Menu = ({ navigation }) => {
+
+    const [menuOpened, setMenuOpened] = useState(true)
 
     return (
         <Stack.Navigator
@@ -75,6 +80,14 @@ const Menu = ({ navigation }) => {
             <Stack.Screen 
                 name='DogsList' 
                 component={DogsList} 
+            />
+            <Stack.Screen 
+                name='LittersList' 
+                component={LittersList} 
+            />
+            <Stack.Screen 
+                name='LitterPage' 
+                component={LitterPage} 
             />
         </Stack.Navigator>
     )

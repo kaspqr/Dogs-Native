@@ -12,7 +12,7 @@ import { Breeds } from "../assets/breeds"
 import { View, Text, TextInput, StyleSheet, ScrollView } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 
-import { SIZES, COLORS } from "../constants"
+import { COLORS } from "../constants"
 
 import RNPickerSelect from 'react-native-picker-select'
 
