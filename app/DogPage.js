@@ -186,7 +186,7 @@ const DogPage = ({ route, navigation }) => {
     if (!dog) return <Text style={{ margin: 10 }}>Dog not found</Text>
 
     const content = userId === dog?.user 
-        ? <View>
+        ? <View style={{ marginTop: 10 }}>
             <TouchableOpacity
                 style={styles.blackButtonWide}
                 onPress={() => {}}
@@ -250,7 +250,6 @@ const DogPage = ({ route, navigation }) => {
                     <Text>Administered by{' '}</Text>
                     <TouchableOpacity 
                         onPress={() => navigation.navigate('UserPage', { navigation, id: user?.id })} 
-                        style={{ fontWeight: 'bold' }}
                     >
                         <Text style={styles.orangeLink}>{user?.username}</Text>
                     </TouchableOpacity>
@@ -363,7 +362,7 @@ const DogPage = ({ route, navigation }) => {
                 {content}
 
                 {userId?.length && dog?.user !== userId
-                    ? <View>
+                    ? <View style={{ marginTop: 10 }}>
                         <TouchableOpacity 
                             style={styles.blackButtonWide}
                             onPress={() => {}}
@@ -375,7 +374,7 @@ const DogPage = ({ route, navigation }) => {
                 }
 
                 {isAdmin || isSuperAdmin
-                    ? <View>
+                    ? <View style={{ marginTop: 10 }}>
                         <TouchableOpacity 
                             onPress={handleAdminDelete}
                             style={styles.blackButtonWide}

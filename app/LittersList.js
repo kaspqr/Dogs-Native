@@ -10,6 +10,8 @@ import { Calendar } from 'react-native-calendars'
 import { ScrollView, TouchableOpacity, View, Text, StyleSheet, TextInput } from "react-native"
 import RNPickerSelect from 'react-native-picker-select'
 
+import { COLORS } from "../constants"
+
 const LittersList = ({ navigation }) => {
 
   const { userId } = useAuth()
@@ -156,7 +158,7 @@ const LittersList = ({ navigation }) => {
     ))
 
     if (!reversedNewIds?.length) {
-      return <ScrollView>
+      return <ScrollView style={{ backgroundColor: COLORS.lightWhite }} showsVerticalScrollIndicator={false}>
         <View style={styles.mainView}>
           {userId?.length 
             ? <View>
@@ -172,11 +174,11 @@ const LittersList = ({ navigation }) => {
     }
 
     content = (
-      <ScrollView>
+      <ScrollView style={{ backgroundColor: COLORS.lightWhite }} showsVerticalScrollIndicator={false}>
         <View style={styles.mainView}>
           {userId?.length 
             ? <View>
-              <TouchableOpacity style={styles.blackButtonWide}>
+              <TouchableOpacity onPress={() => navigation.navigate('NewLitterForm', { navigation })} style={styles.blackButtonWide}>
                 <Text style={styles.buttonText}>Add a New Litter</Text>
               </TouchableOpacity>
             </View> 

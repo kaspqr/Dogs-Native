@@ -12,18 +12,15 @@ import DogPage from './DogPage'
 import DogsList from './DogsList'
 import LittersList from './LittersList'
 import LitterPage from './LitterPage'
+import NewLitterForm from './NewLitterForm'
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { useState } from "react"
 
 const Stack = createNativeStackNavigator()
 
 const Menu = ({ navigation }) => {
 
-    const [menuOpened, setMenuOpened] = useState(true)
-
-    return (
-        <Stack.Navigator
+    {/* <Stack.Navigator
             initialRouteName="MenuComponent"
             screenOptions={{
                 headerStyle: { backgroundColor: COLORS.beige },
@@ -43,6 +40,14 @@ const Menu = ({ navigation }) => {
                     />
                 ),
                 headerTitle: "",
+            }}
+        > */}
+
+    return (
+        <Stack.Navigator
+            initialRouteName="MenuComponent"
+            screenOptions={{
+                headerShown: false
             }}
         >
             <Stack.Screen 
@@ -88,6 +93,10 @@ const Menu = ({ navigation }) => {
             <Stack.Screen 
                 name='LitterPage' 
                 component={LitterPage} 
+            />
+            <Stack.Screen 
+                name='NewLitterForm' 
+                component={NewLitterForm} 
             />
         </Stack.Navigator>
     )

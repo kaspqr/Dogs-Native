@@ -1,10 +1,15 @@
 import { useEffect, useRef, useState } from "react"
-import { useRefreshMutation } from "./authApiSlice"
-import usePersist from "../../hooks/usePersist"
+import { useRefreshMutation } from "../components/auth/authApiSlice"
+import usePersist from "../hooks/usePersist"
 import { useSelector } from "react-redux"
-import { selectCurrentToken } from "./authSlice"
-import Index from "../../app/index"
+import { selectCurrentToken } from "../components/auth/authSlice"
 import { Text } from "react-native"
+import Home from "./home"
+
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import Prefetch from "./Prefetch"
+
+const Stack = createNativeStackNavigator()
 
 const PersistLogin = () => {
 
@@ -46,26 +51,32 @@ const PersistLogin = () => {
     
     if (!persist) { // persist: no
         console.log('no persist')
-        return <Index />
     } else if (isLoading) { // persist: yes, token: no
         console.log('loading')
         return <Text>Loading...</Text>
     } else if (isError) { // persist: yes, token: no
         console.log('You are not logged in')
         console.log(error?.data?.message)
-        return <Index />
     } else if (isSuccess && trueSuccess) { // persist: yes, token: yes
         console.log('success')
-        return <Index />
     } else if (token && isUninitialized) { // persist: yes, token: yes
         console.log('token and uninit')
         console.log(isUninitialized)
-        return <Index />
     }
 
     console.log('You are logged out.')
 
-    return <Index />
+    return <Stack.Navigator
+        initialRouteName="Prefetch"
+        screenOptions={{
+            headerShown: false
+        }}
+    >
+        <Stack.Screen 
+            name="Prefetch" 
+            component={Prefetch} 
+        />
+    </Stack.Navigator>
 }
 
 export default PersistLogin

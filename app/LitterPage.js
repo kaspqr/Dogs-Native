@@ -275,7 +275,7 @@ const LitterPage = ({ navigation, route }) => {
     if (mother?.user === userId) {
         content = (
             <View>
-                <View>
+                <View style={{ marginTop: 10 }}>
                     <TouchableOpacity
                         onPress={() => setDeletionVisible(!deletionVisible)}
                         style={styles.blackButtonWide}
@@ -461,7 +461,7 @@ const LitterPage = ({ navigation, route }) => {
 
     const deleteFatherContent = father?.id?.length && (userId === mother?.user || userId === father?.user)
         ? <View>
-            <View>
+            <View style={{ marginTop: 10 }}>
                 <TouchableOpacity
                     style={styles.blackButtonWide}
                     onPress={() => setRemovalVisible(!removalVisible)}
@@ -580,7 +580,7 @@ const LitterPage = ({ navigation, route }) => {
 
                         {dogContent}
                     </View>
-                    : <Text style={{ margin: 10 }}>No puppies have been added to this litter yet</Text>
+                    : <Text style={{ marginVertical: 10 }}>No puppies have been added to this litter yet</Text>
                 }
                 {content}
             </View>

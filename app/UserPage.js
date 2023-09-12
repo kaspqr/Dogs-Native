@@ -9,7 +9,7 @@ import { useGetAdvertisementsQuery } from "../components/advertisements/advertis
 import { useState, useEffect } from "react"
 import UserDog from "../components/dogs/UserDog"
 import UserAdvertisement from "../components/advertisements/UserAdvertisement"
-import EditUserForm from "../components/users/EditUserForm"
+import EditUserForm from "./EditUserForm"
 // import ConversationPage from "../conversations/ConversationPage"
 import { TouchableOpacity, View, Text, ScrollView, TextInput, Image, StyleSheet } from "react-native"
 import { COLORS, SIZES } from "../constants"
@@ -582,7 +582,7 @@ const UserPage = ({ route, navigation }) => {
     if (!user) return <Text>User not found</Text>
 
     // Only available when userId === id (the user visiting === the user whose page we're on)
-    const handleEdit = () => { return <EditUserForm user={id} /> }
+    const handleEdit = () => navigation.navigate('EditUserForm', { navigation, user: userId })
 
     // If the user visiting is someone else, they can send a message instead
     const handleMessage = async () => {

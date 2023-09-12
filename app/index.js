@@ -6,6 +6,8 @@ import Home from "./home"
 import Menu from "./Menu"
 import UserPage from "./UserPage"
 import AdvertisementPage from "./AdvertisementPage"
+import PersistLogin from "./PersistLogin"
+import Prefetch from "./Prefetch"
 
 const Stack = createNativeStackNavigator()
 
@@ -13,7 +15,7 @@ const Index = () => {
 
     return (
         <Provider store={store}>
-            <Stack.Navigator
+            {/* <Stack.Navigator
                 initialRouteName="home"
                 screenOptions={{
                     headerShown: false
@@ -35,13 +37,20 @@ const Index = () => {
                     name="AdvertisementPage" 
                     component={AdvertisementPage} 
                 />
+            </Stack.Navigator> */}
+            <Stack.Navigator
+                initialRouteName="PersistLogin"
+                screenOptions={{
+                    headerShown: false
+                }}
+            >
+                <Stack.Screen 
+                    name="PersistLogin" 
+                    component={PersistLogin} 
+                />
             </Stack.Navigator>
         </Provider>
     )
-
-    /* return <Provider store={store}>
-        <Home />
-    </Provider> */
 }
 
 export default Index

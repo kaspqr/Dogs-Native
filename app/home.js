@@ -2,17 +2,23 @@ import AdvertisementsList from "./AdvertisementsList"
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { COLORS, images, icons } from "../constants"
 import ScreenHeaderBtn from "../components/header/ScreenHeaderBtn"
-import Menu from "./Menu"
+import MenuComponent from "./MenuComponent"
 import UserPage from "./UserPage"
 import AdvertisementPage from "./AdvertisementPage"
 import DogPage from "./DogPage"
-import { useState } from "react"
+import FAQ from './Faq'
+import UsersList from './UsersList'
+import DogsList from './DogsList'
+import LittersList from './LittersList'
+import LitterPage from './LitterPage'
+import NewLitterForm from './NewLitterForm'
+import Login from './Login'
+import NewUserForm from './NewUserForm'
+import EditUserForm from "./EditUserForm"
 
 const Stack = createNativeStackNavigator()
 
 const Home = ({ navigation }) => {
-
-    const [menuOpened, setMenuOpened] = useState(false)
 
     return (
         <Stack.Navigator
@@ -31,7 +37,7 @@ const Home = ({ navigation }) => {
                     <ScreenHeaderBtn 
                         iconUrl={icons.menu} 
                         dimension="60%" 
-                        handlePress={() => navigation.navigate('Menu')}
+                        handlePress={() => navigation.navigate('MenuComponent')}
                     />
                 ),
                 headerTitle: "",
@@ -42,8 +48,8 @@ const Home = ({ navigation }) => {
                 component={AdvertisementsList} 
             />
             <Stack.Screen 
-                name='Menu' 
-                component={Menu} 
+                name='MenuComponent' 
+                component={MenuComponent} 
             />
             <Stack.Screen 
                 name='UserPage' 
@@ -56,6 +62,42 @@ const Home = ({ navigation }) => {
             <Stack.Screen 
                 name='DogPage' 
                 component={DogPage} 
+            />
+            <Stack.Screen 
+                name='Login' 
+                component={Login} 
+            />
+            <Stack.Screen 
+                name='NewUserForm' 
+                component={NewUserForm} 
+            />
+            <Stack.Screen 
+                name='Faq' 
+                component={FAQ} 
+            />
+            <Stack.Screen 
+                name='UsersList' 
+                component={UsersList} 
+            />
+            <Stack.Screen 
+                name='DogsList' 
+                component={DogsList} 
+            />
+            <Stack.Screen 
+                name='LittersList' 
+                component={LittersList} 
+            />
+            <Stack.Screen 
+                name='LitterPage' 
+                component={LitterPage} 
+            />
+            <Stack.Screen 
+                name='NewLitterForm' 
+                component={NewLitterForm} 
+            />
+            <Stack.Screen 
+                name='EditUserForm' 
+                component={EditUserForm} 
             />
         </Stack.Navigator>
     )
