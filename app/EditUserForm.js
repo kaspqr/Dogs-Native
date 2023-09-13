@@ -98,7 +98,7 @@ const EditUserForm = ({ route, navigation }) => {
 
         if (password?.length) {
             if (password !== confirmPassword) {
-                setChangePasswordError(<Text>New Password doesn't match with Confirm Password</Text>)
+                setChangePasswordError("New Password doesn't match with Confirm Password")
             }
             await updateUser({ id: user?.id, password, name, email, country, region, currentPassword, bio: finalBio })
         } else {
@@ -117,8 +117,10 @@ const EditUserForm = ({ route, navigation }) => {
 
     // Function to handle image selection
     const handleFileClicked = async () => {
+        setUploadMessage('')
+
         let result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: true,
             aspect: [1, 1],
             quality: 1,
@@ -127,7 +129,7 @@ const EditUserForm = ({ route, navigation }) => {
 
         if (!result.canceled) {
             setPreviewSource(result.assets[0].uri)
-            setBase64Value(result.assets[0].base64)
+            setBase64Value('data:image/jpeg;base64,' + result.assets[0].base64)
         }
     }
 
@@ -136,7 +138,7 @@ const EditUserForm = ({ route, navigation }) => {
 
         try {
             setUploadMessage('')
-            await fetch('https://1909-2001-1530-1012-485b-89ff-3e81-ea3b-71dd.ngrok-free.app/userimages', {
+            await fetch('https://7751-2001-1530-1012-485b-6cea-77a0-f4c0-b0b6.ngrok-free.app/userimages', {
                 method: 'POST',
                 body: JSON.stringify({ 
                     data: base64EncodedImage,
@@ -156,7 +158,8 @@ const EditUserForm = ({ route, navigation }) => {
     }
 
     const handleSubmitFile = () => {
-        if (base64Value?.length) uploadImage(base64Value)
+        if (!base64Value) return
+        return uploadImage(base64Value)
     }
 
     useEffect(() => {
