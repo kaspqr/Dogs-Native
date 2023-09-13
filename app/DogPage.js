@@ -189,7 +189,7 @@ const DogPage = ({ route, navigation }) => {
         ? <View style={{ marginTop: 10 }}>
             <TouchableOpacity
                 style={styles.blackButtonWide}
-                onPress={() => {}}
+                onPress={() => navigation.navigate('EditDogForm', { navigation, dogid })}
             >
                 <Text style={styles.buttonText}>Edit</Text>
             </TouchableOpacity>

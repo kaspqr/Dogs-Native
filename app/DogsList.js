@@ -243,7 +243,7 @@ const DogsList = ({ navigation }) => {
         <View style={styles.mainView}>
           {userId?.length 
             ? <View>
-              <TouchableOpacity style={styles.blackButtonWide}>
+              <TouchableOpacity style={styles.blackButtonWide} onPress={() => navigation.navigate('NewDogForm', { navigation })}>
                 <Text style={styles.buttonText}>
                   Add a New Dog
                 </Text>
