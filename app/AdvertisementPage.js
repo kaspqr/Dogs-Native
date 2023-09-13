@@ -103,7 +103,7 @@ const AdvertisementPage = ({ route, navigation }) => {
                     ? <View style={{ marginTop: 10 }}>
                         <TouchableOpacity 
                             style={styles.blackButtonWide}
-                            onPress={() => {}}
+                            onPress={() => navigation.navigate('EditAdvertisementForm', { advertisementId, navigation })}
                         >
                             <Text style={styles.buttonText}>Edit</Text>
                         </TouchableOpacity>

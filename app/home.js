@@ -15,6 +15,8 @@ import NewLitterForm from './NewLitterForm'
 import Login from './Login'
 import NewUserForm from './NewUserForm'
 import EditUserForm from "./EditUserForm"
+import NewAdvertisementForm from "./NewAdvertisementForm"
+import EditAdvertisementForm from "./EditAdvertisementForm"
 
 const Stack = createNativeStackNavigator()
 
@@ -98,6 +100,14 @@ const Home = ({ navigation }) => {
             <Stack.Screen 
                 name='EditUserForm' 
                 component={EditUserForm} 
+            />
+            <Stack.Screen 
+                name='NewAdvertisementForm' 
+                component={NewAdvertisementForm} 
+            />
+            <Stack.Screen 
+                name='EditAdvertisementForm' 
+                component={EditAdvertisementForm} 
             />
         </Stack.Navigator>
     )

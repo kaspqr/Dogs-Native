@@ -196,7 +196,7 @@ const AdvertisementsList = ({ navigation }) => {
             ? <View>
               <TouchableOpacity
                 style={styles.blackButtonWide}
-                onPress={() => {}}
+                onPress={() => navigation.navigate('NewAdvertisementForm', { navigation })}
               >
                 <Text style={styles.buttonText}>Post an Advertisement</Text>
               </TouchableOpacity>
