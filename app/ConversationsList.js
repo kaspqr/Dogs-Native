@@ -1,9 +1,11 @@
-import { useGetConversationsQuery } from "./conversationsApiSlice"
-import { useGetMessagesQuery } from "../messages/messagesApiSlice"
-import Conversation from "./Conversation"
-import useAuth from "../../hooks/useAuth"
+import { useGetConversationsQuery } from "../components/conversations/conversationsApiSlice"
+import { useGetMessagesQuery } from "../components/messages/messagesApiSlice"
+import Conversation from "../components/conversations/Conversation"
+import useAuth from "../hooks/useAuth"
+import { View, Text, StyleSheet, ScrollView } from 'react-native'
+import { COLORS } from "../constants"
 
-const ConversationsList = () => {
+const ConversationsList = ({ navigation }) => {
 
   const { userId } = useAuth()
 
@@ -36,11 +38,11 @@ const ConversationsList = () => {
   // Variable for displaying errors and content
   let content
 
-  if (isLoading || isMsgLoading) content = <p>Loading...</p>
+  if (isLoading || isMsgLoading) content = <Text style={{ margin: 10 }}>Loading...</Text>
 
-  if (isError) content = <p>{error?.data?.message}</p>
+  if (isError) content = <Text style={{ margin: 10 }}>{error?.data?.message}</Text>
 
-  if (isMsgError) content = <p>{msgError?.data?.message}</p>
+  if (isMsgError) content = <Text style={{ margin: 10 }}>{msgError?.data?.message}</Text>
 
   if (isSuccess && isMsgSuccess) {
     const { ids, entities } = conversations
@@ -73,7 +75,7 @@ const ConversationsList = () => {
 
       tableContent = lastMessages?.map(message => {
         return filteredIds?.map(id => {
-          if (message?.conversation === id) return <Conversation key={id} conversationId={id} />
+          if (message?.conversation === id) return <Conversation navigation={navigation} key={id} conversationId={id} />
         })
       })
     } else {
@@ -81,11 +83,23 @@ const ConversationsList = () => {
     }
 
     content = !lastMessages?.length 
-      ? <p>You have no messages</p> 
-      : tableContent
+      ? <Text style={{ margin: 10 }}>You have no messages</Text> 
+      : <ScrollView style={{ backgroundColor: COLORS.lightWhite }} showsVerticalScrollIndicator={false}>
+        <View style={styles.mainView}>
+          {tableContent}
+        </View>
+      </ScrollView> 
   }
 
   return content
 }
+
+const styles = StyleSheet.create({
+  mainView: {
+      marginHorizontal: 10,
+      marginBottom: 30,
+      marginTop: 10,
+  },
+})
 
 export default ConversationsList

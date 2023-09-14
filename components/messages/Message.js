@@ -1,16 +1,14 @@
 import { useGetMessagesQuery } from "./messagesApiSlice"
 import { useGetUsersQuery } from "../users/usersApiSlice"
-import { memo } from "react"
+import { memo, useState } from "react"
 import useAuth from "../../hooks/useAuth"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faTriangleExclamation } from "@fortawesome/free-solid-svg-icons"
-import { useNavigate } from "react-router-dom"
+import { TouchableOpacity, View, Text, StyleSheet } from "react-native"
 
-const Message = ({ messageId }) => {
-
-    const navigate = useNavigate()
+const Message = ({ messageId, navigation }) => {
 
     const { userId } = useAuth()
+
+    const [messageClicked, setMessageClicked] = useState(false)
 
     // GET the message with all of it's .values
     const { message } = useGetMessagesQuery("messagesList", {
@@ -28,58 +26,134 @@ const Message = ({ messageId }) => {
 
     if (!message || !sender) return null
 
-    const timeId = `time-${message?.id}`
-    const msgId = `message-${message?.id}`
-
-    const handleMessageClicked = (e) => {
-        const extraInfoParagraphId = 'time-' + e.target.id.split('-')[1]
-        const extraInfoParagraph = document.getElementById(extraInfoParagraphId)
-        if (extraInfoParagraph.style.display === 'none') {
-            extraInfoParagraph.style.display = 'block'
-        } else {
-            extraInfoParagraph.style.display = 'none'
-        }
-    }
-
-    const messageContainerStyle = {
-        display: 'grid',
-        justifyContent: message?.sender === userId ? 'flex-end' : 'flex-start',
-        marginBottom: '5px',
-    }
-
-    const messageContentStyle = {
-        backgroundColor: message?.sender === userId ? 'rgb(235, 155, 52)' : 'lightgrey',
-        borderRadius: '5px',
-        padding: '5px',
-        maxWidth: '300px',
-        wordWrap: 'break-word'
-    }
-
     return (
-        <div style={messageContainerStyle}>
-            <p id={timeId} className="message-time" style={{display: "none"}}>
+        <View>
+            <View style={messageClicked ? null : {display: "none"}}>
                 {message?.sender !== userId
-                    ? <button
-                        onClick={() => navigate(`/reportmessage/${message?.id}`)}
-                        className="report-message-button"
-                    >
-                        <FontAwesomeIcon color="red" icon={faTriangleExclamation} />
-                    </button>
+                    ? <View>
+                        <TouchableOpacity
+                            onPress={() => {}}
+                        >
+                            <Text style={{ color: 'red' }}>Report Message</Text>
+                        </TouchableOpacity>
+                    </View>
                     : null
                 }
-                {message.time.split('T').join(' ').split('Z').join(' ').split(':').slice(0, 2).join(':')}
-            </p>
-            <p 
-                id={msgId}
-                style={messageContentStyle} 
-                className="message-text"
-                onClick={handleMessageClicked}
-            >
-                {message?.text}
-            </p>
-        </div>
+                <Text>{message.time.split('T').join(' ').split('Z').join(' ').split(':').slice(0, 2).join(':')}</Text>
+            </View>
+            <View style={message?.sender === userId ? styles.sentMessageContent : styles.receivedMessageContent}>
+                <TouchableOpacity 
+                    onPress={() => setMessageClicked(!messageClicked)}
+                >
+                    <Text>{message?.text}</Text>
+                </TouchableOpacity>
+            </View>
+        </View>
     )
 }
+
+const styles = StyleSheet.create({
+    mainView: {
+        marginHorizontal: 10,
+        marginBottom: 30,
+        marginTop: 10,
+    },
+    blackButtonWide: {
+      backgroundColor: '#000000',
+      borderRadius: 5,
+      padding: 10,
+      marginBottom: 10,
+    },
+    blackButton: {
+      padding: 10,
+      borderRadius: 5,
+      backgroundColor: '#000000',
+      width: 50,
+    },
+    blackNewPageButton: {
+      backgroundColor: '#000000',
+      borderRadius: 5,
+      padding: 10,
+    },
+    greyButton: {
+      backgroundColor: 'lightgrey',
+    },
+    buttonText: {
+      color: '#ffffff',
+      fontWeight: 'bold',
+      textAlign: 'center',
+    },
+    filterViewVisible: {
+      flex: 1,
+    },
+    filterViewHidden: {
+      display: 'none',
+    },
+    textInputWide: {
+      borderWidth: 1,
+      borderRadius: 5,
+      paddingHorizontal: 5,
+      paddingVertical: 13,
+      marginBottom: 10,
+    },
+    textInput: {
+      borderWidth: 1,
+      borderRadius: 5,
+      paddingLeft: 5,
+      width: 60,
+    },
+    selectInputWide: {
+      borderWidth: 1,
+      borderRadius: 5,
+      marginBottom: 10,
+    },
+    paginationRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginBottom: 5,
+    },
+    paginationTextView: {
+      flex: 1,
+      alignItems: 'center',
+    },
+    paginationInputView: {
+      flexDirection: 'row',
+      marginTop: 5,
+    },
+    inputTitle: {
+      fontWeight: 'bold',
+    },
+    sentMessageContainer: {
+        justifyContent: 'flex-end',
+        marginBottom: '5px',
+    },
+    receivedMessageContainer: {
+        justifyContent: 'flex-start',
+        marginBottom: '5px',
+    },
+    orangeLink: {
+        color: 'orange',
+        fontWeight: 'bold',
+    },
+    sentMessageContent: {
+        backgroundColor: 'orange',
+        borderRadius: 5,
+        padding: 5,
+        maxWidth: '80%',
+        wordWrap: 'break-word',
+        marginBottom: 1,
+        flex: 1,
+        alignItems: 'flex-end',
+    },
+    receivedMessageContent: {
+        backgroundColor: 'lightgrey',
+        borderRadius: 5,
+        padding: 5,
+        maxWidth: 300,
+        wordWrap: 'break-word',
+        marginBottom: 1,
+    },
+  })
 
 const memoizedMessage = memo(Message)
 

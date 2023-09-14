@@ -25,7 +25,7 @@ const MenuComponent = ({ navigation }) => {
                         <Text style={styles.menuButtonText}>My Profile</Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.menuButton}>
+                    <TouchableOpacity style={styles.menuButton} onPress={() => navigation.navigate('ConversationsList', { navigation })}>
                         <Text style={styles.menuButtonText}>Inbox</Text>
                     </TouchableOpacity>
                 </View>

@@ -1,12 +1,14 @@
-import { useGetConversationsQuery } from "./conversationsApiSlice"
-import { useGetUsersQuery } from "../users/usersApiSlice"
-import { useGetMessagesQuery, useAddNewMessageMutation } from "../messages/messagesApiSlice"
-import Message from "../messages/Message"
-import { useParams, Link } from "react-router-dom"
-import useAuth from "../../hooks/useAuth"
+import { useGetConversationsQuery } from "../components/conversations/conversationsApiSlice"
+import { useGetUsersQuery } from "../components/users/usersApiSlice"
+import { useGetMessagesQuery, useAddNewMessageMutation } from "../components/messages/messagesApiSlice"
+import Message from "../components/messages/Message"
+import useAuth from "../hooks/useAuth"
 import { useState, useEffect, useRef, useCallback } from "react"
+import { TouchableOpacity, View, Text, StyleSheet, ScrollView, TextInput } from "react-native"
 
-const ConversationPage = ({ conversationid }) => {
+const ConversationPage = ({ route, navigation }) => {
+
+    const { conversationid } = route.params
 
     const { userId } = useAuth()
     const [newMessage, setNewMessage] = useState('')
@@ -25,8 +27,7 @@ const ConversationPage = ({ conversationid }) => {
         error: messageError
     }] = useAddNewMessageMutation()
 
-    async function handleSendMessage(e) {
-        e.preventDefault()
+    const handleSendMessage = async () => {
         if (newMessage?.trim().length) {
             // POST the new message
             await addNewMessage({ sender: userId, conversation: conversationid, text: newMessage })
@@ -48,16 +49,16 @@ const ConversationPage = ({ conversationid }) => {
 
     const conversationDivRef = useRef(null)
 
-    useEffect(() => {
+    /* useEffect(() => {
         // Scroll the conversation div to the bottom after component renders
         if (conversationDivRef?.current && initialMessagesLoaded === false) {
             conversationDivRef.current.scrollTop = conversationDivRef.current.scrollHeight
             setInitialMessagesLoaded(true)
         }
-    }, [messages, initialMessagesLoaded])
+    }, [messages, initialMessagesLoaded]) */
 
     // Define the handleScroll function using useCallback
-    const handleScroll = useCallback(() => {
+    /* const handleScroll = useCallback(() => {
         if (conversationDivRef?.current.scrollTop === 0 && hasMoreMessages) {
             // Get the current scroll height and scroll position before adding more messages
             const previousScrollHeight = conversationDivRef?.current.scrollHeight
@@ -77,7 +78,7 @@ const ConversationPage = ({ conversationid }) => {
                 })
             }, 0)
         }
-      }, [hasMoreMessages])
+      }, [hasMoreMessages]) */
       
 
     // GET the conversation with all of it's .values
@@ -108,33 +109,33 @@ const ConversationPage = ({ conversationid }) => {
         }
     }, [isMessageSuccess])
 
-    useEffect(() => {
+    /* useEffect(() => {
         const divRef = conversationDivRef?.current; // Capture the current ref value
         divRef?.addEventListener('scroll', handleScroll)
         
         return () => {
             divRef?.removeEventListener('scroll', handleScroll)
         }
-    }, [hasMoreMessages, handleScroll])
+    }, [hasMoreMessages, handleScroll]) */
 
-    useEffect(() => {
+    /* useEffect(() => {
         if (filteredMessages?.length) {
             setHasMoreMessages(displayedMessagesCount < filteredMessages.length)
         }
-    }, [displayedMessagesCount, filteredMessages])
+    }, [displayedMessagesCount, filteredMessages]) */
 
     // Logic to handle received messages
-    useEffect(() => {
+    /* useEffect(() => {
         // Increment the total messages count and displayed messages count
         setDisplayedMessagesCount(prevCount => prevCount + 1)
-    }, [messages?.ids.length])
+    }, [messages?.ids.length]) */
     
     // Variable for errors and content
     let messageContent
     
-    if (isLoading || isMessageLoading) messageContent = <p>Loading...</p>
-    if (isError) messageContent = <p>{error?.data?.message}</p>
-    if (isMessageError) messageContent = <p>{messageError?.data?.message}</p>
+    if (isLoading || isMessageLoading) messageContent = <Text style={{ margin: 10 }}>Loading...</Text>
+    if (isError) messageContent = <Text style={{ margin: 10 }}>{error?.data?.message}</Text>
+    if (isMessageError) messageContent = <Text style={{ margin: 10 }}>{messageError?.data?.message}</Text>
     
     if (isSuccess) {
         const { ids, entities } = messages
@@ -157,31 +158,31 @@ const ConversationPage = ({ conversationid }) => {
           }
       
         messageContent = (
-            <>
-                <div ref={conversationDivRef} className="conversation-page-messages-div">
+            <View>
+                <ScrollView 
+                    ref={conversationDivRef} 
+                    onContentSizeChange={() => conversationDivRef.current.scrollToEnd({ animated: true })}
+                >
                     {tableContent}
-                </div>
+                </ScrollView>
                 
-                <div className="conversation-page-message-input-div">
-                    <form onSubmit={(e) => handleSendMessage(e)}>
-                        <label htmlFor="new-message"><b>New Message</b></label>
-                        <br />
-                        <input 
+                <View>
+                        <TextInput 
                             value={newMessage} 
-                            onChange={(e) => setNewMessage(e.target.value)} 
-                            name="new-message" 
-                            id="new-message" 
+                            onChangeText={(value) => setNewMessage(value)} 
+                            style={styles.textInput}
                         />
-                        <button
-                            title="Send Message"
-                            className="send-message-button black-button"
-                            disabled={!newMessage?.length}
-                        >
-                            Send Message
-                        </button>
-                    </form>
-                </div>
-            </>
+                        <View>
+                            <TouchableOpacity
+                                style={styles.blackButton}
+                                disabled={!newMessage?.length}
+                                onPress={handleSendMessage}
+                            >
+                                <Text style={styles.buttonText}>{'->'}</Text>
+                            </TouchableOpacity>
+                        </View>
+                </View>
+            </View>
         )
     }
 
@@ -191,19 +192,65 @@ const ConversationPage = ({ conversationid }) => {
     if (userId !== conversation?.sender && userId !== conversation?.receiver) return null
 
     return (
-        <>
+        <View style={styles.mainView}>
             {sender.id === userId 
-                ? <p className="conversation-page-username-title">
-                    <Link className="grey-link" to={`/users/${receiver.id}`}>{receiver.username}</Link>
-                </p> 
-                : <p className="conversation-page-username-title">
-                    <Link className="grey-link" to={`/users/${sender.id}`}>{sender.username}</Link>
-                </p>
+                ? <TouchableOpacity onPress={() => navigation.navigate('UserPage', { navigation, id: receiver?.id })}>
+                    <Text style={styles.orangeLink}>{receiver?.username}</Text>
+                </TouchableOpacity> 
+                : <TouchableOpacity onPress={() => navigation.navigate('UserPage', { navigation, id: sender?.id })}>
+                    <Text style={styles.orangeLink}>{sender?.username}</Text>
+                </TouchableOpacity>
             }
-            <br />
             {isSuccess && messageContent}
-        </>
+        </View>
     )
 }
+
+const styles = StyleSheet.create({
+    mainView: {
+        margin: 10,
+    },
+    blackButtonWide: {
+      backgroundColor: '#000000',
+      borderRadius: 5,
+      padding: 10,
+      marginBottom: 10,
+    },
+    blackButton: {
+      padding: 10,
+      borderRadius: 5,
+      backgroundColor: '#000000',
+      width: 50,
+    },
+    blackNewPageButton: {
+      backgroundColor: '#000000',
+      borderRadius: 5,
+      padding: 10,
+    },
+    greyButton: {
+      backgroundColor: 'lightgrey',
+    },
+    buttonText: {
+      color: '#ffffff',
+      fontWeight: 'bold',
+      textAlign: 'center',
+    },
+    textInputWide: {
+      borderWidth: 1,
+      borderRadius: 5,
+      paddingHorizontal: 5,
+      paddingVertical: 13,
+      marginBottom: 10,
+    },
+    textInput: {
+      borderWidth: 1,
+      borderRadius: 5,
+      paddingLeft: 5,
+      width: 300,
+    },
+    inputTitle: {
+      fontWeight: 'bold',
+    },
+  })
 
 export default ConversationPage

@@ -19,6 +19,8 @@ import NewAdvertisementForm from "./NewAdvertisementForm"
 import EditAdvertisementForm from "./EditAdvertisementForm"
 import NewDogForm from "./NewDogForm"
 import EditDogForm from "./EditDogForm"
+import ConversationsList from "./ConversationsList"
+import ConversationPage from "./ConversationPage"
 
 const Stack = createNativeStackNavigator()
 
@@ -118,6 +120,14 @@ const Home = ({ navigation }) => {
             <Stack.Screen 
                 name='EditDogForm' 
                 component={EditDogForm} 
+            />
+            <Stack.Screen 
+                name='ConversationsList' 
+                component={ConversationsList} 
+            />
+            <Stack.Screen 
+                name='ConversationPage' 
+                component={ConversationPage} 
             />
         </Stack.Navigator>
     )

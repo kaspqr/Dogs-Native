@@ -172,7 +172,7 @@ const EditDogForm = ({ route, navigation }) => {
 
         try {
             setUploadMessage('')
-            await fetch('https://7751-2001-1530-1012-485b-6cea-77a0-f4c0-b0b6.ngrok-free.app/dogimages', {
+            await fetch('https://b4eb-81-90-125-79.ngrok-free.app/dogimages', {
                 method: 'POST',
                 body: JSON.stringify({ 
                     data: base64EncodedImage,

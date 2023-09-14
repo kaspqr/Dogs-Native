@@ -1,11 +1,11 @@
-import { Link } from "react-router-dom"
 import { useGetConversationsQuery } from "./conversationsApiSlice"
 import { useGetUsersQuery } from "../users/usersApiSlice"
 import { useGetMessagesQuery } from "../messages/messagesApiSlice"
 import { memo } from "react"
 import useAuth from "../../hooks/useAuth"
+import { TouchableOpacity, View, Text, StyleSheet } from "react-native"
 
-const Conversation = ({ conversationId }) => {
+const Conversation = ({ conversationId, navigation }) => {
 
     const { userId } = useAuth()
 
@@ -43,8 +43,8 @@ const Conversation = ({ conversationId }) => {
         refetchOnMountOrArgChange: true
     })
 
-    if (isLoading) return <p>Loading...</p>
-    if (isError) return <p>{error?.data?.message}</p>
+    if (isLoading) return <Text style={{ margin: 10 }}>Loading...</Text>
+    if (isError) return <Text style={{ margin: 10 }}>{error?.data?.message}</Text>
     if (!conversation || !receiver || !sender) return null
 
     if (isSuccess) {
@@ -67,20 +67,44 @@ const Conversation = ({ conversationId }) => {
         if (sender?.id === userId) otherUser = receiver
 
         return (
-            <Link className="conversation-link" to={`/conversations/${conversation.id}`}>
-                <div className="conversation-div">
-                    <span><b>{otherUser.username}</b></span>
-                    <span className="conversation-message-span">{lastMessage?.sender ? 
-                        lastMessage?.text?.length > 12 
-                            ? `${lastMessage?.text?.slice(0, 12)}...` 
-                            : `${lastMessage?.text}`
-                        : null
-                    }</span>
-                </div>
-            </Link>
+            <View style={styles.conversationView}>
+
+                <TouchableOpacity onPress={() => navigation.navigate('ConversationPage', { navigation, conversationid: conversationId })}>
+
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+
+                        <Text style={{ fontWeight: 'bold' }}>{otherUser.username}</Text>
+
+                        <View style={{ flex: 1, alignItems: 'flex-end' }}>
+                            <Text>
+                                {lastMessage?.sender ? 
+                                    lastMessage?.text?.length > 12 
+                                        ? `${lastMessage?.text?.slice(0, 12)}...` 
+                                        : `${lastMessage?.text}`
+                                    : null
+                                }
+                            </Text>
+                        </View>
+
+                    </View>
+
+                </TouchableOpacity>
+            </View>
         )
     }
 }
+
+const styles = StyleSheet.create({
+    conversationView: {
+        wordWrap: 'wrap',
+        borderWidth: 1,
+        borderRadius: 10,
+        borderColor: '#d3d3d3',
+        padding: 10,
+        marginTop: 5,
+        marginBottom: 5,
+    },
+})
 
 const memoizedConversation = memo(Conversation)
 

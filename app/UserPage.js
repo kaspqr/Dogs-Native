@@ -656,7 +656,7 @@ const UserPage = ({ route, navigation }) => {
 
                 <Text style={{ marginBottom: 10 }}>From {user?.region && user?.region !== 'none ' ? `${user?.region}, ` : null}{user?.country}</Text>
 
-                {user?.bio?.length ? <View style={{ marginBottom: 10 }}><Text style={styles.bold}>Bio</Text><Text>{user.bio}</Text></View> : null}
+                {user?.bio?.length && user?.bio !== 'none ' ? <View style={{ marginBottom: 10 }}><Text style={styles.bold}>Bio</Text><Text>{user.bio}</Text></View> : null}
 
                 {proposeDogContent}
                 {myProposalsContent}
