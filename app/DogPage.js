@@ -374,7 +374,7 @@ const DogPage = ({ route, navigation }) => {
                 }
 
                 {isAdmin || isSuperAdmin
-                    ? <View style={{ marginTop: 10 }}>
+                    ? <View>
                         <TouchableOpacity 
                             onPress={handleAdminDelete}
                             style={styles.blackButtonWide}

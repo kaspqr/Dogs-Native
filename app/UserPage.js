@@ -588,13 +588,13 @@ const UserPage = ({ route, navigation }) => {
     const handleMessage = async () => {
         // If they already have a conversation started, navigate to it
         if (filteredConversation?.length) {
-            return {/* <ConversationPage conversationid={filteredConversation} /> */}
+            navigation.navigate('ConversationPage', { navigation, conversationid: filteredConversation })
         } else {
             // Create a new conversation, then navigate to it
             const response = await addNewConversation({ sender: userId, receiver: id })
 
-            if (response) {
-                return {/* <ConversationPage conversationid={response?.data?.newConversationId} /> */}
+            if (response) { 
+                navigation.navigate('ConversationPage', { navigation, conversationid: response?.data?.newConversationId })
             }
         }
     }
@@ -633,7 +633,7 @@ const UserPage = ({ route, navigation }) => {
                 {userId?.length && userId !== id 
                     ? <TouchableOpacity
                         style={[styles.blackButtonWide, {marginTop: 10}]}
-                        onClick={handleMessage}
+                        onPress={handleMessage}
                     >
                         <Text style={styles.buttonText}>Message</Text>
                     </TouchableOpacity> 

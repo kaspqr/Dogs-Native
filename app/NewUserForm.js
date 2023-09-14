@@ -8,7 +8,7 @@ import { Regions } from "../assets/regions"
 import { Text, TextInput, TouchableOpacity, View, StyleSheet, ScrollView } from "react-native"
 import RNPickerSelect from 'react-native-picker-select'
 
-import { SIZES } from "../constants"
+import { COLORS } from "../constants"
 
 const NewUserForm = () => {
 
@@ -96,19 +96,11 @@ const NewUserForm = () => {
     if (isLoading) return <Text>Loading...</Text>
 
     const content = successMsg?.length ? <Text style={styles.successMsg}>{successMsg}</Text> :
-    <ScrollView>
+    <ScrollView style={{ backgroundColor: COLORS.lightWhite }} showsVerticalScrollIndicator={false}>
         <View style={styles.mainView}>
             {isError ? <Text style={styles.errMsg}>{error?.data?.message}</Text> : null}
 
             <Text style={styles.inputTitle}>Fields marked with * are required</Text>
-
-            <View
-                style={{
-                    flex: 1,
-                    padding: SIZES.medium
-                }}
-            >
-            </View>
             
             <Text style={styles.inputTitle}>Username (6-20 Letters and/or Numbers)*</Text>
 

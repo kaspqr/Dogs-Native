@@ -3,7 +3,6 @@ import { dogsApiSlice } from '../components/dogs/dogsApiSlice'
 import { usersApiSlice } from '../components/users/usersApiSlice'
 import { useEffect } from 'react'
 import Home from "./home"
-
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
 const Stack = createNativeStackNavigator()

@@ -3,7 +3,8 @@ import { useGetUsersQuery } from "../users/usersApiSlice"
 import { useGetMessagesQuery } from "../messages/messagesApiSlice"
 import { memo } from "react"
 import useAuth from "../../hooks/useAuth"
-import { TouchableOpacity, View, Text, StyleSheet } from "react-native"
+import { TouchableOpacity, View, Text, StyleSheet, Image } from "react-native"
+import UserIcon from "../../assets/images/UserIcon.jpg"
 
 const Conversation = ({ conversationId, navigation }) => {
 
@@ -73,14 +74,17 @@ const Conversation = ({ conversationId, navigation }) => {
 
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
 
+                        <Image style={{ width: 50, height: 50, borderRadius: 25, marginRight: 10 }} source={otherUser?.image?.length ? {uri: otherUser?.image} : UserIcon} />
+
                         <Text style={{ fontWeight: 'bold' }}>{otherUser.username}</Text>
 
                         <View style={{ flex: 1, alignItems: 'flex-end' }}>
                             <Text>
-                                {lastMessage?.sender ? 
-                                    lastMessage?.text?.length > 12 
-                                        ? `${lastMessage?.text?.slice(0, 12)}...` 
-                                        : `${lastMessage?.text}`
+                                {lastMessage?.sender 
+                                    ? `${lastMessage?.sender === userId ? 'You: ' : ''}${lastMessage?.text?.length > 12 
+                                            ? lastMessage?.text?.slice(0, 12) + '...' 
+                                            : lastMessage?.text
+                                    }` 
                                     : null
                                 }
                             </Text>

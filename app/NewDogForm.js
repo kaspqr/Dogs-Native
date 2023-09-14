@@ -206,7 +206,7 @@ const NewDogForm = ({ navigation }) => {
                 <Text style={styles.inputTitle}>Date of Birth*</Text>
 
                 <Calendar 
-                    maxDate={death.dateString || new Date()} 
+                    maxDate={death.dateString || new Date().toDateString()} 
                     style={styles.calendar}
                     onDayPress={handleBirthChanged} 
                     markedDates={{
@@ -218,7 +218,7 @@ const NewDogForm = ({ navigation }) => {
 
                 <Calendar 
                     minDate={birth.dateString || null} 
-                    maxDate={new Date()} 
+                    maxDate={new Date().toDateString()} 
                     style={styles.calendar}
                     onDayPress={handleDeathChanged} 
                     markedDates={{

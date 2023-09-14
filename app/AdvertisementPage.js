@@ -112,17 +112,17 @@ const AdvertisementPage = ({ route, navigation }) => {
                 }
 
                 {userId?.length && advertisement?.poster !== userId
-                    ? <View style={{ marginTop: 10 }}><TouchableOpacity 
-                        onPress={() => navigate(`/reportadvertisement/${advertisement?.id}`)}
+                    ? <View style={{ marginTop: 10 }}><TouchableOpacity style={styles.blackButtonWide}
+                        onPress={() => {}}
                     >
-                        <Text>Report Advertisement</Text>
+                        <Text style={styles.buttonText}>Report Advertisement</Text>
                     </TouchableOpacity></View>
                     : null
                 }
 
                 {isAdmin || isSuperAdmin
-                    ? <View style={{ marginTop: 10 }}><TouchableOpacity onPress={handleAdminDelete}>
-                        <Text>Delete as Admin</Text>
+                    ? <View><TouchableOpacity style={styles.blackButtonWide} onPress={handleAdminDelete}>
+                        <Text style={styles.buttonText}>Delete as Admin</Text>
                     </TouchableOpacity></View>
                     : null
                 }

@@ -21,10 +21,23 @@ import NewDogForm from "./NewDogForm"
 import EditDogForm from "./EditDogForm"
 import ConversationsList from "./ConversationsList"
 import ConversationPage from "./ConversationPage"
+import useAuth from "../hooks/useAuth"
+import { useGetUsersQuery } from "../components/users/usersApiSlice"
+import { Text } from "react-native"
+import Banned from "./Banned"
 
 const Stack = createNativeStackNavigator()
 
 const Home = ({ navigation }) => {
+
+    const { userId } = useAuth()
+
+    // GET the user who's logged in
+    const { user } = useGetUsersQuery("usersList", {
+        selectFromResult: ({ data }) => ({
+            user: data?.entities[userId]
+        }),
+    })
 
     return (
         <Stack.Navigator
@@ -50,8 +63,12 @@ const Home = ({ navigation }) => {
             }}
         >
             <Stack.Screen 
+                name='Banned' 
+                component={Banned} 
+            />
+            <Stack.Screen 
                 name='AdvertisementsList' 
-                component={AdvertisementsList} 
+                component={user?.active === false ? Banned : AdvertisementsList} 
             />
             <Stack.Screen 
                 name='MenuComponent' 
@@ -59,75 +76,75 @@ const Home = ({ navigation }) => {
             />
             <Stack.Screen 
                 name='UserPage' 
-                component={UserPage} 
+                component={user?.active === false ? Banned : UserPage} 
             />
             <Stack.Screen 
                 name='AdvertisementPage' 
-                component={AdvertisementPage} 
+                component={user?.active === false ? Banned : AdvertisementPage} 
             />
             <Stack.Screen 
                 name='DogPage' 
-                component={DogPage} 
+                component={user?.active === false ? Banned : DogPage} 
             />
             <Stack.Screen 
                 name='Login' 
-                component={Login} 
+                component={user?.active === false ? Banned : Login} 
             />
             <Stack.Screen 
                 name='NewUserForm' 
-                component={NewUserForm} 
+                component={user?.active === false ? Banned : NewUserForm} 
             />
             <Stack.Screen 
                 name='Faq' 
-                component={FAQ} 
+                component={user?.active === false ? Banned : FAQ} 
             />
             <Stack.Screen 
                 name='UsersList' 
-                component={UsersList} 
+                component={user?.active === false ? Banned : UsersList} 
             />
             <Stack.Screen 
                 name='DogsList' 
-                component={DogsList} 
+                component={user?.active === false ? Banned : DogsList} 
             />
             <Stack.Screen 
                 name='LittersList' 
-                component={LittersList} 
+                component={user?.active === false ? Banned : LittersList} 
             />
             <Stack.Screen 
                 name='LitterPage' 
-                component={LitterPage} 
+                component={user?.active === false ? Banned : LitterPage} 
             />
             <Stack.Screen 
                 name='NewLitterForm' 
-                component={NewLitterForm} 
+                component={user?.active === false ? Banned : NewLitterForm} 
             />
             <Stack.Screen 
                 name='EditUserForm' 
-                component={EditUserForm} 
+                component={user?.active === false ? Banned : EditUserForm} 
             />
             <Stack.Screen 
                 name='NewAdvertisementForm' 
-                component={NewAdvertisementForm} 
+                component={user?.active === false ? Banned : NewAdvertisementForm} 
             />
             <Stack.Screen 
                 name='EditAdvertisementForm' 
-                component={EditAdvertisementForm} 
+                component={user?.active === false ? Banned : EditAdvertisementForm} 
             />
             <Stack.Screen 
                 name='NewDogForm' 
-                component={NewDogForm} 
+                component={user?.active === false ? Banned : NewDogForm} 
             />
             <Stack.Screen 
                 name='EditDogForm' 
-                component={EditDogForm} 
+                component={user?.active === false ? Banned : EditDogForm} 
             />
             <Stack.Screen 
                 name='ConversationsList' 
-                component={ConversationsList} 
+                component={user?.active === false ? Banned : ConversationsList} 
             />
             <Stack.Screen 
                 name='ConversationPage' 
-                component={ConversationPage} 
+                component={user?.active === false ? Banned : ConversationPage} 
             />
         </Stack.Navigator>
     )

@@ -3,8 +3,9 @@ import { useGetUsersQuery } from "../components/users/usersApiSlice"
 import { useGetMessagesQuery, useAddNewMessageMutation } from "../components/messages/messagesApiSlice"
 import Message from "../components/messages/Message"
 import useAuth from "../hooks/useAuth"
-import { useState, useEffect, useRef, useCallback } from "react"
-import { TouchableOpacity, View, Text, StyleSheet, ScrollView, TextInput } from "react-native"
+import { useState, useEffect, useRef} from "react"
+import { TouchableOpacity, View, Text, StyleSheet, ScrollView, TextInput, FlatList } from "react-native"
+import { COLORS } from "../constants"
 
 const ConversationPage = ({ route, navigation }) => {
 
@@ -14,7 +15,9 @@ const ConversationPage = ({ route, navigation }) => {
     const [newMessage, setNewMessage] = useState('')
     const [displayedMessagesCount, setDisplayedMessagesCount] = useState(30)
     const [hasMoreMessages, setHasMoreMessages] = useState(true)
-    const [initialMessagesLoaded, setInitialMessagesLoaded] = useState(false)
+    const [scrollOffset, setScrollOffset] = useState(0)
+    const [contentHeight, setContentHeight] = useState(0)
+    const [initialScroll, setInitialScroll] = useState(true)
 
     // Variable to store all messages in this conversation
     let filteredMessages
@@ -47,15 +50,52 @@ const ConversationPage = ({ route, navigation }) => {
         refetchOnMountOrArgChange: true
     })
 
-    const conversationDivRef = useRef(null)
+    /* const conversationDivRef = useRef() */
+
+    /* const handleScroll = (event) => {
+        if (event.nativeEvent.contentOffset.y === 0 && hasMoreMessages) {
+            setDisplayedMessagesCount(prevCount => prevCount + 30)
+        }
+    } */
+
+    // Function to scroll to a specific position
+    /* const scrollToPosition = (x, y) => {
+        conversationDivRef?.current.scrollTo({ x, y, animated: false });
+    } */
+
+    // Function to handle the content size change
+    /* const onContentSizeChange = (contentWidth, contentHeight) => {
+        // Check if you need to scroll to the previous position
+        if (conversationDivRef.current) {
+            const currentScrollY = conversationDivRef?.current?.contentOffset?.y
+            console.log(currentScrollY)
+            scrollToPosition(0, currentScrollY + (contentHeight - conversationDivRef?.current?.contentSize?.height))
+        }
+    } */
 
     /* useEffect(() => {
-        // Scroll the conversation div to the bottom after component renders
-        if (conversationDivRef?.current && initialMessagesLoaded === false) {
-            conversationDivRef.current.scrollTop = conversationDivRef.current.scrollHeight
-            setInitialMessagesLoaded(true)
+        // Check if the user is at the top of the ScrollView
+        if (scrollOffset === 0 && hasMoreMessages) {
+
+            const previousScrollHeight = conversationDivRef?.current.scrollHeight
+            const previousScrollTop = conversationDivRef?.current.scrollTop
+
+            // Load more messages (replace with your logic)
+            setDisplayedMessagesCount(prevCount => prevCount + 30)
+
+            // Scroll to maintain the context
+            setTimeout(() => {
+                requestAnimationFrame(() => {
+                    const newScrollHeight = conversationDivRef?.current.scrollHeight
+                    const scrollPositionChange = newScrollHeight - previousScrollHeight
+                    conversationDivRef.current.scrollTo({
+                    y: previousScrollTop + scrollPositionChange,
+                    animated: false,
+                    })
+                })
+            }, 1000)
         }
-    }, [messages, initialMessagesLoaded]) */
+    }, [scrollOffset]) */
 
     // Define the handleScroll function using useCallback
     /* const handleScroll = useCallback(() => {
@@ -109,26 +149,45 @@ const ConversationPage = ({ route, navigation }) => {
         }
     }, [isMessageSuccess])
 
-    /* useEffect(() => {
-        const divRef = conversationDivRef?.current; // Capture the current ref value
-        divRef?.addEventListener('scroll', handleScroll)
-        
-        return () => {
-            divRef?.removeEventListener('scroll', handleScroll)
-        }
-    }, [hasMoreMessages, handleScroll]) */
-
-    /* useEffect(() => {
+    useEffect(() => {
         if (filteredMessages?.length) {
             setHasMoreMessages(displayedMessagesCount < filteredMessages.length)
         }
-    }, [displayedMessagesCount, filteredMessages]) */
+    }, [displayedMessagesCount, filteredMessages])
 
     // Logic to handle received messages
-    /* useEffect(() => {
+    useEffect(() => {
         // Increment the total messages count and displayed messages count
         setDisplayedMessagesCount(prevCount => prevCount + 1)
-    }, [messages?.ids.length]) */
+    }, [messages?.ids.length])
+
+    const inputContent = (
+        <View 
+            style={{ 
+                flexDirection: 'row', alignItems: 'center', paddingTop: 5, borderTopWidth: 1, 
+                borderTopColor: 'lightgrey', marginTop: 5
+            }}
+        >
+                <TextInput 
+                    value={newMessage} 
+                    onChangeText={(value) => setNewMessage(value)} 
+                    style={[styles.textInput, { height: 41, marginRight: 5, flex: 1 }]}
+                />
+                <View>
+                    <TouchableOpacity
+                        style={styles.blackButton}
+                        disabled={!newMessage?.length}
+                        onPress={handleSendMessage}
+                    >
+                        <Text style={styles.buttonText}>{'->'}</Text>
+                    </TouchableOpacity>
+                </View>
+        </View>
+    )
+
+    /* useEffect(() => {
+        conversationDivRef.current.scrollToEnd({ animated: true })
+    }, []) */
     
     // Variable for errors and content
     let messageContent
@@ -158,31 +217,13 @@ const ConversationPage = ({ route, navigation }) => {
           }
       
         messageContent = (
-            <View>
-                <ScrollView 
-                    ref={conversationDivRef} 
-                    onContentSizeChange={() => conversationDivRef.current.scrollToEnd({ animated: true })}
-                >
-                    {tableContent}
-                </ScrollView>
-                
-                <View>
-                        <TextInput 
-                            value={newMessage} 
-                            onChangeText={(value) => setNewMessage(value)} 
-                            style={styles.textInput}
-                        />
-                        <View>
-                            <TouchableOpacity
-                                style={styles.blackButton}
-                                disabled={!newMessage?.length}
-                                onPress={handleSendMessage}
-                            >
-                                <Text style={styles.buttonText}>{'->'}</Text>
-                            </TouchableOpacity>
-                        </View>
-                </View>
-            </View>
+            <FlatList 
+                data={filteredMessages?.slice(-displayedMessagesCount).reverse()}
+                renderItem={({ item }) => <Message key={item.id} messageId={item.id} />}
+                inverted={true}
+                onEndReached={() => setDisplayedMessagesCount(displayedMessagesCount + 30)}
+                onEndReachedThreshold={0.1}
+            />
         )
     }
 
@@ -191,24 +232,28 @@ const ConversationPage = ({ route, navigation }) => {
     // Check that the logged in user is a participant of said conversation
     if (userId !== conversation?.sender && userId !== conversation?.receiver) return null
 
+    const navigationUser = sender?.id === userId ? receiver : sender
+
     return (
         <View style={styles.mainView}>
-            {sender.id === userId 
-                ? <TouchableOpacity onPress={() => navigation.navigate('UserPage', { navigation, id: receiver?.id })}>
-                    <Text style={styles.orangeLink}>{receiver?.username}</Text>
-                </TouchableOpacity> 
-                : <TouchableOpacity onPress={() => navigation.navigate('UserPage', { navigation, id: sender?.id })}>
-                    <Text style={styles.orangeLink}>{sender?.username}</Text>
-                </TouchableOpacity>
-            }
+            <TouchableOpacity 
+                onPress={() => navigation.navigate('UserPage', { navigation, id: navigationUser?.id })}
+                style={{ borderBottomWidth: 1, borderBottomColor: 'lightgrey', marginBottom: 5 }}
+            >
+                <Text style={styles.orangeLink}>{navigationUser?.username}</Text>
+            </TouchableOpacity> 
+
             {isSuccess && messageContent}
+            {inputContent}
         </View>
     )
 }
 
 const styles = StyleSheet.create({
     mainView: {
-        margin: 10,
+        padding: 10,
+        backgroundColor: COLORS.lightWhite,
+        flex: 1
     },
     blackButtonWide: {
       backgroundColor: '#000000',
@@ -245,11 +290,16 @@ const styles = StyleSheet.create({
     textInput: {
       borderWidth: 1,
       borderRadius: 5,
-      paddingLeft: 5,
-      width: 300,
+      paddingHorizontal: 5,
     },
     inputTitle: {
       fontWeight: 'bold',
+    },
+    orangeLink: {
+        fontWeight: 'bold',
+        color: 'orange',
+        fontSize: 16,
+        marginBottom: 10,
     },
   })
 

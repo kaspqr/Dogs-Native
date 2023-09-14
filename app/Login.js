@@ -5,7 +5,7 @@ import { useLoginMutation } from "../components/auth/authApiSlice"
 import usePersist from "../hooks/usePersist"
 import useAuth from "../hooks/useAuth"
 import { TouchableOpacity, View, Text, TextInput, Switch, StyleSheet, ScrollView } from "react-native"
-import AdvertisementsList from "./AdvertisementsList"
+import { COLORS } from "../constants"
 
 const Login = ({ navigation }) => {
 
@@ -69,7 +69,7 @@ const Login = ({ navigation }) => {
   }
 
   return (
-    <ScrollView>
+    <ScrollView style={{ backgroundColor: COLORS.lightWhite }} showsVerticalScrollIndicator={false}>
       <View style={styles.mainView}>
 
         <View>

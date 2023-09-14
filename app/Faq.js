@@ -1,9 +1,10 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
+import { COLORS } from '../constants'
 
 const FAQ = () => {
-    return <ScrollView>
+    return <ScrollView style={{ backgroundColor: COLORS.lightWhite }} showsVerticalScrollIndicator={false}>
         <View style={styles.mainView}>
             <View>
                 <Text style={styles.h1}>Frequently Asked Questions</Text>

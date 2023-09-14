@@ -27,7 +27,7 @@ const Message = ({ messageId, navigation }) => {
     if (!message || !sender) return null
 
     return (
-        <View>
+        <View style={message?.sender === userId ? { alignItems: 'flex-end' } : { alignItems: 'flex-start' }}>
             <View style={messageClicked ? null : {display: "none"}}>
                 {message?.sender !== userId
                     ? <View>
@@ -124,6 +124,7 @@ const styles = StyleSheet.create({
       fontWeight: 'bold',
     },
     sentMessageContainer: {
+        flexDirection: 'row',
         justifyContent: 'flex-end',
         marginBottom: '5px',
     },
@@ -149,7 +150,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'lightgrey',
         borderRadius: 5,
         padding: 5,
-        maxWidth: 300,
+        maxWidth: '80%',
         wordWrap: 'break-word',
         marginBottom: 1,
     },

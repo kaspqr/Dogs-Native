@@ -199,7 +199,7 @@ const LittersList = ({ navigation }) => {
             <Text style={styles.inputTitle}>Born at Earliest</Text>
 
             <Calendar 
-              maxDate={bornLatest.dateString || Date.parse(new Date()).dateString} 
+              maxDate={bornLatest.dateString || new Date().toDateString()} 
               onDayPress={handleBornEarliestChanged} 
               style={styles.calendar}
               markedDates={{
@@ -221,7 +221,8 @@ const LittersList = ({ navigation }) => {
 
             <Calendar 
               minDate={bornEarliest.dateString || null} 
-              maxDate={Date.parse(new Date()).dateString} 
+              maxDate={new Date().toDateString()} 
+              style={styles.calendar}
               onDayPress={handleBornLatestChanged} 
               markedDates={{
                 [bornLatest.dateString]: {selected: true, disableTouchEvent: true, selectedColor: '#00adf5'}

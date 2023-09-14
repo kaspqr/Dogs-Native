@@ -1,7 +1,8 @@
 import React from 'react'
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native'
 import useAuth from '../hooks/useAuth'
 import { useSendLogoutMutation } from '../components/auth/authApiSlice'
+import { COLORS } from '../constants'
 
 const MenuComponent = ({ navigation }) => {
 
@@ -13,11 +14,11 @@ const MenuComponent = ({ navigation }) => {
         error
     }] = useSendLogoutMutation()
 
-    const { userId } = useAuth()
+    const { userId, isAdmin, isSuperAdmin } = useAuth()
 
     return (
         
-        <View>
+        <ScrollView style={{ backgroundColor: COLORS.lightWhite }} showsVerticalScrollIndicator={false}>
 
             {userId?.length 
                 ? <View>
@@ -56,6 +57,12 @@ const MenuComponent = ({ navigation }) => {
                 <Text style={styles.menuButtonText}>FAQ</Text>
             </TouchableOpacity>
 
+            {isAdmin === true || isSuperAdmin === true ? (
+                <TouchableOpacity onPress={() => {}} style={styles.menuButton}>
+                    <Text style={styles.menuButtonText}>Admin Panel</Text>
+                </TouchableOpacity>
+            ) : null}
+
             {userId?.length 
                 ? <TouchableOpacity onPress={() => sendLogout()} style={styles.menuButton}>
                     <Text style={styles.menuButtonText}>Logout</Text>
@@ -63,7 +70,7 @@ const MenuComponent = ({ navigation }) => {
                 : null
             }
 
-        </View>
+        </ScrollView>
     )
 }
 

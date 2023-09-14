@@ -284,7 +284,7 @@ const DogsList = ({ navigation }) => {
             <Text style={styles.inputTitle}>Born at Earliest</Text>
 
             <Calendar 
-              maxDate={bornLatest.dateString || new Date()} 
+              maxDate={bornLatest.dateString || new Date().toDateString()} 
               onDayPress={handleBornEarliestChanged} 
               style={styles.calendar}
               markedDates={{
@@ -306,7 +306,7 @@ const DogsList = ({ navigation }) => {
 
             <Calendar 
               minDate={bornEarliest.dateString || null} 
-              maxDate={new Date()} 
+              maxDate={new Date().toDateString()} 
               onDayPress={handleBornLatestChanged} 
               style={styles.calendar}
               markedDates={{

@@ -347,7 +347,7 @@ const EditDogForm = ({ route, navigation }) => {
                 <Calendar 
                     style={styles.calendar}
                     minDate={dog?.birth || null} 
-                    maxDate={new Date()} 
+                    maxDate={new Date().toDateString()} 
                     onDayPress={handleDeathChanged} 
                     markedDates={{
                         [death.dateString]: {selected: true, disableTouchEvent: true, selectedColor: '#00adf5'}

@@ -4,8 +4,6 @@ import usePersist from "../hooks/usePersist"
 import { useSelector } from "react-redux"
 import { selectCurrentToken } from "../components/auth/authSlice"
 import { Text } from "react-native"
-import Home from "./home"
-
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import Prefetch from "./Prefetch"
 
