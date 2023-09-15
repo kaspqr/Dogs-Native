@@ -21,9 +21,12 @@ import NewDogForm from "./NewDogForm"
 import EditDogForm from "./EditDogForm"
 import ConversationsList from "./ConversationsList"
 import ConversationPage from "./ConversationPage"
+import DogReportPage from "./DogReportPage"
+import AdvertisementReportPage from "./AdvertisementReportPage"
+import MessageReportPage from "./MessageReportPage"
+import UserReportPage from "./UserReportPage"
 import useAuth from "../hooks/useAuth"
 import { useGetUsersQuery } from "../components/users/usersApiSlice"
-import { Text } from "react-native"
 import Banned from "./Banned"
 
 const Stack = createNativeStackNavigator()
@@ -145,6 +148,22 @@ const Home = ({ navigation }) => {
             <Stack.Screen 
                 name='ConversationPage' 
                 component={user?.active === false ? Banned : ConversationPage} 
+            />
+            <Stack.Screen 
+                name='DogReportPage' 
+                component={user?.active === false ? Banned : DogReportPage} 
+            />
+            <Stack.Screen 
+                name='AdvertisementReportPage' 
+                component={user?.active === false ? Banned : AdvertisementReportPage} 
+            />
+            <Stack.Screen 
+                name='MessageReportPage' 
+                component={user?.active === false ? Banned : MessageReportPage} 
+            />
+            <Stack.Screen 
+                name='UserReportPage' 
+                component={user?.active === false ? Banned : UserReportPage} 
             />
         </Stack.Navigator>
     )

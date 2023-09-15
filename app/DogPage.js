@@ -365,7 +365,7 @@ const DogPage = ({ route, navigation }) => {
                     ? <View style={{ marginTop: 10 }}>
                         <TouchableOpacity 
                             style={styles.blackButtonWide}
-                            onPress={() => {}}
+                            onPress={() => navigation.navigate('DogReportPage', { navigation, dogid: dog?.id })}
                         >
                             <Text style={styles.buttonText}>Report Dog</Text>
                         </TouchableOpacity>

@@ -32,7 +32,7 @@ const Message = ({ messageId, navigation }) => {
                 {message?.sender !== userId
                     ? <View>
                         <TouchableOpacity
-                            onPress={() => {}}
+                            onPress={() => navigation.navigate('MessageReportPage', { messageid: message?.id, navigation })}
                         >
                             <Text style={{ color: 'red' }}>Report Message</Text>
                         </TouchableOpacity>

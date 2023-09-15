@@ -9,8 +9,6 @@ import { useGetAdvertisementsQuery } from "../components/advertisements/advertis
 import { useState, useEffect } from "react"
 import UserDog from "../components/dogs/UserDog"
 import UserAdvertisement from "../components/advertisements/UserAdvertisement"
-import EditUserForm from "./EditUserForm"
-// import ConversationPage from "../conversations/ConversationPage"
 import { TouchableOpacity, View, Text, ScrollView, TextInput, Image, StyleSheet } from "react-native"
 import { COLORS, SIZES } from "../constants"
 import RNPickerSelect from 'react-native-picker-select'
@@ -665,7 +663,7 @@ const UserPage = ({ route, navigation }) => {
                 {userId?.length && id !== userId
                     ? <TouchableOpacity 
                         style={styles.blackButtonWide}
-                        onPress={() => {}}
+                        onPress={() => navigation.navigate('UserReportPage', { navigation, userid: user?.id })}
                     >
                         <Text style={styles.buttonText}>Report User</Text>
                     </TouchableOpacity>

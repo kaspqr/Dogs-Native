@@ -113,7 +113,7 @@ const AdvertisementPage = ({ route, navigation }) => {
 
                 {userId?.length && advertisement?.poster !== userId
                     ? <View style={{ marginTop: 10 }}><TouchableOpacity style={styles.blackButtonWide}
-                        onPress={() => {}}
+                        onPress={() => navigation.navigate('AdvertisementReportPage', { navigation, advertisementid: advertisement?.id })}
                     >
                         <Text style={styles.buttonText}>Report Advertisement</Text>
                     </TouchableOpacity></View>

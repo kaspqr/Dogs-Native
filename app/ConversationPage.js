@@ -3,8 +3,8 @@ import { useGetUsersQuery } from "../components/users/usersApiSlice"
 import { useGetMessagesQuery, useAddNewMessageMutation } from "../components/messages/messagesApiSlice"
 import Message from "../components/messages/Message"
 import useAuth from "../hooks/useAuth"
-import { useState, useEffect, useRef} from "react"
-import { TouchableOpacity, View, Text, StyleSheet, ScrollView, TextInput, FlatList } from "react-native"
+import { useState, useEffect } from "react"
+import { TouchableOpacity, View, Text, StyleSheet, TextInput, FlatList } from "react-native"
 import { COLORS } from "../constants"
 
 const ConversationPage = ({ route, navigation }) => {
@@ -14,10 +14,6 @@ const ConversationPage = ({ route, navigation }) => {
     const { userId } = useAuth()
     const [newMessage, setNewMessage] = useState('')
     const [displayedMessagesCount, setDisplayedMessagesCount] = useState(30)
-    const [hasMoreMessages, setHasMoreMessages] = useState(true)
-    const [scrollOffset, setScrollOffset] = useState(0)
-    const [contentHeight, setContentHeight] = useState(0)
-    const [initialScroll, setInitialScroll] = useState(true)
 
     // Variable to store all messages in this conversation
     let filteredMessages
@@ -49,76 +45,6 @@ const ConversationPage = ({ route, navigation }) => {
         refetchOnFocus: true,
         refetchOnMountOrArgChange: true
     })
-
-    /* const conversationDivRef = useRef() */
-
-    /* const handleScroll = (event) => {
-        if (event.nativeEvent.contentOffset.y === 0 && hasMoreMessages) {
-            setDisplayedMessagesCount(prevCount => prevCount + 30)
-        }
-    } */
-
-    // Function to scroll to a specific position
-    /* const scrollToPosition = (x, y) => {
-        conversationDivRef?.current.scrollTo({ x, y, animated: false });
-    } */
-
-    // Function to handle the content size change
-    /* const onContentSizeChange = (contentWidth, contentHeight) => {
-        // Check if you need to scroll to the previous position
-        if (conversationDivRef.current) {
-            const currentScrollY = conversationDivRef?.current?.contentOffset?.y
-            console.log(currentScrollY)
-            scrollToPosition(0, currentScrollY + (contentHeight - conversationDivRef?.current?.contentSize?.height))
-        }
-    } */
-
-    /* useEffect(() => {
-        // Check if the user is at the top of the ScrollView
-        if (scrollOffset === 0 && hasMoreMessages) {
-
-            const previousScrollHeight = conversationDivRef?.current.scrollHeight
-            const previousScrollTop = conversationDivRef?.current.scrollTop
-
-            // Load more messages (replace with your logic)
-            setDisplayedMessagesCount(prevCount => prevCount + 30)
-
-            // Scroll to maintain the context
-            setTimeout(() => {
-                requestAnimationFrame(() => {
-                    const newScrollHeight = conversationDivRef?.current.scrollHeight
-                    const scrollPositionChange = newScrollHeight - previousScrollHeight
-                    conversationDivRef.current.scrollTo({
-                    y: previousScrollTop + scrollPositionChange,
-                    animated: false,
-                    })
-                })
-            }, 1000)
-        }
-    }, [scrollOffset]) */
-
-    // Define the handleScroll function using useCallback
-    /* const handleScroll = useCallback(() => {
-        if (conversationDivRef?.current.scrollTop === 0 && hasMoreMessages) {
-            // Get the current scroll height and scroll position before adding more messages
-            const previousScrollHeight = conversationDivRef?.current.scrollHeight
-            const previousScrollTop = conversationDivRef?.current.scrollTop
-        
-            // Load more messages here and update the displayedMessagesCount
-            setDisplayedMessagesCount(prevCount => prevCount + 30)
-        
-            // Use setTimeout to allow time for rendering the new messages
-            setTimeout(() => {
-                // Use requestAnimationFrame to ensure accurate calculation after rendering
-                requestAnimationFrame(() => {
-                // Calculate the new scroll position to maintain context
-                const newScrollHeight = conversationDivRef?.current.scrollHeight
-                const scrollPositionChange = newScrollHeight - previousScrollHeight
-                conversationDivRef.current.scrollTop = previousScrollTop + scrollPositionChange
-                })
-            }, 0)
-        }
-      }, [hasMoreMessages]) */
       
 
     // GET the conversation with all of it's .values
@@ -149,12 +75,6 @@ const ConversationPage = ({ route, navigation }) => {
         }
     }, [isMessageSuccess])
 
-    useEffect(() => {
-        if (filteredMessages?.length) {
-            setHasMoreMessages(displayedMessagesCount < filteredMessages.length)
-        }
-    }, [displayedMessagesCount, filteredMessages])
-
     // Logic to handle received messages
     useEffect(() => {
         // Increment the total messages count and displayed messages count
@@ -184,10 +104,6 @@ const ConversationPage = ({ route, navigation }) => {
                 </View>
         </View>
     )
-
-    /* useEffect(() => {
-        conversationDivRef.current.scrollToEnd({ animated: true })
-    }, []) */
     
     // Variable for errors and content
     let messageContent
@@ -212,14 +128,14 @@ const ConversationPage = ({ route, navigation }) => {
         if (filteredMessages?.length) {
             const messagesToDisplay = filteredMessages.slice(-displayedMessagesCount)
             tableContent = messagesToDisplay.map(message => (
-              <Message key={message.id} messageId={message.id} />
+              <Message navigation={navigation} key={message.id} messageId={message.id} />
             ))
           }
       
         messageContent = (
             <FlatList 
                 data={filteredMessages?.slice(-displayedMessagesCount).reverse()}
-                renderItem={({ item }) => <Message key={item.id} messageId={item.id} />}
+                renderItem={({ item }) => <Message navigation={navigation} key={item.id} messageId={item.id} />}
                 inverted={true}
                 onEndReached={() => setDisplayedMessagesCount(displayedMessagesCount + 30)}
                 onEndReachedThreshold={0.1}

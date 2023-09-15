@@ -138,7 +138,7 @@ const EditUserForm = ({ route, navigation }) => {
 
         try {
             setUploadMessage('')
-            await fetch('https://b4eb-81-90-125-79.ngrok-free.app/userimages', {
+            await fetch('https://013a-81-90-125-79.ngrok-free.app/userimages', {
                 method: 'POST',
                 body: JSON.stringify({ 
                     data: base64EncodedImage,

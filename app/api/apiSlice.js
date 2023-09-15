@@ -4,7 +4,7 @@ import { setCredentials } from '../../components/auth/authSlice'
 const baseQuery = fetchBaseQuery({
 
     // URL of the backend
-    baseUrl: 'https://b4eb-81-90-125-79.ngrok-free.app',
+    baseUrl: 'https://013a-81-90-125-79.ngrok-free.app',
     credentials: 'include',
     prepareHeaders: (headers, { getState }) => {
         const token = getState().auth.token
@@ -53,6 +53,10 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
 
 export const apiSlice = createApi({
     baseQuery: baseQueryWithReauth,
-    tagTypes: ['Dog', 'User', 'Advertisement', 'Conversation', 'Message', 'Litter', 'DogPropose', 'FatherPropose', 'PuppyPropose'],
+    tagTypes: [
+        'Dog', 'User', 'Advertisement', 'Conversation', 'Message', 'Litter', 
+        'DogPropose', 'FatherPropose', 'PuppyPropose', 'UserReport', 'AdvertisementReport',
+        'MessageReport', 'DogReport'
+    ],
     endpoints: builder => ({})
 })
