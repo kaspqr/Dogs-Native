@@ -100,7 +100,6 @@ const EditAdvertisementForm = ({ route, navigation }) => {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: true,
-            aspect: [1, 1],
             quality: 1,
             base64: true,
         })
@@ -185,7 +184,10 @@ const EditAdvertisementForm = ({ route, navigation }) => {
                 {uploadLoading === false && uploadMessage?.length ? <Text style={{ marginVertical: 10 }}>{uploadMessage}</Text> : null}
 
                 {previewSource 
-                    ? <Image style={{height: imageDimensions.height, width: imageDimensions.width, borderRadius: 5}} source={{ uri: previewSource }} />
+                    ? <Image 
+                        style={{height: imageDimensions.height, width: imageDimensions.width, borderRadius: 5, marginBottom: 5}} 
+                        source={{ uri: previewSource }} 
+                    />
                     : null
                 }
 

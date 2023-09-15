@@ -429,7 +429,7 @@ const UserPage = ({ route, navigation }) => {
             <Text style={[styles.bold, { marginBottom: 10 }]}>{filteredAdvertisementIds?.length} Active Advertisement{filteredAdvertisementIds?.length === 1 ? null : 's'}</Text>
 
             <View>
-                <View style={styles.paginationRow}>
+                <View style={maxAdvertisementPage === 1 ? { display: 'none' } : [styles.paginationRow]}>
                     <View style={{flex: 1}}>
                         <TouchableOpacity 
                             style={currentAdvertisementPage === 1 ? [styles.blackButton, styles.greyButton] : styles.blackButton}
@@ -519,7 +519,7 @@ const UserPage = ({ route, navigation }) => {
                 {filteredIds?.length} Dog{filteredIds?.length === 1 ? null : 's'} Administered
             </Text>
 
-            <View style={styles.paginationRow}>
+            <View style={maxDogPage === 1 ? { display: 'none' } : [styles.paginationRow]}>
                     <View style={{flex: 1}}>
                         <TouchableOpacity 
                             style={currentDogPage === 1 ? [styles.blackButton, styles.greyButton] : styles.blackButton}

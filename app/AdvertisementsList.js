@@ -169,7 +169,7 @@ const AdvertisementsList = ({ navigation }) => {
       return ad._id
     })
 
-    const itemsPerPage = 1
+    const itemsPerPage = 20
 
     const maxPage = Math.ceil(filteredIds?.length ? filteredIds?.length / itemsPerPage : reversedNewIds?.length / itemsPerPage)
 
@@ -339,7 +339,7 @@ const AdvertisementsList = ({ navigation }) => {
                 </View>
 
 
-              <View style={styles.paginationRow}>
+              <View style={maxPage === 1 ? { display: 'none' } : [styles.paginationRow]}>
                 <View style={{flex: 1}}>
                   <TouchableOpacity 
                     style={currentPage === 1 ? [styles.blackButton, styles.greyButton] : styles.blackButton}

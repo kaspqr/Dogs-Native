@@ -98,9 +98,12 @@ const NewUserForm = () => {
     const content = successMsg?.length ? <Text style={styles.successMsg}>{successMsg}</Text> :
     <ScrollView style={{ backgroundColor: COLORS.lightWhite }} showsVerticalScrollIndicator={false}>
         <View style={styles.mainView}>
-            {isError ? <Text style={styles.errMsg}>{error?.data?.message}</Text> : null}
 
-            <Text style={styles.inputTitle}>Fields marked with * are required</Text>
+            <Text style={{ marginBottom: 15, fontSize: 20, fontWeight: 'bold' }}>Register Account</Text>
+
+            <Text style={{ marginBottom: 10 }}>Fields marked with * are required</Text>
+
+            {isError ? <Text style={styles.errMsg}>{error?.data?.message}</Text> : null}
             
             <Text style={styles.inputTitle}>Username (6-20 Letters and/or Numbers)*</Text>
 

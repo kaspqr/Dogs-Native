@@ -73,6 +73,9 @@ const Login = ({ navigation }) => {
       <View style={styles.mainView}>
 
         <View>
+
+          <Text style={{ marginBottom: 15, fontSize: 20, fontWeight: 'bold' }}>Login</Text>
+
           {errMsg?.length ? <Text style={styles.errMsg}>{errMsg}</Text> : null}
 
           <Text style={styles.inputTitle}>Username or Email</Text>
