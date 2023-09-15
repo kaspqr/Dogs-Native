@@ -3,8 +3,9 @@ import { useGetUsersQuery } from "../users/usersApiSlice"
 import { memo, useState } from "react"
 import useAuth from "../../hooks/useAuth"
 import { TouchableOpacity, View, Text, StyleSheet } from "react-native"
+import navigationService from "../../app/navigationService"
 
-const Message = ({ messageId, navigation }) => {
+const Message = ({ messageId }) => {
 
     const { userId } = useAuth()
 
@@ -32,7 +33,7 @@ const Message = ({ messageId, navigation }) => {
                 {message?.sender !== userId
                     ? <View>
                         <TouchableOpacity
-                            onPress={() => navigation.navigate('MessageReportPage', { messageid: message?.id, navigation })}
+                            onPress={() => navigationService.navigate('MessageReportPage', { messageid: message?.id })}
                         >
                             <Text style={{ color: 'red' }}>Report Message</Text>
                         </TouchableOpacity>

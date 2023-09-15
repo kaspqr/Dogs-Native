@@ -56,10 +56,10 @@ const EditAdvertisementForm = ({ route, navigation }) => {
     useEffect(() => {
         if (isDelSuccess) {
             // If the advertisement is DELETEd, go back to homepage
-            navigation.navigate('AdvertisementsList', { navigation })
+            navigation.navigate('AdvertisementsList')
         } else if (isSuccess) {
             // If the advertisement is PATCHed, go to the page of said advertisement
-            navigation.navigate('AdvertisementPage', { navigation, advertisementId })
+            navigation.navigate('AdvertisementPage', { advertisementId })
         }
     }, [isSuccess, isDelSuccess, navigation])
 

@@ -62,7 +62,7 @@ export const {
 } = dogReportsApiSlice
 
 // Returns the query result object
-export const selectDogReportsResult = dogReportsApiSlice.endpoints.getDogs.select()
+export const selectDogReportsResult = dogReportsApiSlice.endpoints.getDogReports.select()
 
 // Creates memoized selector
 const selectDogReportsData = createSelector(

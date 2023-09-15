@@ -5,7 +5,7 @@ import useAuth from "../hooks/useAuth"
 import { View, Text, StyleSheet, ScrollView } from 'react-native'
 import { COLORS } from "../constants"
 
-const ConversationsList = ({ navigation }) => {
+const ConversationsList = () => {
 
   const { userId } = useAuth()
 
@@ -75,7 +75,7 @@ const ConversationsList = ({ navigation }) => {
 
       tableContent = lastMessages?.map(message => {
         return filteredIds?.map(id => {
-          if (message?.conversation === id) return <Conversation navigation={navigation} key={id} conversationId={id} />
+          if (message?.conversation === id) return <Conversation key={id} conversationId={id} />
         })
       })
     } else {

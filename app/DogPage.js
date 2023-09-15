@@ -141,7 +141,7 @@ const DogPage = ({ route, navigation }) => {
         littersContent = filteredLitters?.map(litter => 
             <View key={litter?.id}>
                 <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 10 }}>
-                    <TouchableOpacity onPress={() => navigation.navigate('LitterPage', { navigation, litterid: litter?.id })} key={litter?.id}>
+                    <TouchableOpacity onPress={() => navigation.navigate('LitterPage', { litterid: litter?.id })} key={litter?.id}>
                         <Text style={styles.orangeLink}>Litter</Text>
                     </TouchableOpacity>
                     {(dog?.female === true && litter?.father?.length) || (dog?.female === false && litter?.mother?.length) 
@@ -149,13 +149,13 @@ const DogPage = ({ route, navigation }) => {
                         : null
                     } 
                     {dog?.female === true 
-                        ? <TouchableOpacity onPress={() => navigation.navigate('DogPage', { navigation, dogid: litter?.father })} key={litter?.father}>
+                        ? <TouchableOpacity onPress={() => navigation.navigate('DogPage', { dogid: litter?.father })} key={litter?.father}>
                             <Text style={styles.orangeLink}>{parentDogs?.find(parent => parent?.id === litter?.father)?.name}</Text>
                         </TouchableOpacity> 
                         : null
                     }
                     {dog?.female === false 
-                        ? <TouchableOpacity onPress={() => navigation.navigate('DogPage', { navigation, dogid: litter?.mother })} key={litter?.mother}>
+                        ? <TouchableOpacity onPress={() => navigation.navigate('DogPage', { dogid: litter?.mother })} key={litter?.mother}>
                             <Text style={styles.orangeLink}>{parentDogs?.find(parent => parent?.id === litter?.mother)?.name}</Text>
                         </TouchableOpacity> 
                         : null
@@ -173,7 +173,7 @@ const DogPage = ({ route, navigation }) => {
                             ? <Text>Daughter </Text> 
                             : <Text>Son </Text>
                         }
-                        <TouchableOpacity onPress={() => navigation.navigate('DogPage', { navigation, dogid: child?.id })}>
+                        <TouchableOpacity onPress={() => navigation.navigate('DogPage', { dogid: child?.id })}>
                             <Text style={styles.orangeLink} key={child?.id}>{child?.name}</Text>
                         </TouchableOpacity>
                     </View>
@@ -189,7 +189,7 @@ const DogPage = ({ route, navigation }) => {
         ? <View style={{ marginTop: 10 }}>
             <TouchableOpacity
                 style={styles.blackButtonWide}
-                onPress={() => navigation.navigate('EditDogForm', { navigation, dogid })}
+                onPress={() => navigation.navigate('EditDogForm', { dogid })}
             >
                 <Text style={styles.buttonText}>Edit</Text>
             </TouchableOpacity>
@@ -199,7 +199,7 @@ const DogPage = ({ route, navigation }) => {
     const fatherContent = father
         ? <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 5 }}>
             <Text>Father{' '}</Text>
-            <TouchableOpacity onPress={() => navigation.navigate('DogPage', { navigation, dogid: father?.id })}>
+            <TouchableOpacity onPress={() => navigation.navigate('DogPage', { dogid: father?.id })}>
                 <Text style={styles.orangeLink}>{father?.name}</Text>
             </TouchableOpacity>
         </View>
@@ -209,7 +209,7 @@ const DogPage = ({ route, navigation }) => {
         ? <View style={{ marginTop: 10 }}>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <Text>Mother{' '}</Text>
-                <TouchableOpacity onPress={() => navigation.navigate('DogPage', { navigation, dogid: mother?.id })}>
+                <TouchableOpacity onPress={() => navigation.navigate('DogPage', { dogid: mother?.id })}>
                     <Text style={styles.orangeLink}>{mother?.name}</Text>
                 </TouchableOpacity>
             </View>
@@ -223,7 +223,7 @@ const DogPage = ({ route, navigation }) => {
                 ? <Text>Sister{' '}</Text> 
                 : <Text>Brother{' '}</Text>
             }
-            <TouchableOpacity onPress={() => navigation.navigate('DogPage', { navigation, dogid: sibling?.id })}>
+            <TouchableOpacity onPress={() => navigation.navigate('DogPage', { dogid: sibling?.id })}>
                 <Text style={styles.orangeLink}>{sibling?.name}</Text>
             </TouchableOpacity>
         </View>)
@@ -249,7 +249,7 @@ const DogPage = ({ route, navigation }) => {
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                     <Text>Administered by{' '}</Text>
                     <TouchableOpacity 
-                        onPress={() => navigation.navigate('UserPage', { navigation, id: user?.id })} 
+                        onPress={() => navigation.navigate('UserPage', { id: user?.id })} 
                     >
                         <Text style={styles.orangeLink}>{user?.username}</Text>
                     </TouchableOpacity>
@@ -330,7 +330,7 @@ const DogPage = ({ route, navigation }) => {
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                             <Text style={{ fontWeight: 'bold', fontSize: 16 }}>{dog?.name}'s</Text>
                             {dog?.litter 
-                                ? <TouchableOpacity onPress={() => navigation.navigate('LitterPage', { navigation, litterid: dog?.litter })}>
+                                ? <TouchableOpacity onPress={() => navigation.navigate('LitterPage', { litterid: dog?.litter })}>
                                     <Text style={[styles.orangeLink, { fontSize: 16 }]}> Litter</Text>
                                 </TouchableOpacity> 
                                 : 'Litter'
@@ -365,7 +365,7 @@ const DogPage = ({ route, navigation }) => {
                     ? <View style={{ marginTop: 10 }}>
                         <TouchableOpacity 
                             style={styles.blackButtonWide}
-                            onPress={() => navigation.navigate('DogReportPage', { navigation, dogid: dog?.id })}
+                            onPress={() => navigation.navigate('DogReportPage', { dogid: dog?.id })}
                         >
                             <Text style={styles.buttonText}>Report Dog</Text>
                         </TouchableOpacity>

@@ -422,7 +422,7 @@ const UserPage = ({ route, navigation }) => {
 
         // Advertisement component for each advertisement
         const tableAdvertisementContent = advertisementsToDisplay?.map(advertisementId => (
-            <UserAdvertisement navigation={navigation} key={advertisementId} advertisementId={advertisementId} />
+            <UserAdvertisement key={advertisementId} advertisementId={advertisementId} />
         ))
 
         finalAdvertisementsContent = !filteredAdvertisementIds?.length ? null : <View>
@@ -511,7 +511,7 @@ const UserPage = ({ route, navigation }) => {
 
         // Dog component for each dog
         const tableDogContent = dogsToDisplay?.map(dogId => (
-            <UserDog navigation={navigation} key={dogId} dogId={dogId} />
+            <UserDog key={dogId} dogId={dogId} />
         ))
 
         dogPaginationContent = !filteredIds?.length ? null : <View style={{ marginTop: 20 }}>
@@ -580,19 +580,19 @@ const UserPage = ({ route, navigation }) => {
     if (!user) return <Text>User not found</Text>
 
     // Only available when userId === id (the user visiting === the user whose page we're on)
-    const handleEdit = () => navigation.navigate('EditUserForm', { navigation, user: userId })
+    const handleEdit = () => navigation.navigate('EditUserForm', { user: userId })
 
     // If the user visiting is someone else, they can send a message instead
     const handleMessage = async () => {
         // If they already have a conversation started, navigate to it
         if (filteredConversation?.length) {
-            navigation.navigate('ConversationPage', { navigation, conversationid: filteredConversation })
+            navigation.navigate('ConversationPage', { conversationid: filteredConversation })
         } else {
             // Create a new conversation, then navigate to it
             const response = await addNewConversation({ sender: userId, receiver: id })
 
             if (response) { 
-                navigation.navigate('ConversationPage', { navigation, conversationid: response?.data?.newConversationId })
+                navigation.navigate('ConversationPage', { conversationid: response?.data?.newConversationId })
             }
         }
     }
@@ -663,7 +663,7 @@ const UserPage = ({ route, navigation }) => {
                 {userId?.length && id !== userId
                     ? <TouchableOpacity 
                         style={styles.blackButtonWide}
-                        onPress={() => navigation.navigate('UserReportPage', { navigation, userid: user?.id })}
+                        onPress={() => navigation.navigate('UserReportPage', { userid: user?.id })}
                     >
                         <Text style={styles.buttonText}>Report User</Text>
                     </TouchableOpacity>

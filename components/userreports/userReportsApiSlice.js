@@ -62,7 +62,7 @@ export const {
 } = userReportsApiSlice
 
 // Returns the query result object
-export const selectUserReportsResult = userReportsApiSlice.endpoints.getUsers.select()
+export const selectUserReportsResult = userReportsApiSlice.endpoints.getUserReports.select()
 
 // Creates memoized selector
 const selectUserReportsData = createSelector(

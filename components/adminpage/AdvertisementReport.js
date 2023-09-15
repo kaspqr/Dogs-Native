@@ -2,8 +2,9 @@ import { useGetAdvertisementReportsQuery } from "../advertisementreports/adverti
 import { useGetUsersQuery } from "../users/usersApiSlice"
 import { memo } from "react"
 import { Text, TouchableOpacity, StyleSheet, View } from "react-native"
+import navigationService from "../../app/navigationService"
 
-const AdvertisementReport = ({ advertisementReportId, navigation }) => {
+const AdvertisementReport = ({ advertisementReportId }) => {
 
     // GET the advertisementReport in props with all of it's .values
     const { advertisementReport } = useGetAdvertisementReportsQuery("advertisementReportsList", {
@@ -26,13 +27,15 @@ const AdvertisementReport = ({ advertisementReportId, navigation }) => {
     return (
         <View style={styles.reportView}>
 
-            <TouchableOpacity style={{ flex: 1 }} onPress={() => {}}>
+            <TouchableOpacity 
+                onPress={() => navigationService.navigate('ReportedAdvertisementPage', { advertisementreportid: advertisementReport?.id })}
+            >
                 <Text style={styles.orangeLink}>{advertisementReport?.id}</Text>
             </TouchableOpacity>
 
-            <View style={{ flex: 1, alignItems: 'flex-end', flexDirection: 'row' }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 15 }}>
                 <Text style={{ fontWeight: 'bold' }}>by </Text>
-                <TouchableOpacity style={{ flex: 1 }} onPress={() => navigation.navigate('UserPage', { navigation, id: user?.id })}>
+                <TouchableOpacity onPress={() => navigationService.navigate('UserPage', { id: user?.id })}>
                     <Text style={styles.orangeLink}>{user?.username}</Text>
                 </TouchableOpacity>
             </View>
@@ -43,7 +46,6 @@ const AdvertisementReport = ({ advertisementReportId, navigation }) => {
 
 const styles = StyleSheet.create({
     reportView: {
-        flexDirection: 'row',
         wordWrap: 'wrap',
         borderWidth: 1,
         borderRadius: 10,

@@ -54,7 +54,7 @@ const AdvertisementReportPage = ({ navigation, route }) => {
 
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                     <Text style={{ fontWeight: 'bold' }}>Reason for reporting advertisement </Text>
-                    <TouchableOpacity onPress={() => navigation.navigate('AdvertisementPage', { navigation, advertisementId: advertisement?.id })}>
+                    <TouchableOpacity onPress={() => navigation.navigate('AdvertisementPage', { advertisementId: advertisement?.id })}>
                         <Text style={styles.orangeLink}>{advertisement?.title}</Text>
                     </TouchableOpacity>
                 </View>

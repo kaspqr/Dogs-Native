@@ -185,7 +185,7 @@ const AdvertisementsList = ({ navigation }) => {
 
     // Advertisement component for each advertisement
     const tableContent = advertisementsToDisplay.map(advertisementId => (
-      <Advertisement navigation={navigation} key={advertisementId} advertisementId={advertisementId} />
+      <Advertisement key={advertisementId} advertisementId={advertisementId} />
     ))
 
     content = (
@@ -196,7 +196,7 @@ const AdvertisementsList = ({ navigation }) => {
             ? <View>
               <TouchableOpacity
                 style={styles.blackButtonWide}
-                onPress={() => navigation.navigate('NewAdvertisementForm', { navigation })}
+                onPress={() => navigation.navigate('NewAdvertisementForm')}
               >
                 <Text style={styles.buttonText}>Post an Advertisement</Text>
               </TouchableOpacity>

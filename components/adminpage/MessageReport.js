@@ -1,7 +1,8 @@
-import { Link } from "react-router-dom"
+import { Text, TouchableOpacity, StyleSheet, View } from "react-native"
 import { useGetMessageReportsQuery } from "../messagereports/messageReportsApiSlice"
 import { useGetUsersQuery } from "../users/usersApiSlice"
 import { memo } from "react"
+import navigationService from "../../app/navigationService"
 
 const MessageReport = ({ messageReportId }) => {
 
@@ -24,21 +25,40 @@ const MessageReport = ({ messageReportId }) => {
     }
 
     return (
-        <div className="report-div">
-            <span>
-                <Link className="orange-link" to={`/messagereports/${messageReportId}`}>
-                    <b>{messageReport?.id}</b>
-                </Link>
-            </span>
-            <span className="report-div-reporter">
-                <span>by </span>
-                <Link className="orange-link" to={`/users/${user?.id}`}>
-                    <b>{user?.username}</b>
-                </Link>
-            </span>
-        </div>
+        <View style={styles.reportView}>
+
+            <TouchableOpacity 
+                onPress={() => navigationService.navigate('ReportedMessagePage', { messagereportid: messageReport?.id })}
+            >
+                <Text style={styles.orangeLink}>{messageReport?.id}</Text>
+            </TouchableOpacity>
+
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 15 }}>
+                <Text style={{ fontWeight: 'bold' }}>by </Text>
+                <TouchableOpacity onPress={() => navigationService.navigate('UserPage', { id: user?.id })}>
+                    <Text style={styles.orangeLink}>{user?.username}</Text>
+                </TouchableOpacity>
+            </View>
+
+        </View>
     )
 }
+
+const styles = StyleSheet.create({
+    reportView: {
+        wordWrap: 'wrap',
+        borderWidth: 1,
+        borderRadius: 10,
+        borderColor: '#d3d3d3',
+        padding: 10,
+        marginTop: 5,
+        marginBottom: 5,
+    },
+    orangeLink: {
+        color: '#eb9b34',
+        fontWeight: 'bold',
+    }
+})
 
 const memoizedMessageReport = memo(MessageReport)
 

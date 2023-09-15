@@ -54,7 +54,7 @@ const DogReportPage = ({ route, navigation }) => {
 
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                     <Text style={{ fontWeight: 'bold' }}>Reason for reporting dog </Text>
-                    <TouchableOpacity onPress={() => navigation.navigate('DogPage', { navigation, dogid: dog?.id })}>
+                    <TouchableOpacity onPress={() => navigation.navigate('DogPage', { dogid: dog?.id })}>
                         <Text style={styles.orangeLink}>{dog?.name}</Text>
                     </TouchableOpacity>
                 </View>

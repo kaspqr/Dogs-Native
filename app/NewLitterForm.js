@@ -94,7 +94,7 @@ const NewLitterForm = ({ navigation }) => {
             let finalBorn = born !== '' ? new Date(born.timestamp).toDateString() : ''
             // POST the litter
             await addNewLitter({ mother, born: finalBorn, children, breed, country, region })
-            navigation.navigate('LittersList', { navigation })
+            navigation.navigate('LittersList')
         }
 
         if (isLitterError) {

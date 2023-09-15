@@ -26,39 +26,39 @@ const MenuComponent = ({ navigation }) => {
                         <Text style={styles.menuButtonText}>My Profile</Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.menuButton} onPress={() => navigation.navigate('ConversationsList', { navigation })}>
+                    <TouchableOpacity style={styles.menuButton} onPress={() => navigation.navigate('ConversationsList')}>
                         <Text style={styles.menuButtonText}>Inbox</Text>
                     </TouchableOpacity>
                 </View>
                 : <View>
-                    <TouchableOpacity onPress={() => {navigation.navigate('Login', { navigation })}} style={styles.menuButton}>
+                    <TouchableOpacity onPress={() => {navigation.navigate('Login')}} style={styles.menuButton}>
                         <Text style={styles.menuButtonText}>Login</Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity onPress={() => {navigation.navigate('NewUserForm', { navigation })}} style={styles.menuButton}>
+                    <TouchableOpacity onPress={() => {navigation.navigate('NewUserForm')}} style={styles.menuButton}>
                         <Text style={styles.menuButtonText}>Register</Text>
                     </TouchableOpacity>
                 </View>
             }
 
-            <TouchableOpacity onPress={() => navigation.navigate('DogsList', { navigation })} style={styles.menuButton}>
+            <TouchableOpacity onPress={() => navigation.navigate('DogsList')} style={styles.menuButton}>
                 <Text style={styles.menuButtonText}>Dogs</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => navigation.navigate('LittersList', { navigation })} style={styles.menuButton}>
+            <TouchableOpacity onPress={() => navigation.navigate('LittersList')} style={styles.menuButton}>
                 <Text style={styles.menuButtonText}>Litters</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => navigation.navigate('UsersList', { navigation })} style={styles.menuButton}>
+            <TouchableOpacity onPress={() => navigation.navigate('UsersList')} style={styles.menuButton}>
                 <Text style={styles.menuButtonText}>Users</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => navigation.navigate('Faq', { navigation })} style={styles.menuButton}>
+            <TouchableOpacity onPress={() => navigation.navigate('Faq')} style={styles.menuButton}>
                 <Text style={styles.menuButtonText}>FAQ</Text>
             </TouchableOpacity>
 
             {isAdmin === true || isSuperAdmin === true ? (
-                <TouchableOpacity onPress={() => {}} style={styles.menuButton}>
+                <TouchableOpacity onPress={() => navigation.navigate('AdminPage')} style={styles.menuButton}>
                     <Text style={styles.menuButtonText}>Admin Panel</Text>
                 </TouchableOpacity>
             ) : null}

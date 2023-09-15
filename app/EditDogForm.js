@@ -78,7 +78,7 @@ const EditDogForm = ({ route, navigation }) => {
     }] = useDeleteDogMutation()
 
     useEffect(() => {
-        if (isSuccess) navigation.navigate('DogPage', { navigation, dogid: dog?.id })
+        if (isSuccess) navigation.navigate('DogPage', { dogid: dog?.id })
     }, [isSuccess, navigation, dog?.id])
 
     const handleMicrochippedChanged = () => {
@@ -196,7 +196,7 @@ const EditDogForm = ({ route, navigation }) => {
         return uploadImage(base64Value)
     }
 
-    if (isDelSuccess) navigation.navigate('DogsList', { navigation })
+    if (isDelSuccess) navigation.navigate('DogsList')
     if (isLoading || isDelLoading) return <Text style={{ margin: 10 }}>Loading...</Text>
 
     // Boolean to control the 'disabled' value of the SAVE button

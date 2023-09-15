@@ -3,8 +3,9 @@ import { memo } from "react"
 import UserIcon from "../../assets/images/UserIcon.jpg"
 import { View, Image, Text, StyleSheet } from "react-native"
 import { TouchableOpacity } from "react-native-gesture-handler"
+import navigationService from "../../app/navigationService"
 
-const User = ({ userId, navigation }) => {
+const User = ({ userId }) => {
 
     // GET the user with all of it's .values
     const { user } = useGetUsersQuery("usersList", {
@@ -23,7 +24,7 @@ const User = ({ userId, navigation }) => {
                     }
                 </View>
                 <View>
-                    <TouchableOpacity onPress={() => navigation.navigate('UserPage', { id: userId, navigation })}>
+                    <TouchableOpacity onPress={() => navigationService.navigate('UserPage', { id: userId })}>
                         <Text style={styles.orangeLink}>{user?.username}</Text>
                     </TouchableOpacity>
                     <Text>{user?.name}</Text>

@@ -85,7 +85,7 @@ const NewDogForm = ({ navigation }) => {
             setCountry('')
             setRegion('none ')
             setFemale(true)
-            navigation.navigate('DogsList', { navigation })
+            navigation.navigate('DogsList')
         }
     }, [isSuccess, navigation])
 

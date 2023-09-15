@@ -1,12 +1,11 @@
 import React from 'react'
-import useAuth from '../../hooks/useAuth'
-import { useGetAdvertisementReportsQuery } from "../advertisementreports/advertisementReportsApiSlice"
-import { useGetMessageReportsQuery } from "../messagereports/messageReportsApiSlice"
-import { useGetDogReportsQuery } from "../dogreports/dogReportsApiSlice"
-import { useGetUserReportsQuery } from "../userreports/userReportsApiSlice"
+import useAuth from '../hooks/useAuth'
+import { useGetAdvertisementReportsQuery } from "../components/advertisementreports/advertisementReportsApiSlice"
+import { useGetMessageReportsQuery } from "../components/messagereports/messageReportsApiSlice"
+import { useGetDogReportsQuery } from "../components/dogreports/dogReportsApiSlice"
+import { useGetUserReportsQuery } from "../components/userreports/userReportsApiSlice"
 import { COLORS } from "../constants"
 import { Text, View, ScrollView, TouchableOpacity, StyleSheet } from "react-native"
-import styles from '../header/screenheader.style'
 
 const AdminPage = ({ navigation }) => {
 
@@ -109,7 +108,7 @@ const AdminPage = ({ navigation }) => {
                 <View>
                     {amountOfAdvertisementReports < 1 
                         ? <Text style={{ fontWeight: 'bold' }}>No Advertisement Reports</Text> 
-                        : <TouchableOpacity onPress={() => {}}>
+                        : <TouchableOpacity onPress={() => navigation.navigate('AdvertisementReportsList')}>
                             <Text style={styles.orangeLink}>
                                 View {amountOfAdvertisementReports} Advertisement Report{amountOfAdvertisementReports === 1 ? '' : 's'}
                             </Text>
@@ -120,7 +119,7 @@ const AdminPage = ({ navigation }) => {
                 <View style={{ marginTop: 15 }}>
                     {amountOfMessageReports < 1 
                         ? <Text style={{ fontWeight: 'bold' }}>No Message Reports</Text> 
-                        : <TouchableOpacity onPress={() => {}}>
+                        : <TouchableOpacity onPress={() => navigation.navigate('MessageReportsList')}>
                             <Text style={styles.orangeLink}>
                                 View {amountOfMessageReports} Message Report{amountOfMessageReports === 1 ? '' : 's'}
                             </Text>
@@ -131,7 +130,7 @@ const AdminPage = ({ navigation }) => {
                 <View style={{ marginTop: 15 }}>
                     {amountOfDogReports < 1 
                         ? <Text style={{ fontWeight: 'bold' }}>No Dog Reports</Text> 
-                        : <TouchableOpacity onPress={() => {}}>
+                        : <TouchableOpacity onPress={() => navigation.navigate('DogReportsList')}>
                             <Text style={styles.orangeLink}>
                                 View {amountOfDogReports} Dog Report{amountOfDogReports === 1 ? '' : 's'}
                             </Text>
@@ -142,7 +141,7 @@ const AdminPage = ({ navigation }) => {
                 <View style={{ marginTop: 15 }}>
                     {amountOfUserReports < 1 
                         ? <Text style={{ fontWeight: 'bold' }}>No User Reports</Text> 
-                        : <TouchableOpacity onPress={() => {}}>
+                        : <TouchableOpacity onPress={() => navigation.navigate('UserReportsList')}>
                             <Text style={styles.orangeLink}>
                                 View {amountOfUserReports} User Report{amountOfUserReports === 1 ? '' : 's'}
                             </Text>

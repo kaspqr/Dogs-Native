@@ -2,8 +2,9 @@ import { useGetLittersQuery } from "./littersApiSlice"
 import { useGetDogsQuery } from "../dogs/dogsApiSlice"
 import { memo } from "react"
 import { Text, TouchableOpacity, StyleSheet, View } from "react-native"
+import navigationService from "../../app/navigationService"
 
-const Litter = ({ litterId, navigation }) => {
+const Litter = ({ litterId }) => {
 
     // GET the litter with all of it's .values
     const { litter } = useGetLittersQuery("littersList", {
@@ -35,14 +36,14 @@ const Litter = ({ litterId, navigation }) => {
             <View style={{ flex: 1 }}>
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                     <Text>Mother </Text> 
-                    <TouchableOpacity onPress={() => navigation.navigate('DogPage', { navigation, dogid: mother?.id })}>
+                    <TouchableOpacity onPress={() => navigationService.navigate('DogPage', { dogid: mother?.id })}>
                         <Text style={styles.orangeLink}>{mother?.name}</Text>
                     </TouchableOpacity>
                 </View>
                 {father 
                     ? <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                         <Text>Father </Text> 
-                        <TouchableOpacity onPress={() => navigation.navigate('DogPage', { navigation, dogid: father?.id })}>
+                        <TouchableOpacity onPress={() => navigationService.navigate('DogPage', { dogid: father?.id })}>
                             <Text style={styles.orangeLink}>{father?.name}</Text>
                         </TouchableOpacity>
                     </View>
@@ -55,7 +56,7 @@ const Litter = ({ litterId, navigation }) => {
             </View>
 
             <View style={{ flex: 1, alignItems: 'flex-end', justifyContent: 'center' }}>
-                <TouchableOpacity onPress={() => navigation.navigate('LitterPage', { litterid: litterId })}>
+                <TouchableOpacity onPress={() => navigationService.navigate('LitterPage', { litterid: litterId })}>
                     <Text style={styles.orangeLink}>View Litter</Text>
                 </TouchableOpacity>
             </View>

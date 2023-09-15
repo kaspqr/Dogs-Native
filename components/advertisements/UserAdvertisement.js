@@ -1,10 +1,10 @@
 import { useGetAdvertisementsQuery } from "./advertisementsApiSlice"
 import { memo } from "react"
 import AdIcon from "../../assets/images/AdIcon.jpg"
-
+import navigationService from "../../app/navigationService"
 import { View, Image, Text, StyleSheet, TouchableOpacity } from "react-native"
 
-const UserAdvertisement = ({ navigation, advertisementId }) => {
+const UserAdvertisement = ({ advertisementId }) => {
 
     // GET the advertisement in props with all of it's .values
     const { advertisement } = useGetAdvertisementsQuery("advertisementsList", {
@@ -27,7 +27,7 @@ const UserAdvertisement = ({ navigation, advertisementId }) => {
             </View>
             
             <View>
-                <TouchableOpacity onPress={() => navigation.navigate('AdvertisementPage', { advertisementId, navigation })}>
+                <TouchableOpacity onPress={() => navigationService.navigate('AdvertisementPage', { advertisementId })}>
                     <Text style={styles.orangeLink}>{advertisement?.title}</Text>
                 </TouchableOpacity>
 

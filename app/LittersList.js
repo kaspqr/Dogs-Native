@@ -154,7 +154,7 @@ const LittersList = ({ navigation }) => {
 
     // Litter component for each litter
     const tableContent = littersToDisplay.map(litterId => (
-      <Litter navigation={navigation} key={litterId} litterId={litterId} />
+      <Litter key={litterId} litterId={litterId} />
     ))
 
     if (!reversedNewIds?.length) {
@@ -178,7 +178,7 @@ const LittersList = ({ navigation }) => {
         <View style={styles.mainView}>
           {userId?.length 
             ? <View>
-              <TouchableOpacity onPress={() => navigation.navigate('NewLitterForm', { navigation })} style={styles.blackButtonWide}>
+              <TouchableOpacity onPress={() => navigation.navigate('NewLitterForm')} style={styles.blackButtonWide}>
                 <Text style={styles.buttonText}>Add a New Litter</Text>
               </TouchableOpacity>
             </View> 

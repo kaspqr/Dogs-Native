@@ -121,21 +121,11 @@ const ConversationPage = ({ route, navigation }) => {
         if (filteredIds?.length) {
             filteredMessages = filteredIds.map(messageId => entities[messageId])
         }
-
-        // Variable to store all Message components for each message in the conversation
-        let tableContent
-
-        if (filteredMessages?.length) {
-            const messagesToDisplay = filteredMessages.slice(-displayedMessagesCount)
-            tableContent = messagesToDisplay.map(message => (
-              <Message navigation={navigation} key={message.id} messageId={message.id} />
-            ))
-          }
       
         messageContent = (
             <FlatList 
                 data={filteredMessages?.slice(-displayedMessagesCount).reverse()}
-                renderItem={({ item }) => <Message navigation={navigation} key={item.id} messageId={item.id} />}
+                renderItem={({ item }) => <Message key={item.id} messageId={item.id} />}
                 inverted={true}
                 onEndReached={() => setDisplayedMessagesCount(displayedMessagesCount + 30)}
                 onEndReachedThreshold={0.1}
@@ -153,7 +143,7 @@ const ConversationPage = ({ route, navigation }) => {
     return (
         <View style={styles.mainView}>
             <TouchableOpacity 
-                onPress={() => navigation.navigate('UserPage', { navigation, id: navigationUser?.id })}
+                onPress={() => navigation.navigate('UserPage', { id: navigationUser?.id })}
                 style={{ borderBottomWidth: 1, borderBottomColor: 'lightgrey', marginBottom: 5 }}
             >
                 <Text style={styles.orangeLink}>{navigationUser?.username}</Text>

@@ -6,11 +6,11 @@ import { bigCountries } from "../assets/bigCountries"
 import { Regions } from "../assets/regions"
 
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, ScrollView } from 'react-native'
-import { COLORS, SIZES } from "../constants"
+import { COLORS } from "../constants"
 
 import RNPickerSelect from 'react-native-picker-select'
 
-const UsersList = ({ navigation }) => {
+const UsersList = () => {
 
   const [username, setUsername] = useState('')
   const [country, setCountry] = useState('')
@@ -95,7 +95,7 @@ const UsersList = ({ navigation }) => {
 
     // User component for each user
     const tableContent = usersToDisplay.map(userId => (
-      <User navigation={navigation} key={userId} userId={userId} />
+      <User key={userId} userId={userId} />
     ))
 
     if (!reversedNewIds?.length) return <Text>There are currently no active users</Text>

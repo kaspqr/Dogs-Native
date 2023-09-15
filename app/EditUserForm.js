@@ -73,7 +73,7 @@ const EditUserForm = ({ route, navigation }) => {
             setCountry('')
             setRegion('')
             setBio('')
-            navigation.navigate('UsersList', { navigation })
+            navigation.navigate('UsersList')
         }
     }, [isSuccess, isDelSuccess])
 
@@ -163,7 +163,7 @@ const EditUserForm = ({ route, navigation }) => {
     }
 
     useEffect(() => {
-        if (isLogoutSuccess) navigation.navigate('AdvertisementsList', { navigation })
+        if (isLogoutSuccess) navigation.navigate('AdvertisementsList')
     }, [isLogoutSuccess, navigation])
 
     if (isLoading || isDelLoading || isLogoutLoading) return <Text style={{ margin: 10 }}>Loading...</Text>

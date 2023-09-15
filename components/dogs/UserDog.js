@@ -1,10 +1,10 @@
 import { useGetDogsQuery } from "./dogsApiSlice"
 import { memo } from "react"
 import DogIcon from "../../assets/images/DogIcon.jpg"
-
+import navigationService from "../../app/navigationService"
 import { View, Image, Text, StyleSheet, TouchableOpacity } from "react-native"
 
-const UserDog = ({ dogId, navigation }) => {
+const UserDog = ({ dogId }) => {
 
     // GET the dog with all of it's .values
     const { dog } = useGetDogsQuery("dogsList", {
@@ -26,7 +26,7 @@ const UserDog = ({ dogId, navigation }) => {
             </View>
 
             <View>
-                <TouchableOpacity onPress={() => navigation.navigate('DogPage', { dogid: dogId, navigation })}>
+                <TouchableOpacity onPress={() => navigationService.navigate('DogPage', { dogid: dogId })}>
                     <Text style={styles.orangeLink}>{dog.name}</Text>
                 </TouchableOpacity>
                 

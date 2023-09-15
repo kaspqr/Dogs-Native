@@ -62,7 +62,7 @@ export const {
 } = messageReportsApiSlice
 
 // Returns the query result object
-export const selectMessageReportsResult = messageReportsApiSlice.endpoints.getMessages.select()
+export const selectMessageReportsResult = messageReportsApiSlice.endpoints.getMessageReports.select()
 
 // Creates memoized selector
 const selectMessageReportsData = createSelector(

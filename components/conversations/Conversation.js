@@ -5,8 +5,9 @@ import { memo } from "react"
 import useAuth from "../../hooks/useAuth"
 import { TouchableOpacity, View, Text, StyleSheet, Image } from "react-native"
 import UserIcon from "../../assets/images/UserIcon.jpg"
+import navigationService from "../../app/navigationService"
 
-const Conversation = ({ conversationId, navigation }) => {
+const Conversation = ({ conversationId }) => {
 
     const { userId } = useAuth()
 
@@ -70,7 +71,7 @@ const Conversation = ({ conversationId, navigation }) => {
         return (
             <View style={styles.conversationView}>
 
-                <TouchableOpacity onPress={() => navigation.navigate('ConversationPage', { navigation, conversationid: conversationId })}>
+                <TouchableOpacity onPress={() => navigationService.navigate('ConversationPage', { conversationid: conversationId })}>
 
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
 

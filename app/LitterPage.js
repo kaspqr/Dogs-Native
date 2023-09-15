@@ -129,7 +129,7 @@ const LitterPage = ({ navigation, route }) => {
     })
 
     useEffect(() => {
-        if (isDelSuccess) navigation.navigate('LittersList', { navigation })
+        if (isDelSuccess) navigation.navigate('LittersList')
     }, [isDelSuccess, navigation])
     
     let dogContent
@@ -518,7 +518,7 @@ const LitterPage = ({ navigation, route }) => {
                             <Text>Mother</Text>
 
                             <View>
-                                <TouchableOpacity onPress={() => navigation.navigate('DogPage', { navigation, dogid: mother?.id })}>
+                                <TouchableOpacity onPress={() => navigation.navigate('DogPage', { dogid: mother?.id })}>
                                     <Text style={styles.orangeLink}>{mother?.name}</Text>
                                 </TouchableOpacity>
                             </View>
@@ -542,7 +542,7 @@ const LitterPage = ({ navigation, route }) => {
 
                             {father?.id?.length 
                                 ? <View>
-                                    <TouchableOpacity onPress={() => navigation.navigate('DogPage', { navigation, dogid: father?.id })}>
+                                    <TouchableOpacity onPress={() => navigation.navigate('DogPage', { dogid: father?.id })}>
                                         <Text style={styles.orangeLink}>{father?.name}</Text>
                                     </TouchableOpacity>
                                 </View>

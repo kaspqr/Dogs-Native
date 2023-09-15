@@ -2,11 +2,11 @@ import { useGetAdvertisementsQuery } from "./advertisementsApiSlice"
 import { useGetUsersQuery } from "../users/usersApiSlice"
 import { memo } from "react"
 import AdIcon from "../../assets/images/AdIcon.jpg"
-
+import navigationService from "../../app/navigationService"
 import { View, Text, Image, StyleSheet } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 
-const Advertisement = ({ advertisementId, navigation }) => {
+const Advertisement = ({ advertisementId }) => {
 
     // GET the advertisement in props with all of it's .values
     const { advertisement } = useGetAdvertisementsQuery("advertisementsList", {
@@ -43,7 +43,7 @@ const Advertisement = ({ advertisementId, navigation }) => {
                 <Text>
 
                     <TouchableOpacity 
-                        onPress={() => navigation.navigate('AdvertisementPage', { advertisementId, navigation })}
+                        onPress={() => navigationService.navigate('AdvertisementPage', { advertisementId })}
                     >
                         <Text style={styles.orangeLink}>{advertisement?.title}</Text>
                     </TouchableOpacity>
@@ -79,7 +79,7 @@ const Advertisement = ({ advertisementId, navigation }) => {
 
                     <Text>Posted by{' '}</Text>
 
-                    <TouchableOpacity onPress={() => {navigation.navigate('UserPage', { id, navigation })}}>
+                    <TouchableOpacity onPress={() => {navigationService.navigate('UserPage', { id })}}>
                         <Text style={[styles.orangeLink]}>{user?.username}</Text>
                     </TouchableOpacity>
 

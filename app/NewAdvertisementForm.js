@@ -55,7 +55,7 @@ const NewAdvertisementForm = ({ navigation }) => {
             setRegion('')
             setBreed('')
             setInfo('')
-            navigation.navigate('AdvertisementsList', { navigation })
+            navigation.navigate('AdvertisementsList')
         }
     }, [isAdvertisementSuccess, navigation])
 

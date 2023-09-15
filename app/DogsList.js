@@ -218,7 +218,7 @@ const DogsList = ({ navigation }) => {
 
     // Dog component for each dog
     const tableContent = dogsToDisplay.map(dogId => (
-      <Dog navigation={navigation} key={dogId} dogId={dogId} />
+      <Dog key={dogId} dogId={dogId} />
     ))
 
     if (!reversedNewIds?.length) {
@@ -243,7 +243,7 @@ const DogsList = ({ navigation }) => {
         <View style={styles.mainView}>
           {userId?.length 
             ? <View>
-              <TouchableOpacity style={styles.blackButtonWide} onPress={() => navigation.navigate('NewDogForm', { navigation })}>
+              <TouchableOpacity style={styles.blackButtonWide} onPress={() => navigation.navigate('NewDogForm')}>
                 <Text style={styles.buttonText}>
                   Add a New Dog
                 </Text>

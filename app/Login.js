@@ -62,7 +62,7 @@ const Login = ({ navigation }) => {
 
   if (isLoading) return <Text>Loading...</Text>
 
-  if (isSuccess) navigation.navigate('AdvertisementsList', { navigation })
+  if (isSuccess) navigation.navigate('AdvertisementsList')
 
   if (auth?.username?.length) {
     return <Text>You are already logged in.</Text>

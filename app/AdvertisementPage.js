@@ -1,7 +1,6 @@
 import { useGetAdvertisementsQuery, useDeleteAdvertisementMutation } from "../components/advertisements/advertisementsApiSlice"
 import { useGetUsersQuery } from "../components/users/usersApiSlice"
 import useAuth from "../hooks/useAuth"
-
 import { View, Text, Image, ScrollView, StyleSheet } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { COLORS } from "../constants"
@@ -57,7 +56,7 @@ const AdvertisementPage = ({ route, navigation }) => {
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                     <Text>Posted by{' '}</Text>
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('UserPage', { id: advertisement?.poster, navigation })}
+                        onPress={() => navigation.navigate('UserPage', { id: advertisement?.poster })}
                     >
                         <Text style={{ fontWeight: 'bold', color: 'orange' }}>{user?.username}</Text>
                     </TouchableOpacity>
@@ -103,7 +102,7 @@ const AdvertisementPage = ({ route, navigation }) => {
                     ? <View style={{ marginTop: 10 }}>
                         <TouchableOpacity 
                             style={styles.blackButtonWide}
-                            onPress={() => navigation.navigate('EditAdvertisementForm', { advertisementId, navigation })}
+                            onPress={() => navigation.navigate('EditAdvertisementForm', { advertisementId })}
                         >
                             <Text style={styles.buttonText}>Edit</Text>
                         </TouchableOpacity>
@@ -113,7 +112,7 @@ const AdvertisementPage = ({ route, navigation }) => {
 
                 {userId?.length && advertisement?.poster !== userId
                     ? <View style={{ marginTop: 10 }}><TouchableOpacity style={styles.blackButtonWide}
-                        onPress={() => navigation.navigate('AdvertisementReportPage', { navigation, advertisementid: advertisement?.id })}
+                        onPress={() => navigation.navigate('AdvertisementReportPage', { advertisementid: advertisement?.id })}
                     >
                         <Text style={styles.buttonText}>Report Advertisement</Text>
                     </TouchableOpacity></View>

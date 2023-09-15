@@ -3,8 +3,9 @@ import { useGetUsersQuery } from "../users/usersApiSlice"
 import { memo } from "react"
 import DogIcon from "../../assets/images/DogIcon.jpg"
 import { Image, Text, TouchableOpacity, StyleSheet, View } from "react-native"
+import navigationService from "../../app/navigationService"
 
-const Dog = ({ dogId, navigation }) => {
+const Dog = ({ dogId }) => {
 
     // GET the dog with all of it's .values
     const { dog } = useGetDogsQuery("dogsList", {
@@ -33,7 +34,7 @@ const Dog = ({ dogId, navigation }) => {
 
             <View>
                 <View>
-                    <TouchableOpacity onPress={() => navigation.navigate('DogPage', { navigation, dogid: dogId })}>
+                    <TouchableOpacity onPress={() => navigationService.navigate('DogPage', { dogid: dogId })}>
                         <Text style={styles.orangeLink}>
                             {dog.name}
                         </Text>
@@ -46,7 +47,7 @@ const Dog = ({ dogId, navigation }) => {
 
                 <View>
                     <Text>Administered by{' '}</Text>
-                    <TouchableOpacity onPress={() => navigation.navigate('UserPage', { navigation, id: user?.id })}>
+                    <TouchableOpacity onPress={() => navigationService.navigate('UserPage', { id: user?.id })}>
                         <Text style={styles.orangeLink}>{user?.username}</Text>
                     </TouchableOpacity>
                 </View>

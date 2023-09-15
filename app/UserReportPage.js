@@ -54,7 +54,7 @@ const UserReportPage = ({ navigation, route }) => {
 
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <Text style={{ fontWeight: 'bold' }}>Reason for reporting user </Text>
-                <TouchableOpacity onPress={() => navigation.navigate('UserPage', { navigation, id: user?.id })}>
+                <TouchableOpacity onPress={() => navigation.navigate('UserPage', { id: user?.id })}>
                     <Text style={styles.orangeLink}>{user?.username}</Text>
                 </TouchableOpacity>
             </View>
