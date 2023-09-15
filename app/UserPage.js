@@ -701,20 +701,6 @@ const styles = StyleSheet.create({
     bold: {
         fontWeight: 'bold',
     },
-    adView: {
-        flexDirection: 'row',
-        wordWrap: 'wrap',
-        borderWidth: 1,
-        borderRadius: 10,
-        borderColor: '#d3d3d3',
-        padding: 10,
-        marginTop: 5,
-        marginBottom: 5,
-    },
-    orangeLink: {
-        color: '#eb9b34',
-        fontWeight: 'bold',
-    },
     mainView: {
         marginHorizontal: 10,
         marginBottom: 30,
@@ -745,19 +731,6 @@ const styles = StyleSheet.create({
       fontWeight: 'bold',
       textAlign: 'center',
     },
-    filterViewVisible: {
-      flex: 1,
-    },
-    filterViewHidden: {
-      display: 'none',
-    },
-    textInputWide: {
-      borderWidth: 1,
-      borderRadius: 5,
-      paddingHorizontal: 5,
-      paddingVertical: 13,
-      marginBottom: 10,
-    },
     textInput: {
       borderWidth: 1,
       borderRadius: 5,
@@ -781,9 +754,6 @@ const styles = StyleSheet.create({
     paginationInputView: {
       flexDirection: 'row',
       marginTop: 5,
-    },
-    inputTitle: {
-      fontWeight: 'bold',
     },
 })
 

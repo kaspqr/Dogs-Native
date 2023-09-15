@@ -1,9 +1,10 @@
 import { useGetAdvertisementsQuery, useDeleteAdvertisementMutation } from "../components/advertisements/advertisementsApiSlice"
 import { useGetUsersQuery } from "../components/users/usersApiSlice"
 import useAuth from "../hooks/useAuth"
-import { View, Text, Image, ScrollView, StyleSheet } from 'react-native'
+import { View, Text, Image, ScrollView, StyleSheet, Dimensions } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { COLORS } from "../constants"
+import { useState, useEffect } from "react"
 
 const AdvertisementPage = ({ route, navigation }) => {
 
@@ -11,12 +12,31 @@ const AdvertisementPage = ({ route, navigation }) => {
 
     const { userId, isAdmin, isSuperAdmin } = useAuth()
 
+    const [imageDimensions, setImageDimensions] = useState({ width: 0, height: 0 })
+
     // GET the advertisement with all of it's .values
     const { advertisement } = useGetAdvertisementsQuery("advertisementsList", {
         selectFromResult: ({ data }) => ({
             advertisement: data?.entities[advertisementId]
         }),
     })
+
+    useEffect(() => {
+
+        if (advertisement?.image?.length) {
+            // Get the screen width
+            const screenWidth = Dimensions.get('window').width - 20
+        
+            // Use Image.getSize to get the original image dimensions
+            Image.getSize(advertisement?.image, (originalWidth, originalHeight) => {
+            // Calculate the height while maintaining the aspect ratio
+            const aspectRatio = originalWidth / originalHeight
+            const calculatedHeight = screenWidth / aspectRatio
+        
+            setImageDimensions({ width: screenWidth, height: calculatedHeight })
+            })   
+        }
+    }, [advertisement?.image?.length])
 
     // GET the user who is the poster of the advertisement with all of it's .values
     const { user } = useGetUsersQuery("usersList", {
@@ -64,7 +84,7 @@ const AdvertisementPage = ({ route, navigation }) => {
 
                 {advertisement?.image?.length 
                     ? <View style={{ marginTop: 10 }}>
-                        <Image style={{ width: 300, height: 300, borderRadius: 5 }} source={{ uri: `${advertisement?.image}`}} />
+                        <Image style={{ width: imageDimensions.width, height: imageDimensions.height, borderRadius: 5 }} source={{ uri: `${advertisement?.image}`}} />
                     </View>
                     : null
                 }

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import { useUpdateAdvertisementMutation, useDeleteAdvertisementMutation, useGetAdvertisementsQuery } from "../components/advertisements/advertisementsApiSlice"
 import { Currencies } from "../assets/currencies"
 import * as ImagePicker from 'expo-image-picker'
-import { ScrollView, TouchableOpacity, View, Text, StyleSheet, TextInput, Image } from "react-native"
+import { ScrollView, TouchableOpacity, View, Text, StyleSheet, TextInput, Image, Dimensions } from "react-native"
 import RNPickerSelect from 'react-native-picker-select'
 import { COLORS } from "../constants"
 
@@ -47,6 +47,24 @@ const EditAdvertisementForm = ({ route, navigation }) => {
     const [uploadLoading, setUploadLoading] = useState(false)
     const [confirmDelete, setConfirmDelete] = useState('')
     const [deletionVisible, setDeletionVisible] = useState(false)
+    const [imageDimensions, setImageDimensions] = useState({ width: 0, height: 0 })
+
+    useEffect(() => {
+
+        if (previewSource) {
+            // Get the screen width
+            const screenWidth = Dimensions.get('window').width - 20
+        
+            // Use Image.getSize to get the original image dimensions
+            Image.getSize(previewSource, (originalWidth, originalHeight) => {
+            // Calculate the height while maintaining the aspect ratio
+            const aspectRatio = originalWidth / originalHeight
+            const calculatedHeight = screenWidth / aspectRatio
+        
+            setImageDimensions({ width: screenWidth, height: calculatedHeight })
+            })   
+        }
+      }, [previewSource])
 
     useEffect(() => {
         setValidPrice(PRICE_REGEX.test(price))
@@ -167,7 +185,7 @@ const EditAdvertisementForm = ({ route, navigation }) => {
                 {uploadLoading === false && uploadMessage?.length ? <Text style={{ marginVertical: 10 }}>{uploadMessage}</Text> : null}
 
                 {previewSource 
-                    ? <Image style={{height: 300, width: 300, borderRadius: 5}} source={{ uri: previewSource }} />
+                    ? <Image style={{height: imageDimensions.height, width: imageDimensions.width, borderRadius: 5}} source={{ uri: previewSource }} />
                     : null
                 }
 
@@ -272,17 +290,6 @@ const styles = StyleSheet.create({
         padding: 10,
         marginBottom: 10,
     },
-    blackButton: {
-        padding: 10,
-        borderRadius: 5,
-        backgroundColor: '#000000',
-        width: 50,
-    },
-    blackNewPageButton: {
-        backgroundColor: '#000000',
-        borderRadius: 5,
-        padding: 10,
-    },
     greyButton: {
         backgroundColor: 'lightgrey',
     },
@@ -291,12 +298,6 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         textAlign: 'center',
     },
-    filterViewVisible: {
-        flex: 1,
-    },
-    filterViewHidden: {
-        display: 'none',
-    },
     textInputWide: {
         borderWidth: 1,
         borderRadius: 5,
@@ -304,39 +305,12 @@ const styles = StyleSheet.create({
         paddingVertical: 13,
         marginBottom: 10,
     },
-    textInput: {
-        borderWidth: 1,
-        borderRadius: 5,
-        paddingLeft: 5,
-        width: 60,
-    },
     selectInputWide: {
         borderWidth: 1,
         borderRadius: 5,
         marginBottom: 10,
     },
-    paginationRow: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: 5,
-    },
-    paginationTextView: {
-        flex: 1,
-        alignItems: 'center',
-    },
-    paginationInputView: {
-        flexDirection: 'row',
-        marginTop: 5,
-    },
     inputTitle: {
-        fontWeight: 'bold',
-    },
-    errMsg: {
-        color: 'red',
-    },
-    successMsg: {
-        color: 'green',
-        marginHorizontal: 10,
         fontWeight: 'bold',
     },
 })

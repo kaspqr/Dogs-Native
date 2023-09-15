@@ -161,45 +161,21 @@ const styles = StyleSheet.create({
         backgroundColor: COLORS.lightWhite,
         flex: 1
     },
-    blackButtonWide: {
-      backgroundColor: '#000000',
-      borderRadius: 5,
-      padding: 10,
-      marginBottom: 10,
-    },
     blackButton: {
       padding: 10,
       borderRadius: 5,
       backgroundColor: '#000000',
       width: 50,
     },
-    blackNewPageButton: {
-      backgroundColor: '#000000',
-      borderRadius: 5,
-      padding: 10,
-    },
-    greyButton: {
-      backgroundColor: 'lightgrey',
-    },
     buttonText: {
       color: '#ffffff',
       fontWeight: 'bold',
       textAlign: 'center',
     },
-    textInputWide: {
-      borderWidth: 1,
-      borderRadius: 5,
-      paddingHorizontal: 5,
-      paddingVertical: 13,
-      marginBottom: 10,
-    },
     textInput: {
       borderWidth: 1,
       borderRadius: 5,
       paddingHorizontal: 5,
-    },
-    inputTitle: {
-      fontWeight: 'bold',
     },
     orangeLink: {
         fontWeight: 'bold',

@@ -82,73 +82,10 @@ const styles = StyleSheet.create({
         padding: 10,
         marginBottom: 10,
     },
-    blackButton: {
-        padding: 10,
-        borderRadius: 5,
-        backgroundColor: '#000000',
-        width: 50,
-    },
-    blackNewPageButton: {
-        backgroundColor: '#000000',
-        borderRadius: 5,
-        padding: 10,
-    },
-    greyButton: {
-        backgroundColor: 'lightgrey',
-    },
     buttonText: {
         color: '#ffffff',
         fontWeight: 'bold',
         textAlign: 'center',
-    },
-    filterViewVisible: {
-        flex: 1,
-    },
-    filterViewHidden: {
-        display: 'none',
-    },
-    textInputWide: {
-        borderWidth: 1,
-        borderRadius: 5,
-        paddingHorizontal: 5,
-        paddingVertical: 13,
-        marginBottom: 10,
-        marginTop: 10,
-    },
-    textInput: {
-        borderWidth: 1,
-        borderRadius: 5,
-        paddingLeft: 5,
-        width: 60,
-    },
-    selectInputWide: {
-        borderWidth: 1,
-        borderRadius: 5,
-        marginBottom: 10,
-    },
-    paginationRow: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: 5,
-    },
-    paginationTextView: {
-        flex: 1,
-        alignItems: 'center',
-    },
-    paginationInputView: {
-        flexDirection: 'row',
-        marginTop: 5,
-    },
-    inputTitle: {
-        fontWeight: 'bold',
-    },
-    errMsg: {
-        color: 'red',
-    },
-    successMsg: {
-        color: 'green',
-        marginHorizontal: 10,
-        fontWeight: 'bold',
     },
     orangeLink: {
         fontWeight: 'bold',
