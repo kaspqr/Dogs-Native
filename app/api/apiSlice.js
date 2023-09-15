@@ -56,7 +56,7 @@ export const apiSlice = createApi({
     tagTypes: [
         'Dog', 'User', 'Advertisement', 'Conversation', 'Message', 'Litter', 
         'DogPropose', 'FatherPropose', 'PuppyPropose', 'UserReport', 'AdvertisementReport',
-        'MessageReport', 'DogReport',
+        'MessageReport', 'DogReport', 'ResetToken',
     ],
     endpoints: builder => ({})
 })

@@ -640,7 +640,7 @@ const UserPage = ({ route, navigation }) => {
 
                 
                 {user?.image?.length && user?.image !== 'none ' 
-                    ? <View style={{ alignItems: 'center' }}>
+                    ? <View>
                         <Image 
                             style={{ width: 300, height: 300, borderRadius: 150, marginTop: 10 }} 
                             source={{ uri: `${user.image}` }} 

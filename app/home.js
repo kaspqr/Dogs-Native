@@ -34,6 +34,7 @@ import MessageReportsList from "./MessageReportsList"
 import ReportedMessagePage from "./ReportedMessagePage"
 import UserReportsList from "./UserReportsList"
 import ReportedUserPage from "./ReportedUserPage"
+import ResetPassword from "./ResetPassword"
 import useAuth from "../hooks/useAuth"
 import { useGetUsersQuery } from "../components/users/usersApiSlice"
 import Banned from "./Banned"
@@ -42,7 +43,7 @@ import navigationService from './navigationService'
 
 const Stack = createNativeStackNavigator()
 
-const Home = ({ navigation }) => {
+const Home = () => {
 
     const { userId } = useAuth()
 
@@ -212,6 +213,10 @@ const Home = ({ navigation }) => {
                 <Stack.Screen 
                     name='ReportedUserPage' 
                     component={user?.active === false ? Banned : ReportedUserPage} 
+                />
+                <Stack.Screen 
+                    name='ResetPassword' 
+                    component={user?.active === false ? Banned : ResetPassword} 
                 />
             </Stack.Navigator>
         </NavigationContainer>

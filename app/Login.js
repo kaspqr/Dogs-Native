@@ -106,7 +106,9 @@ const Login = ({ navigation }) => {
             <Text style={styles.buttonText}>Sign In</Text>
           </TouchableOpacity>
 
-          <Text style={{textDecorationLine: 'underline', marginTop: 10}}>Forgot Password? Click here</Text>
+          <TouchableOpacity style={{marginTop: 10}} onPress={() => navigation.navigate('ResetPassword')}>
+            <Text style={{textDecorationLine: 'underline'}}>Forgot Password? Click here</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </ScrollView>
