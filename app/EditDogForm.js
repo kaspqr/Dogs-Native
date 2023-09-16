@@ -4,10 +4,12 @@ import { Countries } from "../assets/countries"
 import { bigCountries } from "../assets/bigCountries"
 import { Regions } from "../assets/regions"
 import { Calendar } from 'react-native-calendars'
-import { ScrollView, TouchableOpacity, View, Text, StyleSheet, TextInput, Switch, Image } from "react-native"
+import { ScrollView, TouchableOpacity, View, Text, StyleSheet, TextInput, Switch, Image, FlatList } from "react-native"
 import RNPickerSelect from 'react-native-picker-select'
 import { COLORS } from "../constants"
 import * as ImagePicker from 'expo-image-picker'
+import dayjs from "dayjs"
+import { backendApi } from "./api/apiSlice"
 
 const EditDogForm = ({ route, navigation }) => {
 
@@ -42,6 +44,10 @@ const EditDogForm = ({ route, navigation }) => {
     const [confirmDelete, setConfirmDelete] = useState('')
     const [uploadLoading, setUploadLoading] = useState(false)
     const [deletionVisible, setDeletionVisible] = useState(false)
+    const [deathYearPickerVisible, setDeathYearPickerVisible] = useState(false)
+    const [displayedDeathYearsCount, setDisplayedDeathYearsCount] = useState(30)
+    const [deathMonth, setDeathMonth] = useState('')
+    const [years, setYears] = useState([])
 
     // Clear the region each time the country is changed to avoid having a region from another country
     const handleCountryChanged = (value) => {
@@ -76,6 +82,12 @@ const EditDogForm = ({ route, navigation }) => {
         isError: isDelError,
         error: delerror
     }] = useDeleteDogMutation()
+
+    useEffect(() => {
+        for (let i = dayjs().year(); i > 1899; i--) {
+            setYears((prev) => [...prev, i])
+        }
+    }, [])
 
     useEffect(() => {
         if (isSuccess) navigation.navigate('DogPage', { dogid: dog?.id })
@@ -172,7 +184,7 @@ const EditDogForm = ({ route, navigation }) => {
 
         try {
             setUploadMessage('')
-            await fetch('https://013a-81-90-125-79.ngrok-free.app/dogimages', {
+            await fetch(`${backendApi}/dogimages`, {
                 method: 'POST',
                 body: JSON.stringify({ 
                     data: base64EncodedImage,
@@ -216,212 +228,242 @@ const EditDogForm = ({ route, navigation }) => {
         : null
 
     const content = (
-        <ScrollView style={{ backgroundColor: COLORS.lightWhite }} showsVerticalScrollIndicator={false}>
-            <View style={styles.mainView}>
+        <>
+            <ScrollView style={{ backgroundColor: COLORS.lightWhite }} showsVerticalScrollIndicator={false}>
+                <View style={styles.mainView}>
 
-                {isError || isDelError ? <Text style={{ marginBottom: 10 }}>{errContent}</Text> : null} 
+                    {isError || isDelError ? <Text style={{ marginBottom: 10 }}>{errContent}</Text> : null} 
 
-                <Text style={{ marginBottom: 15, fontSize: 20, fontWeight: 'bold' }}>Edit Dog</Text>
+                    <Text style={{ marginBottom: 15, fontSize: 20, fontWeight: 'bold' }}>Edit Dog</Text>
 
-                <Text style={styles.inputTitle}>Dog's Name (Max. 30 Letters) - Required</Text>
+                    <Text style={styles.inputTitle}>Dog's Name (Max. 30 Letters) - Required</Text>
 
-                <TextInput 
-                    style={styles.textInputWide}
-                    maxLength={30}
-                    value={name}
-                    onChangeText={(value) => setName(value)}
-                />
-
-                <View>
-                    <TouchableOpacity style={styles.blackButtonWide} onPress={() => handleFileClicked()}>
-                        <Text style={styles.buttonText}>Browse Picture</Text>
-                    </TouchableOpacity>
-                </View>
-
-                <View>
-                    <TouchableOpacity 
-                        onPress={handleSubmitFile}
-                        disabled={!previewSource || uploadLoading === true}
-                        style={!previewSource || uploadLoading === true ? [styles.blackButtonWide, styles.greyButton] : styles.blackButtonWide}
-                    >
-                        <Text style={styles.buttonText}>Update Picture</Text>
-                    </TouchableOpacity>
-                </View>
-
-                {uploadLoading === true ? <Text style={{ marginVertical: 10 }}>Uploading...</Text> : null}
-                {uploadLoading === false && uploadMessage?.length ? <Text style={{ marginVertical: 10 }}>{uploadMessage}</Text> : null}
-
-                {previewSource 
-                    ? <Image style={{height: 300, width: 300, borderRadius: 150}} source={{ uri: previewSource }} />
-                    : null
-                }
-
-                <Text style={styles.inputTitle}>Country</Text>
-                
-                <View style={styles.selectInputWide}>
-                    <RNPickerSelect 
-                        value={country}
-                        onValueChange={handleCountryChanged}
-                        items={Countries}
+                    <TextInput 
+                        style={styles.textInputWide}
+                        maxLength={30}
+                        value={name}
+                        onChangeText={(value) => setName(value)}
                     />
-                </View>
 
-                <Text style={styles.inputTitle}>Region</Text>
-
-                <View style={styles.selectInputWide}>
-                    <RNPickerSelect 
-                        disabled={!bigCountries?.includes(country)}
-                        value={region}
-                        onValueChange={(value) => setRegion(value)}
-                        items={bigCountries?.includes(country) ? Regions[country] : []}
-                        placeholder={{ label: '--', value: 'none ' }}
-                    />
-                </View>
-
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <Text style={styles.inputTitle}>Passport </Text>
-                    <Switch onValueChange={handlePassportChanged} value={passport} />
-                </View>
-
-                {dog?.female === false
-                    ? null
-                    : <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <Text style={styles.inputTitle}>Heat </Text>
-                        <Switch onValueChange={female ? handleHeatChanged : null} value={heat} />
+                    <View>
+                        <TouchableOpacity style={styles.blackButtonWide} onPress={() => handleFileClicked()}>
+                            <Text style={styles.buttonText}>Browse Picture</Text>
+                        </TouchableOpacity>
                     </View>
-                }
 
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <Text style={styles.inputTitle}>{dog?.female === true ? 'Sterilized ' : 'Castrated '}</Text>
-                    <Switch onValueChange={handleSterilizedChanged} value={sterilized} />
-                </View>
+                    <View>
+                        <TouchableOpacity 
+                            onPress={handleSubmitFile}
+                            disabled={!previewSource || uploadLoading === true}
+                            style={!previewSource || uploadLoading === true ? [styles.blackButtonWide, styles.greyButton] : styles.blackButtonWide}
+                        >
+                            <Text style={styles.buttonText}>Update Picture</Text>
+                        </TouchableOpacity>
+                    </View>
 
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <Text style={styles.inputTitle}>Microchipped </Text>
-                    <Switch onValueChange={handleMicrochippedChanged} value={microchipped} />
-                </View>
+                    {uploadLoading === true ? <Text style={{ marginVertical: 10 }}>Uploading...</Text> : null}
+                    {uploadLoading === false && uploadMessage?.length ? <Text style={{ marginVertical: 10 }}>{uploadMessage}</Text> : null}
 
-                <Text style={styles.inputTitle}>Chipnumber</Text>
+                    {previewSource 
+                        ? <Image style={{height: 300, width: 300, borderRadius: 150}} source={{ uri: previewSource }} />
+                        : null
+                    }
 
-                <TextInput 
-                    style={styles.textInputWide}
-                    editable={microchipped}
-                    value={chipnumber}
-                    onChangeText={handleChipnumberChanged}
-                />
-                
-                <Text style={styles.inputTitle}>Instagram Username</Text>
-
-                <TextInput 
-                    style={styles.textInputWide}
-                    value={instagram}
-                    onChangeText={handleInstagramChanged}
-                />
-                
-                <Text style={styles.inputTitle}>Facebook Username</Text>
-
-                <TextInput 
-                    value={facebook}
-                    style={styles.textInputWide}
-                    onChangeText={handleFacebookChanged}
-                />
-                
-                <Text style={styles.inputTitle}>Youtube Username</Text>
-
-                <TextInput 
-                    value={youtube}
-                    style={styles.textInputWide}
-                    onChangeText={handleYoutubeChanged}
-                />
-                
-                <Text style={styles.inputTitle}>TikTok Username</Text>
-
-                <TextInput 
-                    value={tiktok}
-                    style={styles.textInputWide}
-                    onChangeText={handleTiktokChanged}
-                />
-
-                <Text style={styles.inputTitle}>Date of Death</Text>
-                
-                <Calendar 
-                    style={styles.calendar}
-                    minDate={dog?.birth || null} 
-                    maxDate={new Date().toDateString()} 
-                    onDayPress={handleDeathChanged} 
-                    markedDates={{
-                        [death.dateString]: {selected: true, disableTouchEvent: true, selectedColor: '#00adf5'}
-                    }} 
-                />
-
-                <View style={{ marginTop: 10 }}>
-                    <TouchableOpacity 
-                        style={death === '' ? [styles.blackButtonWide, styles.greyButton] : styles.blackButtonWide}
-                        disabled={death === ''}
-                        onPress={() => setDeath('')}
-                    >
-                        <Text style={styles.buttonText}>Clear Date</Text>
-                    </TouchableOpacity>
-                </View>
-
-                <Text style={styles.inputTitle}>Info</Text>
-
-                <TextInput
-                    style={styles.textInputWide}
-                    multiline={true}
-                    numberOfLines={10}
-                    maxLength={500}
-                    value={info !== 'none ' ? info : ''}
-                    onChangeText={handleInfoChanged} 
-                />
-
-                <View>
-                    <TouchableOpacity
-                        onPress={handleSaveDogClicked}
-                        disabled={!canSave}
-                        style={!canSave ? [styles.blackButtonWide, styles.greyButton] : styles.blackButtonWide}
-                    >
-                        <Text style={styles.buttonText}>Save</Text>
-                    </TouchableOpacity>
-                </View>
-
-                {removeLitterContent}
-
-                <View>
-                    <TouchableOpacity
-                        style={styles.blackButtonWide}
-                        onPress={() => setDeletionVisible(!deletionVisible)}
-                    >
-                        <Text style={styles.buttonText}>Delete Dog</Text>
-                    </TouchableOpacity>
-                </View>
-
-                {deletionVisible === false ? null 
-                    : <View>
-                        <Text style={{ fontWeight: 'bold', marginTop: 10 }}>
-                            Type "confirmdelete" and click on the Confirm Deletion button 
-                            to delete your dog from the database.
-                        </Text>
-
-                        <TextInput 
-                            style={styles.textInputWide}
-                            value={confirmDelete} 
-                            onChangeText={(value) => setConfirmDelete(value)} 
+                    <Text style={styles.inputTitle}>Country</Text>
+                    
+                    <View style={styles.selectInputWide}>
+                        <RNPickerSelect 
+                            value={country}
+                            onValueChange={handleCountryChanged}
+                            items={Countries}
                         />
-
-                        <View>
-                            <TouchableOpacity
-                                disabled={confirmDelete !== 'confirmdelete'}
-                                style={confirmDelete !== 'confirmdelete' ? [styles.blackButtonWide, styles.greyButton] : styles.blackButtonWide}
-                                onPress={handleDeleteDogClicked}
-                            >
-                                <Text style={styles.buttonText}>Confirm Deletion</Text>
-                            </TouchableOpacity>
-                        </View>
                     </View>
-                }
+
+                    <Text style={styles.inputTitle}>Region</Text>
+
+                    <View style={styles.selectInputWide}>
+                        <RNPickerSelect 
+                            disabled={!bigCountries?.includes(country)}
+                            value={region}
+                            onValueChange={(value) => setRegion(value)}
+                            items={bigCountries?.includes(country) ? Regions[country] : []}
+                            placeholder={{ label: '--', value: 'none ' }}
+                        />
+                    </View>
+
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <Text style={styles.inputTitle}>Passport </Text>
+                        <Switch onValueChange={handlePassportChanged} value={passport} />
+                    </View>
+
+                    {dog?.female === false
+                        ? null
+                        : <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <Text style={styles.inputTitle}>Heat </Text>
+                            <Switch onValueChange={dog?.female ? handleHeatChanged : null} value={heat} />
+                        </View>
+                    }
+
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <Text style={styles.inputTitle}>{dog?.female === true ? 'Sterilized ' : 'Castrated '}</Text>
+                        <Switch onValueChange={handleSterilizedChanged} value={sterilized} />
+                    </View>
+
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <Text style={styles.inputTitle}>Microchipped </Text>
+                        <Switch onValueChange={handleMicrochippedChanged} value={microchipped} />
+                    </View>
+
+                    <Text style={styles.inputTitle}>Chipnumber</Text>
+
+                    <TextInput 
+                        style={styles.textInputWide}
+                        editable={microchipped}
+                        value={chipnumber}
+                        onChangeText={handleChipnumberChanged}
+                    />
+                    
+                    <Text style={styles.inputTitle}>Instagram Username</Text>
+
+                    <TextInput 
+                        style={styles.textInputWide}
+                        value={instagram}
+                        onChangeText={handleInstagramChanged}
+                    />
+                    
+                    <Text style={styles.inputTitle}>Facebook Username</Text>
+
+                    <TextInput 
+                        value={facebook}
+                        style={styles.textInputWide}
+                        onChangeText={handleFacebookChanged}
+                    />
+                    
+                    <Text style={styles.inputTitle}>Youtube Username</Text>
+
+                    <TextInput 
+                        value={youtube}
+                        style={styles.textInputWide}
+                        onChangeText={handleYoutubeChanged}
+                    />
+                    
+                    <Text style={styles.inputTitle}>TikTok Username</Text>
+
+                    <TextInput 
+                        value={tiktok}
+                        style={styles.textInputWide}
+                        onChangeText={handleTiktokChanged}
+                    />
+
+                    <Text style={styles.inputTitle}>Date of Death</Text>
+
+                    <TouchableOpacity style={{ marginTop: 10, marginBottom: 15 }} onPress={() => setDeathYearPickerVisible(true)}>
+                        <Text style={{ textDecorationLine: 'underline' }}>Pick Year</Text>
+                    </TouchableOpacity>
+                    
+                    <Calendar 
+                        style={styles.calendar}
+                        minDate={dog?.birth || null} 
+                        maxDate={new Date().toDateString()} 
+                        onDayPress={handleDeathChanged} 
+                        key={'death ' + deathMonth}
+                        current={deathMonth}
+                        markedDates={{
+                            [death?.dateString]: {selected: true, disableTouchEvent: true, selectedColor: '#00adf5'}
+                        }} 
+                    />
+
+                    <View style={{ marginTop: 10 }}>
+                        <TouchableOpacity 
+                            style={death === '' ? [styles.blackButtonWide, styles.greyButton] : styles.blackButtonWide}
+                            disabled={death === ''}
+                            onPress={() => setDeath('')}
+                        >
+                            <Text style={styles.buttonText}>Clear Date</Text>
+                        </TouchableOpacity>
+                    </View>
+
+                    <Text style={styles.inputTitle}>Info</Text>
+
+                    <TextInput
+                        style={styles.textInputWide}
+                        multiline={true}
+                        numberOfLines={10}
+                        maxLength={500}
+                        value={info !== 'none ' ? info : ''}
+                        onChangeText={handleInfoChanged} 
+                    />
+
+                    <View>
+                        <TouchableOpacity
+                            onPress={handleSaveDogClicked}
+                            disabled={!canSave}
+                            style={!canSave ? [styles.blackButtonWide, styles.greyButton] : styles.blackButtonWide}
+                        >
+                            <Text style={styles.buttonText}>Save</Text>
+                        </TouchableOpacity>
+                    </View>
+
+                    {removeLitterContent}
+
+                    <View>
+                        <TouchableOpacity
+                            style={styles.blackButtonWide}
+                            onPress={() => setDeletionVisible(!deletionVisible)}
+                        >
+                            <Text style={styles.buttonText}>Delete Dog</Text>
+                        </TouchableOpacity>
+                    </View>
+
+                    {deletionVisible === false ? null 
+                        : <View>
+                            <Text style={{ fontWeight: 'bold', marginTop: 10 }}>
+                                Type "confirmdelete" and click on the Confirm Deletion button 
+                                to delete your dog from the database.
+                            </Text>
+
+                            <TextInput 
+                                style={styles.textInputWide}
+                                value={confirmDelete} 
+                                onChangeText={(value) => setConfirmDelete(value)} 
+                            />
+
+                            <View>
+                                <TouchableOpacity
+                                    disabled={confirmDelete !== 'confirmdelete'}
+                                    style={confirmDelete !== 'confirmdelete' ? [styles.blackButtonWide, styles.greyButton] : styles.blackButtonWide}
+                                    onPress={handleDeleteDogClicked}
+                                >
+                                    <Text style={styles.buttonText}>Confirm Deletion</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    }
+                </View>
+            </ScrollView>
+            <View style={deathYearPickerVisible ? styles.yearPicker : { display: 'none' }}>
+                <View style={{ alignItems: 'flex-end' }}>
+                    <TouchableOpacity onPress={() => setDeathYearPickerVisible(false)}>
+                        <Text style={{ fontWeight: 'bold', fontSize: 20, marginRight: 20, marginVertical: 15 }}>X</Text>
+                    </TouchableOpacity>
+                </View>
+                <FlatList
+                    data={years.slice(0, displayedDeathYearsCount)}
+                    renderItem={({ item }) => (
+                        <View key={item} style={styles.yearButtonView}>
+                        <TouchableOpacity onPress={() => {
+                            setDeathMonth(item + '-01')
+                            setDeathYearPickerVisible(false)
+                        }}>
+                            <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{item}</Text>
+                        </TouchableOpacity>
+                        </View>
+                    )}
+                    onEndReached={() => setDisplayedDeathYearsCount(displayedDeathYearsCount + 30)}
+                    onEndReachedThreshold={0.2}
+                />
             </View>
-        </ScrollView>
+        </>
     )
 
   return content
@@ -432,6 +474,18 @@ const styles = StyleSheet.create({
         marginHorizontal: 10,
         marginBottom: 30,
         marginTop: 10,
+    },
+    yearPicker: {
+        width: '100%',
+        height: '100%',
+        position: 'absolute',
+        backgroundColor: COLORS.lightWhite,
+        zIndex: 1,
+    },
+    yearButtonView: {
+        height: 50,
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     blackButtonWide: {
         backgroundColor: '#000000',

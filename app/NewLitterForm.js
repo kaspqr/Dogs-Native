@@ -6,9 +6,9 @@ import { bigCountries } from "../assets/bigCountries"
 import { Regions } from "../assets/regions"
 import useAuth from "../hooks/useAuth"
 import { Calendar } from 'react-native-calendars'
-import { ScrollView, TouchableOpacity, View, Text, StyleSheet, TextInput } from "react-native"
+import { ScrollView, TouchableOpacity, View, Text, StyleSheet, TextInput, FlatList } from "react-native"
 import RNPickerSelect from 'react-native-picker-select'
-
+import dayjs from "dayjs"
 import { COLORS } from "../constants"
 
 const NewLitterForm = ({ navigation }) => {
@@ -25,6 +25,10 @@ const NewLitterForm = ({ navigation }) => {
     const [breedOptions, setBreedOptions] = useState([])
     const [country, setCountry] = useState('Argentina')
     const [region, setRegion] = useState('')
+    const [years, setYears] = useState([])
+    const [yearPickerVisible, setYearPickerVisible] = useState(false)
+    const [displayedYearsCount, setDisplayedYearsCount] = useState(30)
+    const [month, setMonth] = useState('')
 
     const day = 1000 * 60 * 60 * 24
 
@@ -35,6 +39,12 @@ const NewLitterForm = ({ navigation }) => {
         isError: isLitterError,
         error: litterError
     }] = useAddNewLitterMutation()
+
+    useEffect(() => {
+        for (let i = dayjs().year(); i > 1899; i--) {
+            setYears((prev) => [...prev, i])
+        }
+    }, [])
 
     // Clear the inputs if the litter has been successfully posted
     useEffect(() => {
@@ -152,93 +162,123 @@ const NewLitterForm = ({ navigation }) => {
     const saveColor = !canSave ? [styles.blackButtonWide, styles.greyButton] : styles.blackButtonWide
 
     const content = (
-        <ScrollView style={{ backgroundColor: COLORS.lightWhite }} showsVerticalScrollIndicator={false}>
-            <View style={styles.mainView}>
-                {dogsContent}
-                <Text style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 10 }}>Register Litter</Text>
-                
-                <Text style={styles.inputTitle}>Litter's Mother</Text>
+        <>
+            <ScrollView style={{ backgroundColor: COLORS.lightWhite }} showsVerticalScrollIndicator={false}>
+                <View style={styles.mainView}>
+                    {dogsContent}
+                    <Text style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 10 }}>Register Litter</Text>
+                    
+                    <Text style={styles.inputTitle}>Litter's Mother</Text>
 
-                <View style={styles.selectInputWide}>
-                    <RNPickerSelect 
-                        value={mother}
-                        onValueChange={handleMotherChanged}
-                        placeholder={{ label: 'Select Dog', value: '' }}
-                        items={ownedDogs}
+                    <View style={styles.selectInputWide}>
+                        <RNPickerSelect 
+                            value={mother}
+                            onValueChange={handleMotherChanged}
+                            placeholder={{ label: 'Select Dog', value: '' }}
+                            items={ownedDogs}
+                        />
+                    </View>
+
+                    <Text style={styles.inputTitle}>Puppies' Breed</Text>
+
+                    <View style={styles.selectInputWide}>
+                        <RNPickerSelect 
+                            value={breed}
+                            onValueChange={(value) => setBreed(value)}
+                            placeholder={{ label: '--', value: '' }}
+                            items={breedOptions}
+                        />
+                    </View>
+
+                    <Text style={styles.inputTitle}>Amount of Puppies Born</Text>
+
+                    <TextInput 
+                        style={styles.textInputWide}
+                        value={children}
+                        onChangeText={(value) => {
+                            if (PUPPIES_REGEX.test(value) || value === '') {
+                                setChildren(value)
+                            }
+                        }}
                     />
-                </View>
 
-                <Text style={styles.inputTitle}>Puppies' Breed</Text>
+                    <Text style={styles.inputTitle}>Country</Text>
 
-                <View style={styles.selectInputWide}>
-                    <RNPickerSelect 
-                        value={breed}
-                        onValueChange={(value) => setBreed(value)}
-                        placeholder={{ label: '--', value: '' }}
-                        items={breedOptions}
+                    <View style={styles.selectInputWide}>
+                        <RNPickerSelect
+                            items={Countries}
+                            value={country}
+                            onValueChange={handleCountryChanged}
+                        />
+                    </View>
+
+                    <Text style={styles.inputTitle}>Region</Text>
+
+                    <View style={styles.selectInputWide}>
+                        <RNPickerSelect
+                            disabled={!bigCountries?.includes(country)}
+                            value={region}
+                            onValueChange={(value) => setRegion(value)}
+                            placeholder={{ label: '--', value: '' }}
+                            items={bigCountries?.includes(country) ? Regions[country] : []}
+                        />
+                    </View>
+
+                    <Text style={styles.inputTitle}>Born</Text>
+
+                    <TouchableOpacity style={{ marginTop: 10, marginBottom: 15 }} onPress={() => setYearPickerVisible(true)}>
+                        <Text style={{ textDecorationLine: 'underline' }}>Pick Year</Text>
+                    </TouchableOpacity>
+
+                    <Calendar 
+                        minDate={mother?.length 
+                            ? new Date(Date.parse(dogs?.entities[mother]?.birth) + 59 * day).toString()
+                            : null
+                        } 
+                        maxDate={new Date().toDateString()} 
+                        onDayPress={handleBornChanged} 
+                        key={month}
+                        current={month}
+                        markedDates={{
+                            [born.dateString]: {selected: true, disableTouchEvent: true, selectedColor: '#00adf5'}
+                        }}
+                        style={styles.calendar}
                     />
+
+                    <View style={{ marginTop: 10 }}>
+                        <TouchableOpacity
+                            onPress={handleSaveLitterClicked}
+                            style={saveColor}
+                            disabled={!canSave}
+                        >
+                            <Text style={styles.buttonText}>Save</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
-
-                <Text style={styles.inputTitle}>Amount of Puppies Born</Text>
-
-                <TextInput 
-                    style={styles.textInputWide}
-                    value={children}
-                    onChangeText={(value) => {
-                        if (PUPPIES_REGEX.test(value) || value === '') {
-                            setChildren(value)
-                        }
-                    }}
-                />
-
-                <Text style={styles.inputTitle}>Country</Text>
-
-                <View style={styles.selectInputWide}>
-                    <RNPickerSelect
-                        items={Countries}
-                        value={country}
-                        onValueChange={handleCountryChanged}
-                    />
-                </View>
-
-                <Text style={styles.inputTitle}>Region</Text>
-
-                <View style={styles.selectInputWide}>
-                    <RNPickerSelect
-                        disabled={!bigCountries?.includes(country)}
-                        value={region}
-                        onValueChange={(value) => setRegion(value)}
-                        placeholder={{ label: '--', value: '' }}
-                        items={bigCountries?.includes(country) ? Regions[country] : []}
-                    />
-                </View>
-
-                <Text style={styles.inputTitle}>Born</Text>
-
-                <Calendar 
-                    minDate={mother?.length 
-                        ? new Date((new Date(dogs?.entities[mother]?.birth)).getTime() + 59 * day).dateString 
-                        : null
-                    } 
-                    maxDate={new Date().dateString} 
-                    onDayPress={handleBornChanged} 
-                    markedDates={{
-                        [born.dateString]: {selected: true, disableTouchEvent: true, selectedColor: '#00adf5'}
-                    }}
-                    style={styles.calendar}
-                />
-
-                <View style={{ marginTop: 10 }}>
-                    <TouchableOpacity
-                        onPress={handleSaveLitterClicked}
-                        style={saveColor}
-                        disabled={!canSave}
-                    >
-                        <Text style={styles.buttonText}>Save</Text>
+            </ScrollView>
+            <View style={yearPickerVisible ? styles.yearPicker : { display: 'none' }}>
+                <View style={{ alignItems: 'flex-end' }}>
+                    <TouchableOpacity onPress={() => setYearPickerVisible(false)}>
+                    <Text style={{ fontWeight: 'bold', fontSize: 20, marginRight: 20, marginVertical: 15 }}>X</Text>
                     </TouchableOpacity>
                 </View>
+                <FlatList
+                    data={years.slice(0, displayedYearsCount)}
+                    renderItem={({ item }) => (
+                        <View key={item} style={styles.yearButtonView}>
+                            <TouchableOpacity onPress={() => {
+                                setMonth(item + '-01')
+                                setYearPickerVisible(false)
+                            }}>
+                                <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{item}</Text>
+                            </TouchableOpacity>
+                        </View>
+                    )}
+                    onEndReached={() => setDisplayedYearsCount(displayedYearsCount + 30)}
+                    onEndReachedThreshold={0.2}
+                />
             </View>
-        </ScrollView>
+        </>
     )
 
   return content
@@ -249,6 +289,18 @@ const styles = StyleSheet.create({
         marginHorizontal: 10,
         marginBottom: 30,
         marginTop: 10,
+    },
+    yearPicker: {
+        width: '100%',
+        height: '100%',
+        position: 'absolute',
+        backgroundColor: COLORS.lightWhite,
+        zIndex: 1,
+    },
+    yearButtonView: {
+        height: 50,
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     blackButtonWide: {
       backgroundColor: '#000000',

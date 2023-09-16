@@ -60,12 +60,12 @@ const Login = ({ navigation }) => {
   const handlePwdInput = (value) => setPassword(value)
   const handleToggle = () => setPersist(prev => !prev)
 
-  if (isLoading) return <Text>Loading...</Text>
+  if (isLoading) return <Text style={{ margin: 10 }}>Loading...</Text>
 
   if (isSuccess) navigation.navigate('AdvertisementsList')
 
   if (auth?.username?.length) {
-    return <Text>You are already logged in.</Text>
+    return <Text style={{ margin: 10 }}>You are already logged in.</Text>
   }
 
   return (

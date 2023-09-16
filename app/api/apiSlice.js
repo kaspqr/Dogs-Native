@@ -1,10 +1,12 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { setCredentials } from '../../components/auth/authSlice'
 
+const backendUrl = 'https://ee0a-81-90-125-79.ngrok-free.app'
+
 const baseQuery = fetchBaseQuery({
 
     // URL of the backend
-    baseUrl: 'https://013a-81-90-125-79.ngrok-free.app',
+    baseUrl: backendUrl,
     credentials: 'include',
     prepareHeaders: (headers, { getState }) => {
         const token = getState().auth.token
@@ -60,3 +62,5 @@ export const apiSlice = createApi({
     ],
     endpoints: builder => ({})
 })
+
+export const backendApi = backendUrl

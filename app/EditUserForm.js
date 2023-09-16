@@ -8,6 +8,7 @@ import { View, Text, TouchableOpacity, Image, StyleSheet, ScrollView, TextInput 
 import RNPickerSelect from 'react-native-picker-select'
 import * as ImagePicker from 'expo-image-picker'
 import { COLORS } from "../constants"
+import { backendApi } from "./api/apiSlice"
 
 const EditUserForm = ({ route, navigation }) => {
 
@@ -138,7 +139,7 @@ const EditUserForm = ({ route, navigation }) => {
 
         try {
             setUploadMessage('')
-            await fetch('https://013a-81-90-125-79.ngrok-free.app/userimages', {
+            await fetch(`${backendApi}/userimages`, {
                 method: 'POST',
                 body: JSON.stringify({ 
                     data: base64EncodedImage,

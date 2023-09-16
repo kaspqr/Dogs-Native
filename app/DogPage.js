@@ -1,16 +1,17 @@
 import { useGetDogsQuery, useDeleteDogMutation } from "../components/dogs/dogsApiSlice"
 import { useGetUsersQuery } from "../components/users/usersApiSlice"
 import { useGetLittersQuery } from "../components/litters/littersApiSlice"
-
+import { useState } from "react"
 import useAuth from "../hooks/useAuth"
-import { Image, ScrollView, TouchableOpacity, Text, View, StyleSheet } from "react-native"
-
+import { Image, ScrollView, TouchableOpacity, Text, View, StyleSheet, TextInput } from "react-native"
 import { COLORS } from "../constants"
 
 const DogPage = ({ route, navigation }) => {
 
     const { userId, isAdmin, isSuperAdmin } = useAuth()
     const { dogid } = route.params
+    const [confirmRemove, setConfirmRemove] = useState('')
+    const [removalVisible, setRemovalVisible] = useState(false)
 
     let filteredLitters
     let childrenLitterIds
@@ -233,6 +234,7 @@ const DogPage = ({ route, navigation }) => {
 
     const handleAdminDelete = async () => {
         await deleteDog({ id: dog?.id })
+        navigation.navigate('DogsList')
     }
 
     if (isLoading || isDelLoading || isDogsLoading) return <Text style={{ margin: 10 }}>Loading...</Text>
@@ -374,14 +376,39 @@ const DogPage = ({ route, navigation }) => {
                 }
 
                 {isAdmin || isSuperAdmin
-                    ? <View>
-                        <TouchableOpacity 
-                            onPress={handleAdminDelete}
-                            style={styles.blackButtonWide}
-                        >
-                            <Text style={styles.buttonText}>Delete as Admin</Text>
-                        </TouchableOpacity>
-                    </View>
+                    ? <>
+                        <View>
+                            <TouchableOpacity 
+                                onPress={() => setRemovalVisible(!removalVisible)}
+                                style={styles.blackButtonWide}
+                            >
+                                <Text style={styles.buttonText}>Delete as Admin</Text>
+                            </TouchableOpacity>
+                        </View>
+                        {removalVisible === false ? null 
+                            : <View>
+                                <Text style={{ fontWeight: 'bold' }}>
+                                    Type "confirmdelete" and click on the Confirm Delete button to delete this dog
+                                </Text>
+            
+                                <TextInput 
+                                    style={styles.textInputWide} 
+                                    value={confirmRemove} 
+                                    onChangeText={(value) => setConfirmRemove(value)} 
+                                />
+            
+                                <View>
+                                    <TouchableOpacity
+                                        disabled={confirmRemove !== 'confirmdelete'}
+                                        style={confirmRemove !== 'confirmdelete' ? [styles.blackButtonWide, styles.greyButton] : styles.blackButtonWide}
+                                        onPress={handleAdminDelete}
+                                    >
+                                        <Text style={styles.buttonText}>Confirm Delete</Text>
+                                    </TouchableOpacity>
+                                </View>
+                            </View> 
+                        }
+                    </>
                     : null
                 }
             </View>
@@ -405,10 +432,21 @@ const styles = StyleSheet.create({
       padding: 10,
       marginBottom: 10,
     },
+    greyButton: {
+        backgroundColor: 'lightgrey',
+    },
     buttonText: {
       color: '#ffffff',
       fontWeight: 'bold',
       textAlign: 'center',
+    },
+    textInputWide: {
+        borderWidth: 1,
+        borderRadius: 5,
+        paddingHorizontal: 5,
+        paddingVertical: 13,
+        marginBottom: 10,
+        marginTop: 10,
     },
   })
 

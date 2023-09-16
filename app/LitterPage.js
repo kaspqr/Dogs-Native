@@ -360,7 +360,7 @@ const LitterPage = ({ navigation, route }) => {
 
     const fatherContent = father?.id?.length || !filteredFathers?.length
         ? null
-        : <View>
+        : <View style={{ marginTop: 10 }}>
             <Text style={{ fontWeight: 'bold' }}>{userId === mother?.user ? 'Add ' : 'Propose '}Father to Litter</Text>
 
             <View style={styles.selectInputWide}>
@@ -385,14 +385,14 @@ const LitterPage = ({ navigation, route }) => {
         </View>
 
     const addProposedFatherContent = proposedFatherContent?.length && !father?.id?.length
-        ? <View>
+        ? <View style={{ marginTop: 10 }}>
             <Text style={{ fontWeight: 'bold' }}>Add Proposed Father</Text>
 
             <View style={styles.selectInputWide}>
                 <RNPickerSelect 
                     value={selectedProposeFather} 
                     onValueChange={(value) => setSelectedProposeFather(value)}
-                    placeholder={{ label: 'Pick Your Dog', value: '' }}
+                    placeholder={{ label: 'Pick Dog', value: '' }}
                     items={proposedFatherContent}
                 />
             </View>
@@ -403,7 +403,7 @@ const LitterPage = ({ navigation, route }) => {
                     disabled={!selectedProposeFather?.length}
                     onPress={addProposedFatherToLitter}
                 >
-                    <Text>Add Father</Text>
+                    <Text style={styles.buttonText}>Add Father</Text>
                 </TouchableOpacity>
             </View>
         </View>

@@ -5,6 +5,7 @@ import * as ImagePicker from 'expo-image-picker'
 import { ScrollView, TouchableOpacity, View, Text, StyleSheet, TextInput, Image, Dimensions } from "react-native"
 import RNPickerSelect from 'react-native-picker-select'
 import { COLORS } from "../constants"
+import { backendApi } from "./api/apiSlice"
 
 const EditAdvertisementForm = ({ route, navigation }) => {
 
@@ -115,7 +116,7 @@ const EditAdvertisementForm = ({ route, navigation }) => {
 
         try {
             setUploadMessage('')
-            await fetch('https://013a-81-90-125-79.ngrok-free.app/advertisementimages', {
+            await fetch(`${backendApi}/advertisementimages`, {
                 method: 'POST',
                 body: JSON.stringify({ 
                     data: base64EncodedImage,

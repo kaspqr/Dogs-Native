@@ -32,7 +32,7 @@ const Dog = ({ dogId }) => {
                 />
             </View>
 
-            <View>
+            <View style={styles.dogInfo}>
                 <View>
                     <TouchableOpacity onPress={() => navigationService.navigate('DogPage', { dogid: dogId })}>
                         <Text style={styles.orangeLink}>
@@ -77,7 +77,10 @@ const styles = StyleSheet.create({
     orangeLink: {
         color: '#eb9b34',
         fontWeight: 'bold',
-    }
+    },
+    dogInfo: {
+        flex: 1,
+    },
 })
 
 const memoizedDog = memo(Dog)

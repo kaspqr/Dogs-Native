@@ -1,7 +1,7 @@
 import { useGetAdvertisementsQuery, useDeleteAdvertisementMutation } from "../components/advertisements/advertisementsApiSlice"
 import { useGetUsersQuery } from "../components/users/usersApiSlice"
 import useAuth from "../hooks/useAuth"
-import { View, Text, Image, ScrollView, StyleSheet, Dimensions } from 'react-native'
+import { View, Text, Image, ScrollView, StyleSheet, Dimensions, TextInput } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { COLORS } from "../constants"
 import { useState, useEffect } from "react"
@@ -13,6 +13,8 @@ const AdvertisementPage = ({ route, navigation }) => {
     const { userId, isAdmin, isSuperAdmin } = useAuth()
 
     const [imageDimensions, setImageDimensions] = useState({ width: 0, height: 0 })
+    const [confirmRemove, setConfirmRemove] = useState('')
+    const [removalVisible, setRemovalVisible] = useState(false)
 
     // GET the advertisement with all of it's .values
     const { advertisement } = useGetAdvertisementsQuery("advertisementsList", {
@@ -140,9 +142,39 @@ const AdvertisementPage = ({ route, navigation }) => {
                 }
 
                 {isAdmin || isSuperAdmin
-                    ? <View><TouchableOpacity style={styles.blackButtonWide} onPress={handleAdminDelete}>
-                        <Text style={styles.buttonText}>Delete as Admin</Text>
-                    </TouchableOpacity></View>
+                    ? <>
+                        <View>
+                            <TouchableOpacity 
+                                onPress={() => setRemovalVisible(!removalVisible)}
+                                style={styles.blackButtonWide}
+                            >
+                                <Text style={styles.buttonText}>Delete as Admin</Text>
+                            </TouchableOpacity>
+                        </View>
+                        {removalVisible === false ? null 
+                            : <View>
+                                <Text style={{ fontWeight: 'bold' }}>
+                                    Type "confirmdelete" and click on the Confirm Delete button to delete this advertisement
+                                </Text>
+            
+                                <TextInput 
+                                    style={styles.textInputWide} 
+                                    value={confirmRemove} 
+                                    onChangeText={(value) => setConfirmRemove(value)} 
+                                />
+            
+                                <View>
+                                    <TouchableOpacity
+                                        disabled={confirmRemove !== 'confirmdelete'}
+                                        style={confirmRemove !== 'confirmdelete' ? [styles.blackButtonWide, styles.greyButton] : styles.blackButtonWide}
+                                        onPress={handleAdminDelete}
+                                    >
+                                        <Text style={styles.buttonText}>Confirm Delete</Text>
+                                    </TouchableOpacity>
+                                </View>
+                            </View> 
+                        }
+                    </>
                     : null
                 }
 
@@ -167,6 +199,17 @@ const styles = StyleSheet.create({
     mainView: {
         marginHorizontal: 10,
         marginBottom: 30,
+        marginTop: 10,
+    },
+    greyButton: {
+        backgroundColor: 'lightgrey',
+    },
+    textInputWide: {
+        borderWidth: 1,
+        borderRadius: 5,
+        paddingHorizontal: 5,
+        paddingVertical: 13,
+        marginBottom: 10,
         marginTop: 10,
     },
 })

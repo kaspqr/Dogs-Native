@@ -5,11 +5,12 @@ import { Countries } from "../assets/countries"
 import { bigCountries } from "../assets/bigCountries"
 import { Regions } from "../assets/regions"
 import { Breeds } from "../assets/breeds"
-import { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { Calendar } from 'react-native-calendars'
-import { ScrollView, TouchableOpacity, View, Text, StyleSheet, TextInput } from "react-native"
+import { ScrollView, TouchableOpacity, View, Text, StyleSheet, TextInput, FlatList } from "react-native"
 import RNPickerSelect from 'react-native-picker-select'
 import { COLORS } from "../constants"
+import dayjs from "dayjs"
 
 const DogsList = ({ navigation }) => {
 
@@ -31,7 +32,13 @@ const DogsList = ({ navigation }) => {
   const [currentPage, setCurrentPage] = useState(1)
   const [newPage, setNewPage] = useState('')
   const [inputsVisible, setInputsVisible] = useState(false)
-
+  const [years, setYears] = useState([])
+  const [earliestYearPickerVisible, setEarliestYearPickerVisible] = useState(false)
+  const [displayedEarliestYearsCount, setDisplayedEarliestYearsCount] = useState(30)
+  const [earliestMonth, setEarliestMonth] = useState('')
+  const [latestYearPickerVisible, setLatestYearPickerVisible] = useState(false)
+  const [displayedLatestYearsCount, setDisplayedLatestYearsCount] = useState(30)
+  const [latestMonth, setLatestMonth] = useState('')
 
   const breeds = [ ...Object.values(Breeds) ]
   const breedOptions = breeds.map(breed => (
@@ -73,7 +80,15 @@ const DogsList = ({ navigation }) => {
 
   const handleToggleFilterView = () => setInputsVisible(!inputsVisible)
 
+  useEffect(() => {
+    for (let i = dayjs().year(); i > 1899; i--) {
+        setYears((prev) => [...prev, i])
+    }
+  }, [])
+
   const handleSearchClicked = () => {
+
+    setInputsVisible(false)
 
     setCurrentPage(1)
 
@@ -238,258 +253,316 @@ const DogsList = ({ navigation }) => {
     }
 
     content = (
-      <ScrollView style={{ backgroundColor: COLORS.lightWhite }} showsVerticalScrollIndicator={false}>
+      <>
+        <ScrollView style={{ backgroundColor: COLORS.lightWhite }} showsVerticalScrollIndicator={false}>
 
-        <View style={styles.mainView}>
-          {userId?.length 
-            ? <View>
-              <TouchableOpacity style={styles.blackButtonWide} onPress={() => navigation.navigate('NewDogForm')}>
-                <Text style={styles.buttonText}>
-                  Add a New Dog
-                </Text>
-              </TouchableOpacity>
-            </View> 
-            : null
-          }
-
-          <View>
-            <TouchableOpacity
-              style={styles.blackButtonWide}
-              onPress={handleToggleFilterView}
-            >
-              <Text style={styles.buttonText}>Toggle Search View</Text>
-            </TouchableOpacity>
-          </View>
-
-          <View style={inputsVisible ? styles.filterViewVisible : styles.filterViewHidden}>
-            <Text style={styles.inputTitle}>Name</Text>
-
-            <TextInput 
-              value={name}
-              onChangeText={(value) => setName(value)}
-              style={styles.textInputWide}
-            />
-
-            <Text style={styles.inputTitle}>Breed</Text>
-
-            <View style={styles.selectInputWide}>
-              <RNPickerSelect 
-                onValueChange={(value) => setBreed(value)}
-                value={breed}
-                items={breedOptions}
-                placeholder={{ label: '--', value: '' }} 
-              />
-            </View>
-
-            <Text style={styles.inputTitle}>Born at Earliest</Text>
-
-            <Calendar 
-              maxDate={bornLatest.dateString || new Date().toDateString()} 
-              onDayPress={handleBornEarliestChanged} 
-              style={styles.calendar}
-              markedDates={{
-                [bornEarliest.dateString]: {selected: true, disableTouchEvent: true, selectedColor: '#00adf5'}
-              }}
-            />
-
-            <View style={{ marginTop: 10 }}>
-              <TouchableOpacity 
-                disabled={bornEarliest === ''}
-                style={bornEarliest === '' ? [styles.blackButtonWide, styles.greyButton] : styles.blackButtonWide}
-                onPress={() => setBornEarliest('')}
-              >
-                <Text style={styles.buttonText}>Clear Date</Text>
-              </TouchableOpacity>
-            </View>
-
-            <Text style={styles.inputTitle}>Born at Latest</Text>
-
-            <Calendar 
-              minDate={bornEarliest.dateString || null} 
-              maxDate={new Date().toDateString()} 
-              onDayPress={handleBornLatestChanged} 
-              style={styles.calendar}
-              markedDates={{
-                [bornLatest.dateString]: {selected: true, disableTouchEvent: true, selectedColor: '#00adf5'}
-              }}
-            />
-
-            <View style={{ marginTop: 10 }}>
-              <TouchableOpacity 
-                disabled={bornLatest === ''}
-                style={bornLatest === '' ? [styles.blackButtonWide, styles.greyButton] : styles.blackButtonWide}
-                onPress={() => setBornLatest('')}
-              >
-                <Text style={styles.buttonText}>Clear Date</Text>
-              </TouchableOpacity>
-            </View>
-
-            <Text style={styles.inputTitle}>Country</Text>
-
-            <View style={styles.selectInputWide}>
-              <RNPickerSelect 
-                value={country}
-                onValueChange={handleCountryChanged}
-                placeholder={{ label: '--', value: '' }}
-                items={Countries}
-              />
-            </View>
-            
-            <Text style={styles.inputTitle}>Region</Text>
-
-            <View style={styles.selectInputWide}>
-              <RNPickerSelect 
-                disabled={!bigCountries?.includes(country)}
-                value={region}
-                onValueChange={(value) => setRegion(value)}
-                placeholder={{ label: '--', value: '' }}
-                items={bigCountries?.includes(country) ? Regions[country] : []}
-              />
-            </View>
-
-            <Text style={styles.inputTitle}>Passport</Text>
-
-            <View style={styles.selectInputWide}>
-              <RNPickerSelect
-                value={passport} 
-                onValueChange={(value) => setPassport(value)}
-                items={[{ label: '--', value: '' }, 
-                  { label: 'Documented', value: 'yes' }, 
-                  { label: 'Not Documented', value: 'no' } 
-                ]}
-              />
-            </View>
-
-            <Text style={styles.inputTitle}>Fixed</Text>
-
-            <View style={styles.selectInputWide}>
-              <RNPickerSelect 
-                value={fixed} 
-                onValueChange={(value) => setFixed(value)}
-                items={[{ label: '--', value: '' }, 
-                  { label: 'Fixed', value: 'yes' }, 
-                  { label: 'Not Fixed', value: 'no' } 
-                ]}
-              />
-            </View>
-
-            <Text style={styles.inputTitle}>Good</Text>
-
-            <View style={styles.selectInputWide}>
-              <RNPickerSelect
-                value={gender} 
-                onValueChange={handleGenderChanged}
-                items={[{ label: '--', value: '' }, 
-                  { label: 'Girl', value: 'female' }, 
-                  { label: 'Boy', value: 'male' } 
-                ]}
-              />
-            </View>
-
-            <Text style={styles.inputTitle}>Currently in Heat</Text>
-
-            <View style={styles.selectInputWide}>
-              <RNPickerSelect
-                disabled={gender !== 'female'}
-                value={heat} 
-                onValueChange={(value) => setHeat(value)}
-                items={[{ label: '--', value: '' }, 
-                  { label: 'Yes', value: 'yes' }, 
-                  { label: 'No', value: 'no' } 
-                ]}
-              />
-            </View>
-
-            <Text style={styles.inputTitle}>Chipped</Text>
-
-            <View style={styles.selectInputWide}>
-              <RNPickerSelect
-                value={chipped} 
-                onValueChange={handleChippedChanged}
-                items={[{ label: '--', value: '' }, 
-                  { label: 'Yes', value: 'yes' }, 
-                  { label: 'No', value: 'no' } 
-                ]}
-              />
-            </View>
-
-            <Text style={styles.inputTitle}>Chipnumber</Text>
-
-            <TextInput 
-              editable={chipped === 'yes'}
-              value={chipnumber} 
-              onChangeText={(value) => setChipnumber(value)}
-              style={styles.textInputWide}
-            />
+          <View style={styles.mainView}>
+            {userId?.length 
+              ? <View>
+                <TouchableOpacity style={styles.blackButtonWide} onPress={() => navigation.navigate('NewDogForm')}>
+                  <Text style={styles.buttonText}>
+                    Add a New Dog
+                  </Text>
+                </TouchableOpacity>
+              </View> 
+              : null
+            }
 
             <View>
-              <TouchableOpacity 
-                onPress={handleSearchClicked}
+              <TouchableOpacity
                 style={styles.blackButtonWide}
+                onPress={handleToggleFilterView}
               >
-                <Text style={styles.buttonText}>Search</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-
-          <View style={maxPage === 1 ? { display: 'none' } : [styles.paginationRow]}>
-            <View style={{flex: 1}}>
-              <TouchableOpacity 
-                style={currentPage === 1 ? [styles.blackButton, styles.greyButton] : styles.blackButton}
-                disabled={currentPage === 1}
-                onPress={() => setCurrentPage(currentPage - 1)}
-              >
-                <Text style={styles.buttonText}>{'<-'}</Text>
+                <Text style={styles.buttonText}>Toggle Search View</Text>
               </TouchableOpacity>
             </View>
 
-            <View style={styles.paginationTextView}>
-              <Text>Page {currentPage} of {maxPage}</Text>
-            </View>
-
-            <View style={{flex: 1, alignItems: 'flex-end'}}>
-              <TouchableOpacity 
-                style={currentPage === maxPage ? [styles.blackButton, styles.greyButton] : styles.blackButton}
-                disabled={currentPage === maxPage}
-                onPress={() => setCurrentPage(currentPage + 1)}
-              >
-                <Text style={styles.buttonText}>{'->'}</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-          
-          {tableContent}
-
-          <View>
-
-            <View 
-              style={maxPage === 1 ? {display: "none"} : [styles.paginationInputView, {marginBottom: 5}]}
-            >
+            <View style={inputsVisible ? styles.filterViewVisible : styles.filterViewHidden}>
+              <Text style={styles.inputTitle}>Name</Text>
 
               <TextInput 
-                onChangeText={(value) => setNewPage(value)} 
-                value={newPage} 
-                placeholder="Page #"
-                style={[styles.textInput, {height: 41, marginRight: 10}]}
+                value={name}
+                onChangeText={(value) => setName(value)}
+                style={styles.textInputWide}
+              />
+
+              <Text style={styles.inputTitle}>Breed</Text>
+
+              <View style={styles.selectInputWide}>
+                <RNPickerSelect 
+                  onValueChange={(value) => setBreed(value)}
+                  value={breed}
+                  items={breedOptions}
+                  placeholder={{ label: '--', value: '' }} 
+                />
+              </View>
+
+              <Text style={styles.inputTitle}>Born at Earliest</Text>
+
+              <TouchableOpacity style={{ marginTop: 10, marginBottom: 15 }} onPress={() => setEarliestYearPickerVisible(true)}>
+                <Text style={{ textDecorationLine: 'underline' }}>Pick Year</Text>
+              </TouchableOpacity>
+
+              <Calendar 
+                maxDate={bornLatest.dateString || new Date().toDateString()} 
+                onDayPress={handleBornEarliestChanged} 
+                style={styles.calendar}
+                key={earliestMonth}
+                current={earliestMonth}
+                markedDates={{
+                  [bornEarliest.dateString]: {selected: true, disableTouchEvent: true, selectedColor: '#00adf5'}
+                }}
+              />
+
+              <View style={{ marginTop: 10 }}>
+                <TouchableOpacity 
+                  disabled={bornEarliest === ''}
+                  style={bornEarliest === '' ? [styles.blackButtonWide, styles.greyButton] : styles.blackButtonWide}
+                  onPress={() => setBornEarliest('')}
+                >
+                  <Text style={styles.buttonText}>Clear Date</Text>
+                </TouchableOpacity>
+              </View>
+
+              <Text style={styles.inputTitle}>Born at Latest</Text>
+
+              <TouchableOpacity style={{ marginTop: 10, marginBottom: 15 }} onPress={() => setLatestYearPickerVisible(true)}>
+                <Text style={{ textDecorationLine: 'underline' }}>Pick Year</Text>
+              </TouchableOpacity>
+
+              <Calendar 
+                minDate={bornEarliest.dateString || null} 
+                maxDate={new Date().toDateString()} 
+                onDayPress={handleBornLatestChanged} 
+                key={'latest ' + latestMonth}
+                current={latestMonth}
+                style={styles.calendar}
+                markedDates={{
+                  [bornLatest.dateString]: {selected: true, disableTouchEvent: true, selectedColor: '#00adf5'}
+                }}
+              />
+
+              <View style={{ marginTop: 10 }}>
+                <TouchableOpacity 
+                  disabled={bornLatest === ''}
+                  style={bornLatest === '' ? [styles.blackButtonWide, styles.greyButton] : styles.blackButtonWide}
+                  onPress={() => setBornLatest('')}
+                >
+                  <Text style={styles.buttonText}>Clear Date</Text>
+                </TouchableOpacity>
+              </View>
+
+              <Text style={styles.inputTitle}>Country</Text>
+
+              <View style={styles.selectInputWide}>
+                <RNPickerSelect 
+                  value={country}
+                  onValueChange={handleCountryChanged}
+                  placeholder={{ label: '--', value: '' }}
+                  items={Countries}
+                />
+              </View>
+              
+              <Text style={styles.inputTitle}>Region</Text>
+
+              <View style={styles.selectInputWide}>
+                <RNPickerSelect 
+                  disabled={!bigCountries?.includes(country)}
+                  value={region}
+                  onValueChange={(value) => setRegion(value)}
+                  placeholder={{ label: '--', value: '' }}
+                  items={bigCountries?.includes(country) ? Regions[country] : []}
+                />
+              </View>
+
+              <Text style={styles.inputTitle}>Passport</Text>
+
+              <View style={styles.selectInputWide}>
+                <RNPickerSelect
+                  value={passport} 
+                  onValueChange={(value) => setPassport(value)}
+                  items={[{ label: '--', value: '' }, 
+                    { label: 'Documented', value: 'yes' }, 
+                    { label: 'Not Documented', value: 'no' } 
+                  ]}
+                />
+              </View>
+
+              <Text style={styles.inputTitle}>Fixed</Text>
+
+              <View style={styles.selectInputWide}>
+                <RNPickerSelect 
+                  value={fixed} 
+                  onValueChange={(value) => setFixed(value)}
+                  items={[{ label: '--', value: '' }, 
+                    { label: 'Fixed', value: 'yes' }, 
+                    { label: 'Not Fixed', value: 'no' } 
+                  ]}
+                />
+              </View>
+
+              <Text style={styles.inputTitle}>Good</Text>
+
+              <View style={styles.selectInputWide}>
+                <RNPickerSelect
+                  value={gender} 
+                  onValueChange={handleGenderChanged}
+                  items={[{ label: '--', value: '' }, 
+                    { label: 'Girl', value: 'female' }, 
+                    { label: 'Boy', value: 'male' } 
+                  ]}
+                />
+              </View>
+
+              <Text style={styles.inputTitle}>Currently in Heat</Text>
+
+              <View style={styles.selectInputWide}>
+                <RNPickerSelect
+                  disabled={gender !== 'female'}
+                  value={heat} 
+                  onValueChange={(value) => setHeat(value)}
+                  items={[{ label: '--', value: '' }, 
+                    { label: 'Yes', value: 'yes' }, 
+                    { label: 'No', value: 'no' } 
+                  ]}
+                />
+              </View>
+
+              <Text style={styles.inputTitle}>Chipped</Text>
+
+              <View style={styles.selectInputWide}>
+                <RNPickerSelect
+                  value={chipped} 
+                  onValueChange={handleChippedChanged}
+                  items={[{ label: '--', value: '' }, 
+                    { label: 'Yes', value: 'yes' }, 
+                    { label: 'No', value: 'no' } 
+                  ]}
+                />
+              </View>
+
+              <Text style={styles.inputTitle}>Chipnumber</Text>
+
+              <TextInput 
+                editable={chipped === 'yes'}
+                value={chipnumber} 
+                onChangeText={(value) => setChipnumber(value)}
+                style={styles.textInputWide}
               />
 
               <View>
-                <TouchableOpacity
-                  style={goToPageButtonDisabled ? [styles.blackNewPageButton, styles.greyButton] : styles.blackNewPageButton}
-                  disabled={goToPageButtonDisabled}
-                  onPress={() => {
-                    if (newPage >= 1 && newPage <= maxPage) {
-                      setCurrentPage(parseInt(newPage))
-                    }
-                  }}
+                <TouchableOpacity 
+                  onPress={handleSearchClicked}
+                  style={styles.blackButtonWide}
                 >
-                  <Text style={styles.buttonText}>Go to Page</Text>
+                  <Text style={styles.buttonText}>Search</Text>
                 </TouchableOpacity>
               </View>
             </View>
+
+            <View style={maxPage === 1 ? { display: 'none' } : [styles.paginationRow]}>
+              <View style={{flex: 1}}>
+                <TouchableOpacity 
+                  style={currentPage === 1 ? [styles.blackButton, styles.greyButton] : styles.blackButton}
+                  disabled={currentPage === 1}
+                  onPress={() => setCurrentPage(currentPage - 1)}
+                >
+                  <Text style={styles.buttonText}>{'<-'}</Text>
+                </TouchableOpacity>
+              </View>
+
+              <View style={styles.paginationTextView}>
+                <Text>Page {currentPage} of {maxPage}</Text>
+              </View>
+
+              <View style={{flex: 1, alignItems: 'flex-end'}}>
+                <TouchableOpacity 
+                  style={currentPage === maxPage ? [styles.blackButton, styles.greyButton] : styles.blackButton}
+                  disabled={currentPage === maxPage}
+                  onPress={() => setCurrentPage(currentPage + 1)}
+                >
+                  <Text style={styles.buttonText}>{'->'}</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+            
+            {tableContent}
+
+            <View>
+
+              <View 
+                style={maxPage === 1 ? {display: "none"} : [styles.paginationInputView, {marginBottom: 5}]}
+              >
+
+                <TextInput 
+                  onChangeText={(value) => setNewPage(value)} 
+                  value={newPage} 
+                  placeholder="Page #"
+                  style={[styles.textInput, {height: 41, marginRight: 10}]}
+                />
+
+                <View>
+                  <TouchableOpacity
+                    style={goToPageButtonDisabled ? [styles.blackNewPageButton, styles.greyButton] : styles.blackNewPageButton}
+                    disabled={goToPageButtonDisabled}
+                    onPress={() => {
+                      if (newPage >= 1 && newPage <= maxPage) {
+                        setCurrentPage(parseInt(newPage))
+                      }
+                    }}
+                  >
+                    <Text style={styles.buttonText}>Go to Page</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </View>
           </View>
+        </ScrollView>
+        <View style={earliestYearPickerVisible ? styles.yearPicker : { display: 'none' }}>
+          <View style={{ alignItems: 'flex-end' }}>
+            <TouchableOpacity onPress={() => setEarliestYearPickerVisible(false)}>
+              <Text style={{ fontWeight: 'bold', fontSize: 20, marginRight: 20, marginVertical: 15 }}>X</Text>
+            </TouchableOpacity>
+          </View>
+          <FlatList
+            data={years.slice(0, displayedEarliestYearsCount)}
+            renderItem={({ item }) => (
+              <View key={item} style={styles.yearButtonView}>
+                <TouchableOpacity onPress={() => {
+                  setEarliestMonth(item + '-01')
+                  setEarliestYearPickerVisible(false)
+                }}>
+                  <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{item}</Text>
+                </TouchableOpacity>
+              </View>
+            )}
+            onEndReached={() => setDisplayedEarliestYearsCount(displayedEarliestYearsCount + 30)}
+            onEndReachedThreshold={0.2}
+          />
         </View>
-      </ScrollView>
+        <View style={latestYearPickerVisible ? styles.yearPicker : { display: 'none' }}>
+          <View style={{ alignItems: 'flex-end' }}>
+            <TouchableOpacity onPress={() => setLatestYearPickerVisible(false)}>
+              <Text style={{ fontWeight: 'bold', fontSize: 20, marginRight: 20, marginVertical: 15 }}>X</Text>
+            </TouchableOpacity>
+          </View>
+          <FlatList
+            data={years.slice(0, displayedLatestYearsCount)}
+            renderItem={({ item }) => (
+              <View key={item} style={styles.yearButtonView}>
+                <TouchableOpacity onPress={() => {
+                  setLatestMonth(item + '-01')
+                  setLatestYearPickerVisible(false)
+                }}>
+                  <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{item}</Text>
+                </TouchableOpacity>
+              </View>
+            )}
+            onEndReached={() => setDisplayedLatestYearsCount(displayedLatestYearsCount + 30)}
+            onEndReachedThreshold={0.2}
+          />
+        </View>
+      </>
     )
   }
 
@@ -501,6 +574,18 @@ const styles = StyleSheet.create({
       marginHorizontal: 10,
       marginBottom: 30,
       marginTop: 10,
+  },
+  yearPicker: {
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+    backgroundColor: COLORS.lightWhite,
+    zIndex: 1,
+  },
+  yearButtonView: {
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   blackButtonWide: {
     backgroundColor: '#000000',

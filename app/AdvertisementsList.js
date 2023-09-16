@@ -156,10 +156,10 @@ const AdvertisementsList = ({ navigation }) => {
   // Variable for displaying either an error or the content if the fetch was sucessful
   let content
 
-  if (isLoading) content = <Text>Loading...</Text>
+  if (isLoading) content = <Text style={{ margin: 10 }}>Loading...</Text>
 
   if (isError) {
-    content = <Text>aaa {error?.data?.message}</Text>
+    content = <Text style={{ margin: 10 }}>{error?.data?.message}</Text>
   }
 
   if (isSuccess) {

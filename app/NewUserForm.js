@@ -90,10 +90,10 @@ const NewUserForm = () => {
     }
 
     if (auth?.username?.length) {
-        return <Text>You are currently logged in. Please logout before registering a new user.</Text>
+        return <Text style={{ margin: 10 }}>You are currently logged in. Please logout before registering a new user.</Text>
     }
 
-    if (isLoading) return <Text>Loading...</Text>
+    if (isLoading) return <Text style={{ margin: 10 }}>Loading...</Text>
 
     const content = successMsg?.length ? <Text style={styles.successMsg}>{successMsg}</Text> :
     <ScrollView style={{ backgroundColor: COLORS.lightWhite }} showsVerticalScrollIndicator={false}>

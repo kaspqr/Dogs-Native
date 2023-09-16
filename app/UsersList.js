@@ -68,9 +68,9 @@ const UsersList = () => {
     
   }
 
-  if (isLoading) return <Text>Loading...</Text>
+  if (isLoading) return <Text style={{ margin: 10 }}>Loading...</Text>
 
-  if (isError) return <Text>{error?.data?.message}</Text>
+  if (isError) return <Text style={{ margin: 10 }}>{error?.data?.message}</Text>
 
   if (isSuccess) {
 

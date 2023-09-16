@@ -382,7 +382,7 @@ const UserPage = ({ route, navigation }) => {
 
             myProposalsContent = acceptDogs?.length 
                 ? <View>
-                    <Text>Accept Dog{myProposals?.length > 1 ? 's' : null} Offered by {user?.username}</Text>
+                    <Text style={{ fontWeight: 'bold' }}>Accept Dog{myProposals?.length > 1 ? 's' : null} Offered by {user?.username}</Text>
 
                     <View style={styles.selectInputWide}>
                         <RNPickerSelect 
@@ -398,7 +398,7 @@ const UserPage = ({ route, navigation }) => {
                         style={!selectedAcceptDog?.length ? [styles.blackButtonWide, styles.greyButton] : styles.blackButtonWide}
                         onPress={handleAcceptDog}
                     >
-                        <Text>Accept Dog</Text>
+                        <Text style={styles.buttonText}>Accept Dog</Text>
                     </TouchableOpacity>
                 </View>
                 : null
@@ -577,7 +577,7 @@ const UserPage = ({ route, navigation }) => {
         </View>
     }
 
-    if (!user) return <Text>User not found</Text>
+    if (!user) return <Text style={{ margin: 10 }}>User not found</Text>
 
     // Only available when userId === id (the user visiting === the user whose page we're on)
     const handleEdit = () => navigation.navigate('EditUserForm', { user: userId })
@@ -613,7 +613,7 @@ const UserPage = ({ route, navigation }) => {
         await updateUser({ id: user?.id, roles: ["User"] })
     }
 
-    if (!isAdmin && !isSuperAdmin && user?.active === false) return <Text>This user is banned</Text>
+    if (!isAdmin && !isSuperAdmin && user?.active === false) return <Text style={{ margin: 10 }}>This user is banned</Text>
 
     return (
         <ScrollView style={{ backgroundColor: COLORS.lightWhite }} showsVerticalScrollIndicator={false}>

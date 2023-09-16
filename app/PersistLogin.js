@@ -51,7 +51,7 @@ const PersistLogin = () => {
         console.log('no persist')
     } else if (isLoading) { // persist: yes, token: no
         console.log('loading')
-        return <Text>Loading...</Text>
+        return <Text style={{ margin: 10 }}>Loading...</Text>
     } else if (isError) { // persist: yes, token: no
         console.log('You are not logged in')
         console.log(error?.data?.message)
