@@ -161,6 +161,7 @@ const NewAdvertisementForm = ({ navigation }) => {
                 <View style={styles.selectInputWide}>
                     <RNPickerSelect 
                         value={type}
+                        style={styles.pickerSelectStyles}
                         onValueChange={handleTypeChanged}
                         items={AdvertisementTypes}
                     />
@@ -172,6 +173,7 @@ const NewAdvertisementForm = ({ navigation }) => {
                     <RNPickerSelect 
                         disabled={type !== 'Require Female Dog' && type !== 'Require Male Dog'}
                         value={breed}
+                        style={styles.pickerSelectStyles}
                         onValueChange={(value) => setBreed(value)}
                         placeholder={{ label: '--', value: '' }}
                         items={breedOptions}
@@ -197,6 +199,7 @@ const NewAdvertisementForm = ({ navigation }) => {
                     <RNPickerSelect 
                         value={currency}
                         items={Currencies}
+                        style={styles.pickerSelectStyles}
                         disabled={type === 'Found' || type === 'Lost'}
                         placeholder={{ label: '--', value: '' }}
                         onValueChange={(value) => setCurrency(value)}
@@ -208,6 +211,7 @@ const NewAdvertisementForm = ({ navigation }) => {
                 <View style={styles.selectInputWide}>
                     <RNPickerSelect 
                         value={country}
+                        style={styles.pickerSelectStyles}
                         items={Countries}
                         onValueChange={handleCountryChanged}
                     />
@@ -218,6 +222,7 @@ const NewAdvertisementForm = ({ navigation }) => {
                 <View style={styles.selectInputWide}>
                     <RNPickerSelect 
                         disabled={!bigCountries?.includes(country)}
+                        style={styles.pickerSelectStyles}
                         items={bigCountries?.includes(country) ? Regions[country] : []}
                         value={region}
                         onValueChange={(value) => setRegion(value)}
@@ -263,6 +268,12 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         padding: 10,
         marginBottom: 10,
+    },
+    pickerSelectStyles: {
+        inputIOS: {
+          paddingVertical: 13,
+          paddingHorizontal: 5,
+        },
     },
     greyButton: {
         backgroundColor: 'lightgrey',

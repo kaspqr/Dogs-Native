@@ -97,7 +97,7 @@ const Login = ({ navigation }) => {
           />
 
           <View style={styles.paginationRow}>
-            <Text style={styles.inputTitle}>Stay Logged In</Text>
+            <Text style={[styles.inputTitle, {marginRight: 5}]}>Stay Logged In</Text>
             <Switch value={persist} onValueChange={handleToggle} />
           </View>
 

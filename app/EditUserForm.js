@@ -221,6 +221,7 @@ const EditUserForm = ({ route, navigation }) => {
                     value={currentPassword}
                     onChangeText={handleCurrentPasswordChanged}
                     style={styles.textInputWide}
+                    secureTextEntry={true}
                 />
 
                 <Text style={styles.inputTitle}>New Password (8-20 characters, including !@#%)</Text>
@@ -229,6 +230,7 @@ const EditUserForm = ({ route, navigation }) => {
                     value={password}
                     onChangeText={handlePasswordChanged}
                     style={styles.textInputWide}
+                    secureTextEntry={true}
                 />
 
                 <Text style={styles.inputTitle}>Confirm New Password</Text>
@@ -237,6 +239,7 @@ const EditUserForm = ({ route, navigation }) => {
                     value={confirmPassword}
                     onChangeText={handleConfirmPasswordChanged}
                     style={styles.textInputWide}
+                    secureTextEntry={true}
                 />
 
                 <Text style={styles.inputTitle}>New Email</Text>
@@ -268,6 +271,7 @@ const EditUserForm = ({ route, navigation }) => {
                 <View style={styles.selectInputWide}>
                     <RNPickerSelect 
                         items={Countries}
+                        style={styles.pickerSelectStyles}
                         value={country}
                         onValueChange={handleCountryChanged}
                     />
@@ -278,6 +282,7 @@ const EditUserForm = ({ route, navigation }) => {
                 <View style={styles.selectInputWide}>
                     <RNPickerSelect 
                         disabled={!bigCountries?.includes(country)}
+                        style={styles.pickerSelectStyles}
                         value={region}
                         onValueChange={(value) => setRegion(value)}
                         placeholder={{ label: '--', value: '' }} 
@@ -363,6 +368,12 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         padding: 10,
         marginBottom: 10,
+    },
+    pickerSelectStyles: {
+        inputIOS: {
+          paddingVertical: 13,
+          paddingHorizontal: 5,
+        },
     },
     greyButton: {
         backgroundColor: 'lightgrey',

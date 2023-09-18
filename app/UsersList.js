@@ -126,6 +126,7 @@ const UsersList = () => {
               <View style={styles.selectInputWide}>
                 <RNPickerSelect 
                   value={country}
+                  style={styles.pickerSelectStyles}
                   items={Countries}
                   placeholder={{ label: '--', value: '' }} 
                   onValueChange={(value) => {
@@ -140,6 +141,7 @@ const UsersList = () => {
               <View style={styles.selectInputWide}>
                 <RNPickerSelect 
                   disabled={!bigCountries?.includes(country)}
+                  style={styles.pickerSelectStyles}
                   placeholder={{ label: '--', value: '' }} 
                   items={bigCountries?.includes(country) ? Regions[country] : []}
                   value={region}
@@ -229,6 +231,12 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     padding: 10,
     marginBottom: 10,
+  },
+  pickerSelectStyles: {
+    inputIOS: {
+      paddingVertical: 13,
+      paddingHorizontal: 5,
+    },
   },
   blackButton: {
     padding: 10,

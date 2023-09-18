@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { setCredentials } from '../../components/auth/authSlice'
 
-const backendUrl = 'https://ee0a-81-90-125-79.ngrok-free.app'
+const backendUrl = 'https://pawretriever-api.onrender.com'
 
 const baseQuery = fetchBaseQuery({
 

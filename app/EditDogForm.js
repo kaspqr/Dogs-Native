@@ -274,6 +274,7 @@ const EditDogForm = ({ route, navigation }) => {
                     <View style={styles.selectInputWide}>
                         <RNPickerSelect 
                             value={country}
+                            style={styles.pickerSelectStyles}
                             onValueChange={handleCountryChanged}
                             items={Countries}
                         />
@@ -284,6 +285,7 @@ const EditDogForm = ({ route, navigation }) => {
                     <View style={styles.selectInputWide}>
                         <RNPickerSelect 
                             disabled={!bigCountries?.includes(country)}
+                            style={styles.pickerSelectStyles}
                             value={region}
                             onValueChange={(value) => setRegion(value)}
                             items={bigCountries?.includes(country) ? Regions[country] : []}
@@ -474,6 +476,12 @@ const styles = StyleSheet.create({
         marginHorizontal: 10,
         marginBottom: 30,
         marginTop: 10,
+    },
+    pickerSelectStyles: {
+        inputIOS: {
+          paddingVertical: 13,
+          paddingHorizontal: 5,
+        },
     },
     yearPicker: {
         width: '100%',

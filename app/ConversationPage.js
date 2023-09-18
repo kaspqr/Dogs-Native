@@ -85,7 +85,7 @@ const ConversationPage = ({ route, navigation }) => {
         <View 
             style={{ 
                 flexDirection: 'row', alignItems: 'center', paddingTop: 5, borderTopWidth: 1, 
-                borderTopColor: 'lightgrey', marginTop: 5
+                borderTopColor: 'lightgrey', marginTop: 5, marginBottom: 12
             }}
         >
                 <TextInput 

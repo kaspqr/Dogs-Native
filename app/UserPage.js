@@ -360,6 +360,7 @@ const UserPage = ({ route, navigation }) => {
                         <View style={styles.selectInputWide}>
                             <RNPickerSelect 
                                 items={proposeDogs}
+                                style={styles.pickerSelectStyles}
                                 placeholder={{ label: '--', value: '' }} 
                                 value={selectedProposeDog} 
                                 onValueChange={(value) => setSelectedProposeDog(value)}
@@ -387,6 +388,7 @@ const UserPage = ({ route, navigation }) => {
                     <View style={styles.selectInputWide}>
                         <RNPickerSelect 
                             value={selectedAcceptDog} 
+                            style={styles.pickerSelectStyles}
                             items={acceptDogs}
                             placeholder={{ label: '--', value: '' }} 
                             onValueChange={(value) => setSelectedAcceptDog(value)}
@@ -717,6 +719,12 @@ const styles = StyleSheet.create({
       borderRadius: 5,
       backgroundColor: '#000000',
       width: 50,
+    },
+    pickerSelectStyles: {
+        inputIOS: {
+          paddingVertical: 13,
+          paddingHorizontal: 5,
+        },
     },
     blackNewPageButton: {
       backgroundColor: '#000000',

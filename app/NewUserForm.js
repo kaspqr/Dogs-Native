@@ -152,6 +152,7 @@ const NewUserForm = () => {
             <View style={styles.selectInputWide}>
                 <RNPickerSelect 
                     value={country}
+                    style={styles.pickerSelectStyles}
                     items={Countries}
                     onValueChange={(value) => {
                         setRegion('')
@@ -165,6 +166,7 @@ const NewUserForm = () => {
             <View style={styles.selectInputWide}>
                 <RNPickerSelect 
                     disabled={!bigCountries?.includes(country)}
+                    style={styles.pickerSelectStyles}
                     placeholder={{ label: '--', value: '' }} 
                     items={bigCountries?.includes(country) ? Regions[country] : []}
                     value={region}
@@ -212,6 +214,12 @@ const styles = StyleSheet.create({
     },
     greyButton: {
         backgroundColor: 'lightgrey',
+    },
+    pickerSelectStyles: {
+        inputIOS: {
+          paddingVertical: 13,
+          paddingHorizontal: 5,
+        },
     },
     buttonText: {
         color: '#ffffff',

@@ -232,6 +232,7 @@ const AdvertisementsList = ({ navigation }) => {
                       placeholder={{ label: '--', value: '' }} 
                       items={AdvertisementTypes}
                       value={type}
+                      style={styles.pickerSelectStyles}
                       onValueChange={value => handleTypeChanged(value)}
                     />
                   </View>
@@ -244,6 +245,7 @@ const AdvertisementsList = ({ navigation }) => {
                       items={breedOptions}
                       disabled={type !== 'Require Female Dog' && type !== 'Require Male Dog'}
                       value={breed}
+                      style={styles.pickerSelectStyles}
                       onValueChange={(value) => setBreed(value)}
                     />
                   </View>
@@ -255,6 +257,7 @@ const AdvertisementsList = ({ navigation }) => {
                       value={country}
                       items={Countries}
                       placeholder={{ label: '--', value: '' }}
+                      style={styles.pickerSelectStyles}
                       onValueChange={handleCountryChanged}
                     />
                   </View>
@@ -264,6 +267,7 @@ const AdvertisementsList = ({ navigation }) => {
                   <View style={styles.selectInputWide}>
                     <RNPickerSelect 
                       disabled={!bigCountries.includes(country)}
+                      style={styles.pickerSelectStyles}
                       value={region}
                       placeholder={{ label: '--', value: '' }}
                       items={bigCountries?.includes(country)
@@ -279,6 +283,7 @@ const AdvertisementsList = ({ navigation }) => {
                   <View style={styles.selectInputWide}>
                     <RNPickerSelect 
                       value={currency}
+                      style={styles.pickerSelectStyles}
                       placeholder={{ label: '--', value: '' }}
                       items={Currencies}
                       onValueChange={value => setCurrency(value)}
@@ -319,6 +324,7 @@ const AdvertisementsList = ({ navigation }) => {
                   <View style={styles.selectInputWide}>
                     <RNPickerSelect 
                       value={sort}
+                      style={styles.pickerSelectStyles}
                       placeholder={{ label: '--', value: '' }}
                       items={
                         [{ label: 'Ascending', value: 'ascending' },
@@ -410,6 +416,12 @@ const styles = StyleSheet.create({
       marginHorizontal: 10,
       marginBottom: 30,
       marginTop: 10,
+  },
+  pickerSelectStyles: {
+    inputIOS: {
+      paddingVertical: 13,
+      paddingHorizontal: 5,
+    },
   },
   blackButtonWide: {
     backgroundColor: '#000000',

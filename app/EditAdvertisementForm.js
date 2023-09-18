@@ -211,6 +211,7 @@ const EditAdvertisementForm = ({ route, navigation }) => {
                         <View style={styles.selectInputWide}>
                             <RNPickerSelect 
                                 value={currency}
+                                style={styles.pickerSelectStyles}
                                 items={Currencies}
                                 placeholder={{ label: '--', value: '' }}
                                 onValueChange={(value) => setCurrency(value)}
@@ -300,6 +301,12 @@ const styles = StyleSheet.create({
         color: '#ffffff',
         fontWeight: 'bold',
         textAlign: 'center',
+    },
+    pickerSelectStyles: {
+        inputIOS: {
+          paddingVertical: 13,
+          paddingHorizontal: 5,
+        },
     },
     textInputWide: {
         borderWidth: 1,

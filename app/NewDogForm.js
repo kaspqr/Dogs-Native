@@ -148,6 +148,7 @@ const NewDogForm = ({ navigation }) => {
                     <View style={styles.selectInputWide}>
                         <RNPickerSelect 
                             value={breed}
+                            style={styles.pickerSelectStyles}
                             onValueChange={handleBreedChanged}
                             items={breedOptions}
                         />
@@ -158,6 +159,7 @@ const NewDogForm = ({ navigation }) => {
                     <View style={styles.selectInputWide}>
                         <RNPickerSelect 
                             onValueChange={handleFemaleChanged}
+                            style={styles.pickerSelectStyles}
                             items={[{ label: 'Girl', value: 'female' }, { label: 'Boy', value: 'male' }]}
                         />
                     </View>
@@ -167,6 +169,7 @@ const NewDogForm = ({ navigation }) => {
                     <View style={styles.selectInputWide}>
                         <RNPickerSelect 
                             items={Countries}
+                            style={styles.pickerSelectStyles}
                             value={country}
                             onValueChange={handleCountryChanged}
                         />
@@ -177,6 +180,7 @@ const NewDogForm = ({ navigation }) => {
                     <View style={styles.selectInputWide}>
                         <RNPickerSelect 
                             disabled={!bigCountries?.includes(country)}
+                            style={styles.pickerSelectStyles}
                             value={region}
                             onValueChange={(value) => setRegion(value)}
                             placeholder={{ label: '--', value: 'none ' }}
@@ -347,6 +351,12 @@ const styles = StyleSheet.create({
         position: 'absolute',
         backgroundColor: COLORS.lightWhite,
         zIndex: 1,
+    },
+    pickerSelectStyles: {
+        inputIOS: {
+          paddingVertical: 13,
+          paddingHorizontal: 5,
+        },
     },
     yearButtonView: {
         height: 50,

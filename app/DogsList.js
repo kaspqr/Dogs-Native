@@ -290,6 +290,7 @@ const DogsList = ({ navigation }) => {
 
               <View style={styles.selectInputWide}>
                 <RNPickerSelect 
+                  style={styles.pickerSelectStyles}
                   onValueChange={(value) => setBreed(value)}
                   value={breed}
                   items={breedOptions}
@@ -356,6 +357,7 @@ const DogsList = ({ navigation }) => {
 
               <View style={styles.selectInputWide}>
                 <RNPickerSelect 
+                  style={styles.pickerSelectStyles}
                   value={country}
                   onValueChange={handleCountryChanged}
                   placeholder={{ label: '--', value: '' }}
@@ -368,6 +370,7 @@ const DogsList = ({ navigation }) => {
               <View style={styles.selectInputWide}>
                 <RNPickerSelect 
                   disabled={!bigCountries?.includes(country)}
+                  style={styles.pickerSelectStyles}
                   value={region}
                   onValueChange={(value) => setRegion(value)}
                   placeholder={{ label: '--', value: '' }}
@@ -380,6 +383,7 @@ const DogsList = ({ navigation }) => {
               <View style={styles.selectInputWide}>
                 <RNPickerSelect
                   value={passport} 
+                  style={styles.pickerSelectStyles}
                   onValueChange={(value) => setPassport(value)}
                   items={[{ label: '--', value: '' }, 
                     { label: 'Documented', value: 'yes' }, 
@@ -393,6 +397,7 @@ const DogsList = ({ navigation }) => {
               <View style={styles.selectInputWide}>
                 <RNPickerSelect 
                   value={fixed} 
+                  style={styles.pickerSelectStyles}
                   onValueChange={(value) => setFixed(value)}
                   items={[{ label: '--', value: '' }, 
                     { label: 'Fixed', value: 'yes' }, 
@@ -406,6 +411,7 @@ const DogsList = ({ navigation }) => {
               <View style={styles.selectInputWide}>
                 <RNPickerSelect
                   value={gender} 
+                  style={styles.pickerSelectStyles}
                   onValueChange={handleGenderChanged}
                   items={[{ label: '--', value: '' }, 
                     { label: 'Girl', value: 'female' }, 
@@ -419,6 +425,7 @@ const DogsList = ({ navigation }) => {
               <View style={styles.selectInputWide}>
                 <RNPickerSelect
                   disabled={gender !== 'female'}
+                  style={styles.pickerSelectStyles}
                   value={heat} 
                   onValueChange={(value) => setHeat(value)}
                   items={[{ label: '--', value: '' }, 
@@ -433,6 +440,7 @@ const DogsList = ({ navigation }) => {
               <View style={styles.selectInputWide}>
                 <RNPickerSelect
                   value={chipped} 
+                  style={styles.pickerSelectStyles}
                   onValueChange={handleChippedChanged}
                   items={[{ label: '--', value: '' }, 
                     { label: 'Yes', value: 'yes' }, 
@@ -581,6 +589,12 @@ const styles = StyleSheet.create({
     position: 'absolute',
     backgroundColor: COLORS.lightWhite,
     zIndex: 1,
+  },
+  pickerSelectStyles: {
+    inputIOS: {
+      paddingVertical: 13,
+      paddingHorizontal: 5,
+    },
   },
   yearButtonView: {
     height: 50,

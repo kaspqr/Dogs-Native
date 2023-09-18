@@ -173,6 +173,7 @@ const NewLitterForm = ({ navigation }) => {
                     <View style={styles.selectInputWide}>
                         <RNPickerSelect 
                             value={mother}
+                            style={styles.pickerSelectStyles}
                             onValueChange={handleMotherChanged}
                             placeholder={{ label: 'Select Dog', value: '' }}
                             items={ownedDogs}
@@ -184,6 +185,7 @@ const NewLitterForm = ({ navigation }) => {
                     <View style={styles.selectInputWide}>
                         <RNPickerSelect 
                             value={breed}
+                            style={styles.pickerSelectStyles}
                             onValueChange={(value) => setBreed(value)}
                             placeholder={{ label: '--', value: '' }}
                             items={breedOptions}
@@ -207,6 +209,7 @@ const NewLitterForm = ({ navigation }) => {
                     <View style={styles.selectInputWide}>
                         <RNPickerSelect
                             items={Countries}
+                            style={styles.pickerSelectStyles}
                             value={country}
                             onValueChange={handleCountryChanged}
                         />
@@ -218,6 +221,7 @@ const NewLitterForm = ({ navigation }) => {
                         <RNPickerSelect
                             disabled={!bigCountries?.includes(country)}
                             value={region}
+                            style={styles.pickerSelectStyles}
                             onValueChange={(value) => setRegion(value)}
                             placeholder={{ label: '--', value: '' }}
                             items={bigCountries?.includes(country) ? Regions[country] : []}
@@ -301,6 +305,12 @@ const styles = StyleSheet.create({
         height: 50,
         alignItems: 'center',
         justifyContent: 'center'
+    },
+    pickerSelectStyles: {
+        inputIOS: {
+          paddingVertical: 13,
+          paddingHorizontal: 5,
+        },
     },
     blackButtonWide: {
       backgroundColor: '#000000',

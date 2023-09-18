@@ -272,6 +272,7 @@ const LittersList = ({ navigation }) => {
               <View style={styles.selectInputWide}>
                 <RNPickerSelect 
                   onValueChange={(value) => setBreed(value)}
+                  style={styles.pickerSelectStyles}
                   value={breed}
                   placeholder={{ label: '--', value: '' }}
                   items={breedOptions}
@@ -283,6 +284,7 @@ const LittersList = ({ navigation }) => {
               <View style={styles.selectInputWide}>
                 <RNPickerSelect 
                   value={country}
+                  style={styles.pickerSelectStyles}
                   onValueChange={handleCountryChanged}
                   placeholder={{ label: '--', value: '' }}
                   items={Countries}
@@ -294,6 +296,7 @@ const LittersList = ({ navigation }) => {
               <View style={styles.selectInputWide}>
                 <RNPickerSelect 
                   disabled={!bigCountries.includes(country)}
+                  style={styles.pickerSelectStyles}
                   value={region}
                   onValueChange={(value) => setRegion(value)}
                   placeholder={{ label: '--', value: '' }}
@@ -473,6 +476,12 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     padding: 10,
     marginBottom: 10,
+  },
+  pickerSelectStyles: {
+    inputIOS: {
+      paddingVertical: 13,
+      paddingHorizontal: 5,
+    },
   },
   blackButton: {
     padding: 10,

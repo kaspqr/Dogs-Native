@@ -367,6 +367,7 @@ const LitterPage = ({ navigation, route }) => {
                 <RNPickerSelect 
                     value={selectedFather} 
                     onValueChange={(value) => setSelectedFather(value)}
+                    style={styles.pickerSelectStyles}
                     placeholder={{ label: 'Pick Your Dog', value: '' }}
                     items={fatherOptionsContent}
                 />
@@ -391,6 +392,7 @@ const LitterPage = ({ navigation, route }) => {
             <View style={styles.selectInputWide}>
                 <RNPickerSelect 
                     value={selectedProposeFather} 
+                    style={styles.pickerSelectStyles}
                     onValueChange={(value) => setSelectedProposeFather(value)}
                     placeholder={{ label: 'Pick Dog', value: '' }}
                     items={proposedFatherContent}
@@ -417,6 +419,7 @@ const LitterPage = ({ navigation, route }) => {
                 <RNPickerSelect 
                     value={selectedProposePuppy} 
                     onValueChange={(value) => setSelectedProposePuppy(value)}
+                    style={styles.pickerSelectStyles}
                     placeholder={{ label: 'Pick Your Dog', value: '' }}
                     items={proposedPuppyContent}
                 />
@@ -441,6 +444,7 @@ const LitterPage = ({ navigation, route }) => {
             <View style={styles.selectInputWide}>
                 <RNPickerSelect 
                     value={selectedDog} 
+                    style={styles.pickerSelectStyles}
                     onValueChange={(value) => setSelectedDog(value)}
                     placeholder={{ label: 'Pick Your Dog', value: '' }}
                     items={optionsContent}
@@ -611,6 +615,12 @@ const styles = StyleSheet.create({
       color: '#ffffff',
       fontWeight: 'bold',
       textAlign: 'center',
+    },
+    pickerSelectStyles: {
+        inputIOS: {
+          paddingVertical: 13,
+          paddingHorizontal: 5,
+        },
     },
     textInputWide: {
       borderWidth: 1,

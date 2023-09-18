@@ -8,8 +8,41 @@
       "expo-router",
       "expo-image-picker"
     ],
-    "name": "Dogs-Native",
-    "slug": "Dogs-Native"
+    "name": "Paw Retriever",
+    "slug": "pawretriever",
+    "description": "Mobile version of pawretriever.com",
+    "orientation": "portrait",
+    "version": "1.0.0",
+    "icon": "./assets/images/home.png",
+    "splash": {
+      "image": "./assets/images/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "useClassicUpdates": false,
+      "url": "https://u.expo.dev/4d2fc69d-96a0-4782-8e74-9874f66a9b64"
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "4d2fc69d-96a0-4782-8e74-9874f66a9b64"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "android": {
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ],
+      "package": "com.kaspqr.pawretriever"
+    },
+    "ios": {
+      "bundleIdentifier": "com.kaspqr.pawretriever"
+    }
   },
   "ios": {
     "infoPlist": {
